@@ -1,0 +1,70 @@
+.settings-container {
+    width: 80%;
+    margin: auto;
+}
+.profile-card {
+    display: flex;
+    width: 100%;
+    text-align: left;
+    padding: 25px 25px 25px 25px;
+}
+.profile-card-title {
+    font-size: 1.5rem!important;
+}
+.address-form-control {
+    border: 1px solid gray;
+    background-color: #2D2E2F!important;
+}
+.profile-photo {
+    margin: auto;
+}
+.copy-icon {
+    margin-left: 10px;
+    color: gray;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.copy-icon:active {
+    margin-left: 10px;
+    color: white;
+    cursor: pointer;
+}
+.security-btn {
+    width: 25%;
+    height: 40px;
+    background: none!important;
+    color: white;
+    align-items: center;
+}
+.security-btn:hover {
+    color: gray;
+}
+.security-btn:active {
+    color: gray!important;
+}
+.modal {
+    background: rgba(255, 255, 255, 0.1);
+}
+.CircularProgressbar {
+    width: 10%!important;
+}
+.statistics {
+    display: flex;
+    margin: auto;
+}
+.statistic-pie {
+    display: inline!important;
+    margin: auto;
+}
+.alert-warning {
+    border-style: dashed;
+    width: 100% !important;
+    --bs-alert-padding-x: 1rem;
+    --bs-alert-padding-y: 1rem;
+    --bs-alert-margin-bottom: 0.1rem;
+    --bs-alert-margin-top: 0.1rem;
+    --bs-alert-color: #ffda6a;
+    --bs-alert-bg: #332701;
+    --bs-alert-border-color: #997404;
+    --bs-alert-link-color: var(--bs-warning-text-emphasis);
+}

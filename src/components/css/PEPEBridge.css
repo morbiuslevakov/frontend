@@ -1,0 +1,47 @@
+@import url('https://fonts.cdnfonts.com/css/ibm-plex-sans');
+
+body {
+    overscroll-behavior-x: none;
+}
+
+iframe {
+    margin: auto;
+    text-align: center!important;
+    align-content: center!important;
+    display: inline-block;
+}
+.bridge {
+    display: flex;
+}
+.pepe-zone {
+    display: inline-block;
+    text-transform: uppercase;
+    background: rgb(18,246,177);
+    background: linear-gradient(180deg, rgba(18,246,177,0.03547356442577032) 0%, rgba(50,210,162,0.413624824929972) 35%, rgba(0,166,116,0.6825323879551821) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+    line-height: .8;
+    font-size: 15rem;
+    z-index: -999;
+}
+.service-subtitle {
+    display: block;
+    float: left;
+    color: gray;
+    font-size: 1rem!important;
+}
+.svelte-1pk2n47 {
+    margin: auto!important;
+    display: flex!important;
+}
+.btn.svelte-1w37io9:hover .shadow.svelte-1w37io9 {
+    box-shadow: none!important;
+    opacity: 0!important;
+}
+.shadow.svelte-1w37io9.svelte-1w37io9 {
+    box-shadow: none!important;
+}
+.svelte-1pk2n47 {
+    margin: auto!important;
+}

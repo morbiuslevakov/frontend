@@ -1,0 +1,19 @@
+.order-list-item {
+    font-weight: 500;
+    border: none;
+    color: white;
+    border-bottom-right-radius: 0!important;
+    border-bottom-left-radius: 0!important;
+    border-bottom: 1px solid #181818 !important;
+    text-align: left!important;
+    --bs-list-group-bg: #2D2E2F;
+}
+.orders-list {
+    background-color: black;
+}
+.order {
+    margin-top: 10px;
+}
+.p2p-deals-btn:hover {
+    background-color: black!important;
+}

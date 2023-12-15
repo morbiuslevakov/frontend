@@ -1,0 +1,43 @@
+.service-cards {
+    width: 100%;
+}
+.service-card {
+    background-color: #2D2E2F;
+    display: flex;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    margin: 10px;
+    opacity: 1;
+    transition: .5s;
+}
+.service-card:hover {
+    opacity: 0.75;
+}
+.service-card.p2p {
+    width: 100%;
+    float: left!important;
+}
+.service-link {
+    float: right;
+    display: block!important;
+    width: 40%;
+}
+.service-link.p2p {
+    width: 55%;
+    float: left!important;
+}
+.exchange-svg {
+    display: block;
+    margin: auto;
+}
+.service-title {
+    display: block;
+    float: left;
+    margin-top: 1rem;
+    font-size: 2rem!important;
+}
+.service-text {
+    font-size: 1.3rem;
+    color: #a19d9d;
+}
