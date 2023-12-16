@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 import { Navigate, useNavigate } from 'react-router-dom';
 
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { Button, Card, Navbar, Nav, Container, Offcanvas, Alert, Form } from 'react-bootstrap';
+import { Button, Card, Alert, Form } from 'react-bootstrap';
 import { isEmail } from "validator";
 import { connect } from "react-redux";
-import { login } from "../../actions/auth";
 import AuthService from "../../services/auth.service";
 import { history } from '../../helpers/history';
 

@@ -1,17 +1,10 @@
 import React from "react";
-import { Alert, Offcanvas, InputGroup, Form as Fr, ListGroup, Button, Modal, Card } from 'react-bootstrap';
+import { Form as ListGroup } from 'react-bootstrap';
 import '../../App.css';
-import { Navigate, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 import "./OrderView.css";
 import "./P2PSell.css"
-import {Client} from "@stomp/stompjs";
-import SockJS from 'sockjs-client';
-import { Stomp } from '@stomp/stompjs';
-import ReactDom from 'react-dom/client';
-import PriceService from "../../services/price.service";
-
 
 class P2PSell extends React.Component {
 
@@ -102,7 +95,7 @@ class P2PSell extends React.Component {
         const assetAlias = "WAVES";
         const bankNames = ["Альфа-Банк", "Сбербанк"];
 
-        axios.get("http://localhost:8080/api/p2p/get-orders?" + `orderType=${orderType}&currency=${currency}&assetAlias=${assetAlias}&bankNames=${bankNames}`, {})
+        axios.get(`http://localhost:8080/api/p2p/get-orders?orderType=${orderType}&currency=${currency}&assetAlias=${assetAlias}&bankNames=${bankNames}`, {})
             .then((response) => {
                 console.log(response.data)
             })

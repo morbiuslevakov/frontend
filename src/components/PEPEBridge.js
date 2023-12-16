@@ -1,13 +1,7 @@
 import React from "react";
-import { Alert, Offcanvas, InputGroup, Form as Fr, ListGroup, Button, Modal, Card } from 'react-bootstrap';
+import {Form as Card } from 'react-bootstrap';
 import '../App.css';
-import { Navigate, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import axios from "axios";
-import {Client} from "@stomp/stompjs";
-import SockJS from 'sockjs-client';
-import { Stomp } from '@stomp/stompjs';
-import ReactDom from 'react-dom/client';
 import './css/PEPEBridge.css';
 import './css/trade.css'
 import { BridgeWidget, IncomingMessageKind, OutgoingMessageKind } from "@pepe-team/bridge-widget-embedder";

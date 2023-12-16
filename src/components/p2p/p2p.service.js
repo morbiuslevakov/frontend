@@ -1,6 +1,4 @@
 import axios from "axios";
-import { history } from '../helpers/history';
-import {Client} from "@stomp/stompjs";
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
 

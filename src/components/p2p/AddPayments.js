@@ -1,9 +1,8 @@
 import React from "react";
-import { Alert, Offcanvas, InputGroup, Form as Fr, ListGroup, Button, Modal} from 'react-bootstrap';
+import { Alert,  InputGroup, Form as Fr} from 'react-bootstrap';
 import '../../App.css';
-import { Navigate, Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
-import axios from "axios";
 
 class AddPayments extends React.Component {
 

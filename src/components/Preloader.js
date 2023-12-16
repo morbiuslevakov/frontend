@@ -11,7 +11,7 @@ class Preloader extends React.Component {
     render() {
         return (
             <>
-                <Card.Text><BsCopy className="copy-icon"/></Card.Text>
+                <Card.Text><BsCopy className="copy-icon" /></Card.Text>
             </>
         )
     }

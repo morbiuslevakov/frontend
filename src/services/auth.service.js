@@ -1,7 +1,5 @@
 import api from "./api";
 import TokenService from "./token.service";
-import React from "react";
-import { Navigate } from 'react-router-dom';
 
 class AuthService {
     login(username, password, totpCode) {

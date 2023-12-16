@@ -5,9 +5,8 @@ import { useClickOutside } from "../../hooks/useClickOutside";
 import isLoggedIn from "../../common/isLoggedIn";
 import { logout } from "../../actions/auth";
 import AuthService from "../../services/auth.service";
-import { Navbar, Nav, Container, Offcanvas, Alert, Form, NavDropdown, Button, InputGroup } from 'react-bootstrap';
+import { Navbar, Nav, Container, Offcanvas,  Button} from 'react-bootstrap';
 import "./Header.css";
-import { MdContentCopy } from "react-icons/md";
 
 export default function Header() {
     const [menuVisible, setMenuVisible] = useState();

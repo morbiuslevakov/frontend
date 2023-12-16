@@ -1,27 +1,5 @@
-import React, { Component, useEffect, useState, useReducer, Suspense } from "react";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
-import { isEmail } from "validator";
-import { BrowserRouter as Router, Routes, Route, Link, Navigate, useNavigate, useLocation, redirect } from "react-router-dom";
-import { Button, Card, Navbar, Nav, Container, Offcanvas, Modal, InputGroup, Form as Fr, OverlayTrigger, Tooltip, Alert } from 'react-bootstrap';
+import React from "react";
 import { connect } from "react-redux";
-import axios from "axios";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import AuthService from "../services/auth.service";
-import P2PService from "../services/p2p.service";
-import PriceService from "../services/price.service";
-import EventBus from "../common/EventBus";
-import Preloader from './Preloader';
-import isLoggedIn from "../common/isLoggedIn";
-import { logout } from "../actions/auth";
 
 class QR extends React.Component {
 

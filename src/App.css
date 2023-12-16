@@ -281,8 +281,8 @@ a {
   --bs-alert-border-color: #842029;
 }
 .css-i4bv87-MuiSvgIcon-root {
-  width: 100% !important;
-  height: 100% !important;
+  /* width: 100% !important; */
+  /* height: 100% !important; */
 }
 .avatar {
   color: #898989!important;
