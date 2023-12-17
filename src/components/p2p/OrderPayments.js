@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Offcanvas, InputGroup, Form as Fr, ListGroup, Button, Modal} from 'react-bootstrap';
+import { Form as Fr, ListGroup, Button} from 'react-bootstrap';
 import '../../App.css';
 import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";

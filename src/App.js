@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { Alert } from 'react-bootstrap';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Login from "./components/auth/Login";
@@ -21,7 +20,6 @@ import AuthService from "./services/auth.service";
 import Header from "./components/Header/Header";
 import Profile from "./components/Profile";
 import OrderCreate from "./components/p2p/OrderCreate";
-import OrderDetails from "./components/p2p/OrderDetails";
 
 class App extends Component {
 
@@ -49,27 +47,27 @@ class App extends Component {
   render() {
 
     return (
-        <Router history={history}>
-          <Header/>
-          <div className="main-container">
-            <Routes>
-              <Route exact path={"/register"} element={<Register history={history} />}></Route>
-              <Route exact path={"/login"} element={<Login history={history} />}></Route>
-              <Route exact path={"/wallet"} element={<Wallet />}></Route>
-              <Route exact path={"/trade"} element={<Trade />}></Route>
-              <Route exact path={"/p2p"} element={<P2P />}></Route>
-              <Route exact path={"/p2p/create-order"} element={<OrderCreate />}></Route>
-              <Route exact path={"/p2p/sell"} element={<P2PSell />}></Route>
-              <Route exact path={"/bridge"} element={<PEPEBridge />}></Route>
-              <Route exact path={"/investments"} element={<Develop />}></Route>
-              <Route exact path={"/downloads"} element={<Develop />}></Route>
-              <Route exact path={"/qr"} element={<QR />}></Route>
-              <Route exact path={"/profile"} element={<Profile />}></Route>
-            </Routes>
+      <Router history={history}>
+        <Header />
+        <div className="main-container">
+          <Routes>
+            <Route exact path={"/register"} element={<Register history={history} />}></Route>
+            <Route exact path={"/login"} element={<Login history={history} />}></Route>
+            <Route exact path={"/wallet"} element={<Wallet />}></Route>
+            <Route exact path={"/trade"} element={<Trade />}></Route>
+            <Route exact path={"/p2p"} element={<P2P />}></Route>
+            <Route exact path={"/p2p/create-order"} element={<OrderCreate />}></Route>
+            <Route exact path={"/p2p/sell"} element={<P2PSell />}></Route>
+            <Route exact path={"/bridge"} element={<PEPEBridge />}></Route>
+            <Route exact path={"/investments"} element={<Develop />}></Route>
+            <Route exact path={"/downloads"} element={<Develop />}></Route>
+            <Route exact path={"/qr"} element={<QR />}></Route>
+            <Route exact path={"/profile"} element={<Profile />}></Route>
+          </Routes>
 
-            <AuthVerify logOut={logout}/>
-          </div>
-        </Router>
+          <AuthVerify logOut={logout} />
+        </div>
+      </Router>
     );
   }
 }

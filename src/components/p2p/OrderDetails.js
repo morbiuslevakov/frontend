@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { InputGroup, Form } from 'react-bootstrap';
 import ChangeCurrency from "../CustomModals/ChangeCurrency/ChangeCurrency";
 
@@ -18,7 +18,7 @@ export default function OrderDetails(props) {
     let [currentPriceInv, setCurrentPriceInv] = useState(false);
     let [minSumInv, setMinSumInv] = useState(false);
 
-    let [noteId, setNoteId] = useState(null);
+    // let [noteId, setNoteId] = useState(null);
 
     const changeCurrency = (e) => {
         clearFileds();

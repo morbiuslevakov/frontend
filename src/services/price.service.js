@@ -1,7 +1,6 @@
 import api from "./api";
-import TokenService from "./token.service";
 
-const API_URL = "http://localhost:8080/api";
+// const API_URL = "http://localhost:8080/api";
 
 class PriceService {
     setPrices = (currency) => {

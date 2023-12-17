@@ -30,8 +30,8 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        const user = JSON.parse(localStorage.getItem("user"));
-        const { dispatch, history } = this.props;
+        // const user = JSON.parse(localStorage.getItem("user"));
+        const { history } = this.props;
 
         UserService.getSettings().then(
             response => {

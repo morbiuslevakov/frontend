@@ -1,4 +1,4 @@
-import { Button, Modal, Form, InputGroup } from 'react-bootstrap';
+import { Button, Modal, Form } from 'react-bootstrap';
 import React, { useState } from "react";
 import { BsEyeSlash, BsEye } from "react-icons/bs";
 import "./ChangePassword.css";
@@ -10,8 +10,6 @@ export default function ChangePassword(props) {
     let [oldPasswordVisible, setOldPasswordVisible] = useState(false);
     let [newPasswordVisible, setNewPasswordVisible] = useState(false);
     let [passwordConfirmVisible, setPasswordConfirmVisible] = useState(false);
-
-    let [confirmButtonDisabled, setConfirmButtonDisabled] = useState(true);
 
     return (
         <Modal
