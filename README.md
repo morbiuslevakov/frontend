@@ -55,7 +55,7 @@ API URL: https://deaslideproperty.com/api
 }
 ```
 400 — Invalid refresh token  | |  Refresh token is expired <br />
-## /auth/confirm-account?confirmation-token=* <button>GET</button>
+## /auth/confirm-account/{confirmationToken} <button>GET</button>
 ###### RESPONSE:
 400 — Invalid confirmation token <br />
 200 — Account successfully verified
