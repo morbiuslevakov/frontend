@@ -102,4 +102,3 @@ API URL: https://deaslideproperty.com/api
 }
 ```
 401 — Two factor is required  | |  Invalid 2FA code <br />
-200 — Password changed successfully
