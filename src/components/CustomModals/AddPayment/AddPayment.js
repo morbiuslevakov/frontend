@@ -1,10 +1,9 @@
-import { Button, Modal, Form, InputGroup, Alert } from 'react-bootstrap';
+import { Button, Modal, Form, Alert } from 'react-bootstrap';
 import React, { useState } from "react";
-import "./AddPayment.css";
 import UserService from "../../../services/user.service";
 
 export default function AddPayment(props) {
-    let {bankName, currency, onHide, show} = props;
+    let { bankName, currency, onHide, show } = props;
     let [account, setAccount] = useState(null);
     let [message, setMessage] = useState(null);
 
@@ -55,10 +54,10 @@ export default function AddPayment(props) {
                         name="password"
                         value={account}
                         onChange={(e) => setAccount(e.target.value)}
-                        placeholder="Аккаунт, номер карты или телефон"/>
+                        placeholder="Аккаунт, номер карты или телефон" />
                 </Form.Group>
-                {message!==null&&message!=="" && <Alert className="mb-3" key="danger" variant="danger">{message}</Alert>}
-                <Button className="confirm-pass-change-btn btn-secondary" disabled={(account!==null&&account!=="") ? false : true} onClick={addPayment}>ДОБАВИТЬ</Button>
+                {message !== null && message !== "" && <Alert className="mb-3" key="danger" variant="danger">{message}</Alert>}
+                <Button className="confirm-pass-change-btn btn-secondary" disabled={(account !== null && account !== "") ? false : true} onClick={addPayment}>ДОБАВИТЬ</Button>
             </Modal.Body>
         </Modal>
     );

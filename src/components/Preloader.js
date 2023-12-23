@@ -5,13 +5,13 @@ import { BsCopy } from "react-icons/bs";
 
 
 class Preloader extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
     render() {
         return (
             <>
-                <Card.Text><BsCopy className="copy-icon"/></Card.Text>
+                <Card.Text><BsCopy className="copy-icon" /></Card.Text>
             </>
         )
     }

@@ -1,4 +1,4 @@
-import { Button, Modal, Form, InputGroup } from 'react-bootstrap';
+import { Button, Modal, Form } from 'react-bootstrap';
 import React, { useState } from "react";
 import { BsEyeSlash, BsEye } from "react-icons/bs";
 import "./ChangePassword.css";
@@ -10,8 +10,6 @@ export default function ChangePassword(props) {
     let [oldPasswordVisible, setOldPasswordVisible] = useState(false);
     let [newPasswordVisible, setNewPasswordVisible] = useState(false);
     let [passwordConfirmVisible, setPasswordConfirmVisible] = useState(false);
-
-    let [confirmButtonDisabled, setConfirmButtonDisabled] = useState(true);
 
     return (
         <Modal
@@ -37,11 +35,11 @@ export default function ChangePassword(props) {
                             name="password"
                             value={oldPassword}
                             onChange={(e) => setOldPassword(e.target.value)}
-                            placeholder="Введите пароль"/>
+                            placeholder="Введите пароль" />
                         <i className="fa-solid eye-icon-container" id="eye" onClick={() => setOldPasswordVisible(!oldPasswordVisible)}>
                             {oldPasswordVisible ?
-                                <BsEye className="eye-icon"/> :
-                                <BsEyeSlash className="eye-icon"/>
+                                <BsEye className="eye-icon" /> :
+                                <BsEyeSlash className="eye-icon" />
                             }
                         </i>
                     </div>
@@ -58,11 +56,11 @@ export default function ChangePassword(props) {
                             value={newPassword}
                             onChange={(e) => setNewPassword(e.target.value)}
                             placeholder="Введите пароль"
-                            aria-describedby="passwordHelpBlock"/>
+                            aria-describedby="passwordHelpBlock" />
                         <i className="fa-solid eye-icon-container" id="eye" onClick={() => setNewPasswordVisible(!newPasswordVisible)}>
                             {newPasswordVisible ?
-                                <BsEye className="eye-icon"/> :
-                                <BsEyeSlash className="eye-icon"/>
+                                <BsEye className="eye-icon" /> :
+                                <BsEyeSlash className="eye-icon" />
                             }
                         </i>
                     </div>
@@ -81,16 +79,16 @@ export default function ChangePassword(props) {
                             name="password"
                             value={passwordConfirm}
                             onChange={(e) => setPasswordConfirm(e.target.value)}
-                            placeholder="Введите пароль"/>
+                            placeholder="Введите пароль" />
                         <i className="fa-solid eye-icon-container" id="eye" onClick={() => setPasswordConfirmVisible(!passwordConfirmVisible)}>
                             {passwordConfirmVisible ?
-                                <BsEye className="eye-icon"/> :
-                                <BsEyeSlash className="eye-icon"/>
+                                <BsEye className="eye-icon" /> :
+                                <BsEyeSlash className="eye-icon" />
                             }
                         </i>
                     </div>
                 </Form.Group>
-                <Button className="confirm-pass-change-btn btn-secondary" disabled={((passwordConfirm===newPassword)&&(passwordConfirm!==""||newPassword!=="")&&(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_-])[A-Za-z\d@$!%*?&_-]{8,}$/.test(newPassword))) ? false : true}>Подтвердить</Button>
+                <Button className="confirm-pass-change-btn btn-secondary" disabled={((passwordConfirm === newPassword) && (passwordConfirm !== "" || newPassword !== "") && (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_-])[A-Za-z\d@$!%*?&_-]{8,}$/.test(newPassword))) ? false : true}>Подтвердить</Button>
             </Modal.Body>
         </Modal>
     );
