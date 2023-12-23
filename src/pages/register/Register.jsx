@@ -165,7 +165,7 @@ class RegisterEmail extends Component {
                                     Пароль должен состоять из не менее чем 8 символов, включая по крайней мере одну строчную и одну заглавную букву, хотя бы одну цифру и специальный символ.
                                 </Form.Text>
                             </Form.Group>
-                            <div className="form-check mb-3" style={{ "display": "flex", "margin-top": "0" }}>
+                            <div className="form-check mb-3" style={{ "display": "flex", "marginTop": "0" }}>
                                 <input type="checkbox" id="default-checkbox" className="show-password form-check-input" onChange={this.passwordVisible} />
                                 <label htmlFor="default-checkbox" className="form-check-label show-password-text">Показать пароль</label>
                             </div>

@@ -17,6 +17,8 @@ import AuthService from "./services/auth.service";
 import Profile from "./pages/profile/Profile";
 import OrderCreate from "./pages/order-create/OrderCreate";
 import { SharedLayout } from "./pages/shared-layout/SharedLayout";
+import { ThemeProvider } from "@mui/material";
+import { theme } from "./utils/constants/theme";
 
 class App extends Component {
 
@@ -44,21 +46,23 @@ class App extends Component {
   render() {
 
     return (
-      <Router history={history}>
-        <Routes>
-          <Route path="/" element={<SharedLayout />}>
-            <Route exact path={"/register"} element={<Register history={history} />}></Route>
-            <Route exact path={"/login"} element={<Login history={history} />}></Route>
-            <Route exact path={"/wallet"} element={<Wallet />}></Route>
-            <Route exact path={"/trade"} element={<Trade />}></Route>
-            <Route exact path={"/p2p"} element={<P2P />}></Route>
-            <Route exact path={"/p2p/create-order"} element={<OrderCreate />}></Route>
-            <Route exact path={"/p2p/sell"} element={<P2PSell />}></Route>
-            <Route exact path={"/profile"} element={<Profile />}></Route>
-          </Route>
-        </Routes>
-        <AuthVerify logOut={logout} />
-      </Router>
+      <ThemeProvider theme={theme}>
+        <Router history={history}>
+          <Routes>
+            <Route path="/" element={<SharedLayout />}>
+              <Route exact path={"/register"} element={<Register history={history} />}></Route>
+              <Route exact path={"/login"} element={<Login history={history} />}></Route>
+              <Route exact path={"/wallet"} element={<Wallet />}></Route>
+              <Route exact path={"/trade"} element={<Trade />}></Route>
+              <Route exact path={"/p2p"} element={<P2P />}></Route>
+              <Route exact path={"/p2p/create-order"} element={<OrderCreate />}></Route>
+              <Route exact path={"/p2p/sell"} element={<P2PSell />}></Route>
+              <Route exact path={"/profile"} element={<Profile />}></Route>
+            </Route>
+          </Routes>
+          <AuthVerify logOut={logout} />
+        </Router>
+      </ThemeProvider>
     );
   }
 }
