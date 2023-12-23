@@ -14,9 +14,9 @@ import AuthVerify from "./utils/auth-verify";
 import EventBus from "./utils/EventBus";
 import { logout } from "./actions/auth";
 import AuthService from "./services/auth.service";
-import Header from "./components/Header/Header";
 import Profile from "./pages/profile/Profile";
 import OrderCreate from "./pages/order-create/OrderCreate";
+import { SharedLayout } from "./pages/shared-layout/SharedLayout";
 
 class App extends Component {
 
@@ -45,9 +45,8 @@ class App extends Component {
 
     return (
       <Router history={history}>
-        <Header />
-        <div className="main-container">
-          <Routes>
+        <Routes>
+          <Route path="/" element={<SharedLayout />}>
             <Route exact path={"/register"} element={<Register history={history} />}></Route>
             <Route exact path={"/login"} element={<Login history={history} />}></Route>
             <Route exact path={"/wallet"} element={<Wallet />}></Route>
@@ -56,9 +55,9 @@ class App extends Component {
             <Route exact path={"/p2p/create-order"} element={<OrderCreate />}></Route>
             <Route exact path={"/p2p/sell"} element={<P2PSell />}></Route>
             <Route exact path={"/profile"} element={<Profile />}></Route>
-          </Routes>
-          <AuthVerify logOut={logout} />
-        </div>
+          </Route>
+        </Routes>
+        <AuthVerify logOut={logout} />
       </Router>
     );
   }

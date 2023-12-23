@@ -15,9 +15,6 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
-.main-container {
-  padding-top: 7rem;
-}
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
