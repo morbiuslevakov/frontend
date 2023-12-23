@@ -25,7 +25,7 @@
     overflow: auto;
 }
 .navbar-toggler-icon {
-    background-image: url("../../toggle.svg") !important;
+    background-image: url("../../images/toggle.svg") !important;
     border: none;
     outline: none;
 }

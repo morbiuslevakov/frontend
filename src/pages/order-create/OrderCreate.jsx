@@ -1,9 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { Card, Button } from "react-bootstrap";
 import PriceService from "../../services/price.service";
-import EventBus from "../../common/EventBus";
-import OrderDetails from "./OrderDetails";
-import OrderPaymnetsF from "./OrderPaymentsF";
+import EventBus from "../../utils/EventBus";
+import OrderDetails from "../../components/p2p/OrderDetails";
+import OrderPaymnetsF from "../../components/p2p/OrderPaymentsF";
+import { ReactComponent as BackArrow } from '../../images/back-arrow.svg'
 
 export default function OrderCreate(props) {
     let [balance, setBalance] = useState(null);
@@ -97,9 +98,7 @@ export default function OrderCreate(props) {
                     <Card className="p2p-card">
                         <div className="p2p-order-input p2p-order-blackspace p2p-order-found">
                             <div className="back-arrow" onClick={() => setCurrentStep(currentStep--)}>
-                                <svg width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M23.6068 12.5702C24.4352 12.5702 25.1068 11.8986 25.1068 11.0702C25.1068 10.2418 24.4352 9.57019 23.6068 9.57019V12.5702ZM1.3325 10.0095C0.74671 10.5953 0.74671 11.5451 1.3325 12.1309L10.8784 21.6768C11.4642 22.2626 12.414 22.2626 12.9998 21.6768C13.5855 21.091 13.5855 20.1413 12.9998 19.5555L4.51448 11.0702L12.9998 2.58491C13.5855 1.99912 13.5855 1.04938 12.9998 0.463589C12.414 -0.122198 11.4642 -0.122198 10.8784 0.463589L1.3325 10.0095ZM23.6068 9.57019L2.39316 9.57019V12.5702L23.6068 12.5702V9.57019Z" fill="gray" />
-                                </svg>
+                                <BackArrow />
                             </div>
                             <h4 className="mt-3">{currentStep === 1 && "Создайте объявление"} {currentStep === 2 && "Добавьте методы оплаты"} <font color="gray">{currentStep}/3</font></h4>
                         </div>

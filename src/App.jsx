@@ -3,23 +3,20 @@ import { connect } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
-import Wallet from "./components/Wallet";
-import QR from "./components/QR";
-import Trade from "./components/trade";
-import PEPEBridge from "./components/PEPEBridge";
-import Develop from "./components/develop";
-import P2P from "./components/p2p/P2P";
-import P2PSell from "./components/p2p/P2PSell";
+import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
+import Wallet from "./pages/wallet/Wallet";
+import Trade from "./pages/trade/Trade";
+import P2P from "./pages/p2p/P2P";
+import P2PSell from "./pages/p2p-sell/P2PSell";
 import { history } from './helpers/history';
-import AuthVerify from "./common/auth-verify";
-import EventBus from "./common/EventBus";
+import AuthVerify from "./utils/auth-verify";
+import EventBus from "./utils/EventBus";
 import { logout } from "./actions/auth";
 import AuthService from "./services/auth.service";
 import Header from "./components/Header/Header";
-import Profile from "./components/Profile";
-import OrderCreate from "./components/p2p/OrderCreate";
+import Profile from "./pages/profile/Profile";
+import OrderCreate from "./pages/order-create/OrderCreate";
 
 class App extends Component {
 
@@ -58,13 +55,8 @@ class App extends Component {
             <Route exact path={"/p2p"} element={<P2P />}></Route>
             <Route exact path={"/p2p/create-order"} element={<OrderCreate />}></Route>
             <Route exact path={"/p2p/sell"} element={<P2PSell />}></Route>
-            <Route exact path={"/bridge"} element={<PEPEBridge />}></Route>
-            <Route exact path={"/investments"} element={<Develop />}></Route>
-            <Route exact path={"/downloads"} element={<Develop />}></Route>
-            <Route exact path={"/qr"} element={<QR />}></Route>
             <Route exact path={"/profile"} element={<Profile />}></Route>
           </Routes>
-
           <AuthVerify logOut={logout} />
         </div>
       </Router>

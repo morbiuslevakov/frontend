@@ -8,11 +8,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import P2PService from "../services/p2p.service";
-import PriceService from "../services/price.service";
-import EventBus from "../common/EventBus";
-import Preloader from './Preloader';
-import isLoggedIn from "../common/isLoggedIn";
+import P2PService from "../../services/p2p.service";
+import PriceService from "../../services/price.service";
+import EventBus from "../../utils/EventBus";
+import Preloader from '../../components/Preloader';
+import isLoggedIn from "../../utils/isLoggedIn";
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import { ReactComponent as CopyIcon } from '../../images/copy-icon.svg';
+import { ReactComponent as DoneCopyIcon } from '../../images/done-copy-icon.svg';
 
 class Wallet extends React.Component {
     constructor(props) {
@@ -163,17 +167,11 @@ class Wallet extends React.Component {
                         <AccountCircleIcon />
                         <div className="transaction-buttons">
                             <button className="transaction-btn" onClick={this.handleShowSend}>
-                                <svg className="transaction-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="21.9999" cy="22.0702" r="21.516" fill="#6C757D" />
-                                    <path d="M20.5 32.6771C20.5 33.5055 21.1716 34.1771 22 34.1771C22.8284 34.1771 23.5 33.5055 23.5 32.6771L20.5 32.6771ZM23.0607 10.4027C22.4749 9.81696 21.5251 9.81696 20.9393 10.4027L11.3934 19.9487C10.8076 20.5345 10.8076 21.4842 11.3934 22.07C11.9792 22.6558 12.9289 22.6558 13.5147 22.07L22 13.5847L30.4853 22.07C31.0711 22.6558 32.0208 22.6558 32.6066 22.07C33.1924 21.4842 33.1924 20.5345 32.6066 19.9487L23.0607 10.4027ZM23.5 32.6771L23.5 11.4634L20.5 11.4634L20.5 32.6771L23.5 32.6771Z" fill="white" />
-                                </svg>
+                                <ArrowCircleUpIcon fontSize="large" />
                                 <p>Отправить</p>
                             </button>
                             <button className="transaction-btn" onClick={this.handleShowGet}>
-                                <svg className="transaction-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="21.6449" cy="22.0702" r="21.516" fill="#6C757D" />
-                                    <path d="M23.145 11.4634C23.145 10.635 22.4734 9.96344 21.645 9.96344C20.8165 9.96344 20.145 10.635 20.145 11.4634H23.145ZM20.5843 33.7378C21.1701 34.3235 22.1198 34.3235 22.7056 33.7378L32.2516 24.1918C32.8373 23.606 32.8373 22.6563 32.2516 22.0705C31.6658 21.4847 30.716 21.4847 30.1302 22.0705L21.645 30.5558L13.1597 22.0705C12.5739 21.4847 11.6241 21.4847 11.0384 22.0705C10.4526 22.6563 10.4526 23.606 11.0384 24.1918L20.5843 33.7378ZM20.145 11.4634L20.145 32.6771H23.145L23.145 11.4634H20.145Z" fill="white" />
-                                </svg>
+                                <ArrowCircleDownIcon fontSize="large" />
                                 <p>Получить</p>
                             </button>
                         </div>
@@ -192,22 +190,7 @@ class Wallet extends React.Component {
                                         disabled
                                     />
                                     <Button variant="outline-secondary" id="button-addon2" onClick={this.handleCopyClick}>
-                                        {this.state.isCopied ?
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                                className="bi bi-clipboard-check" viewBox="0 0 16 16">
-                                                <path fillRule="evenodd"
-                                                    d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
-                                                <path
-                                                    d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                                                <path
-                                                    d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
-                                            </svg> : <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                                className="bi bi-clipboard" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                                                <path
-                                                    d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
-                                            </svg>}
+                                        {this.state.isCopied ? <DoneCopyIcon /> : <CopyIcon />}
                                     </Button>
                                 </InputGroup>
                             </Modal.Body>

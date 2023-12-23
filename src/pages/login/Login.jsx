@@ -6,12 +6,13 @@ import { isEmail } from "validator";
 import { connect } from "react-redux";
 import AuthService from "../../services/auth.service";
 import { history } from '../../helpers/history';
+import { ReactComponent as BackIcon } from '../../images/back-icon.svg';
 
 const validator = (type, value) => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_-])[A-Za-z\d@$!%*?&_-]{8,}$/;
-    if (type==="email") {
+    if (type === "email") {
         return isEmail(value);
-    } else if (type==="password") {
+    } else if (type === "password") {
         return passwordRegex.test(value)
     }
 }
@@ -26,9 +27,7 @@ function BackButton() {
     return (
         <Button onClick={handleBack} className="card-footer-btn">
             <Card.Footer>
-                <svg className="back-svg" width="9" height="15" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.3397 7.14593L7.69625 2.48078C8.21728 1.92285 8.21728 1.01826 7.69626 0.460321C7.17523 -0.0976136 6.33047 -0.0976135 5.80945 0.460321L0.546247 6.09634C0.276474 6.38522 0.146382 6.76704 0.155969 7.14555C0.146192 7.52431 0.276278 7.90643 0.546227 8.19551L5.80943 13.8315C6.33046 14.3895 7.17521 14.3895 7.69624 13.8315C8.21726 13.2736 8.21726 12.369 7.69624 11.8111L3.3397 7.14593Z" fill="#898989"/>
-                </svg>
+                <BackIcon />
                 Назад
             </Card.Footer>
         </Button>
@@ -73,7 +72,7 @@ class Login extends Component {
     }
 
     passwordVisible = (e) => {
-        if(this.state.showPassword==="password") {
+        if (this.state.showPassword === "password") {
             this.setState({
                 showPassword: "text"
             });
@@ -86,10 +85,10 @@ class Login extends Component {
 
     handleLogin(e) {
         if (!validator("email", this.state.username)) {
-            this.setState({invalid: true, message: "Введите правильный email."})
+            this.setState({ invalid: true, message: "Введите правильный email." })
             return;
         } else {
-            this.setState({invalid: false})
+            this.setState({ invalid: false })
         }
 
         AuthService.login(
@@ -108,19 +107,19 @@ class Login extends Component {
                         error.response.data.message) ||
                     error.message ||
                     error.toString();
-                if(error.response.status === 401) {
-                    if (error.response.data==="2FA required.") {
+                if (error.response.status === 401) {
+                    if (error.response.data === "2FA required.") {
                         this.setState({
                             totpCodeRequired: true
                         })
-                        return ;
+                        return;
                     }
-                    if (error.response.data==="Invalid 2FA code.") {
+                    if (error.response.data === "Invalid 2FA code.") {
                         this.setState({
                             invalid: true,
                             message: "Неверный код."
                         });
-                        return ;
+                        return;
                     }
                     this.setState({
                         invalid: true,
@@ -138,9 +137,9 @@ class Login extends Component {
     }
 
     render() {
-        const { isLoggedIn, message } = this.props;
+        const { isLoggedIn } = this.props;
 
-        if (window.location.pathname==="/login" && isLoggedIn) {
+        if (window.location.pathname === "/login" && isLoggedIn) {
             return <Navigate to="/wallet" />;
         } else if (isLoggedIn) {
             window.location.reload();
@@ -149,7 +148,7 @@ class Login extends Component {
         return (
             <div className="content-container">
                 <div className="text-container">
-                    <h1 className="title">Deaslide Network<br/>Децентрализованный торговый протокол</h1>
+                    <h1 className="title">Deaslide Network<br />Децентрализованный торговый протокол</h1>
                     <p>Легко покупайте, торгуйте и зарабатывайте на крипте</p>
                 </div>
                 {!this.state.totpCodeRequired &&
@@ -173,7 +172,7 @@ class Login extends Component {
                                         name="username"
                                         value={this.state.username}
                                         onChange={this.onChangeUsername}
-                                        placeholder="Введите email"/>
+                                        placeholder="Введите email" />
                                 </Form.Group>
                                 <Form.Group className="mb-3 form-group" controlId="formBasicPassword">
                                     <Form.Label>Пароль</Form.Label>
@@ -184,11 +183,11 @@ class Login extends Component {
                                         name="password"
                                         value={this.state.password}
                                         onChange={this.onChangePassword}
-                                        placeholder="Введите пароль"/>
+                                        placeholder="Введите пароль" />
                                 </Form.Group>
-                                <div className="form-check mb-3" style={{"display": "flex", "margin-top": "0"}}>
+                                <div className="form-check mb-3" style={{ "display": "flex", "margin-top": "0" }}>
                                     <input type="checkbox" id="default-checkbox" className="show-password form-check-input"
-                                           onChange={this.passwordVisible}/>
+                                        onChange={this.passwordVisible} />
                                     <label htmlFor="default-checkbox" className="form-check-label show-password-text">Показать
                                         пароль</label>
                                 </div>
@@ -196,10 +195,10 @@ class Login extends Component {
                                     Войти в аккаунт
                                 </Button>
                             </Form>
-                            <a className="mb-2" style={{"display": "block"}} href="/register">Забыли пароль?</a>
+                            <a className="mb-2" style={{ "display": "block" }} href="/register">Забыли пароль?</a>
                             <p className="plain-text">Нет аккаунта? <a href="/register">Создать аккаунт</a></p>
                         </Card.Body>
-                        <BackButton/>
+                        <BackButton />
                     </Card>
                 }
                 {this.state.totpCodeRequired &&
@@ -223,16 +222,16 @@ class Login extends Component {
                                         name="username"
                                         value={this.state.totpCode}
                                         onChange={this.onChangeTotpCode}
-                                        placeholder="Введите 2FA код"/>
+                                        placeholder="Введите 2FA код" />
                                 </Form.Group>
                                 <Button className="submit-btn mt-4" variant="secondary" onClick={this.handleLogin}>
                                     Войти в аккаунт
                                 </Button>
                             </Form>
-                            <a className="mb-2" style={{"display": "block"}} href="/register">Забыли пароль?</a>
+                            <a className="mb-2" style={{ "display": "block" }} href="/register">Забыли пароль?</a>
                             <p className="plain-text">Нет аккаунта? <a href="/register">Создать аккаунт</a></p>
                         </Card.Body>
-                        <BackButton/>
+                        <BackButton />
                     </Card>
                 }
             </div>

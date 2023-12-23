@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { Card, Button, Alert } from "react-bootstrap";
-import { connect } from "react-redux";
-import "./css/Profile.css";
-import ChangePassword from "./CustomModals/ChangePassword/ChangePassword";
-import Preloader from "./Preloader";
-import UserService from "../services/user.service";
-import EventBus from "../common/EventBus";
-import isLoggedIn from "../common/isLoggedIn";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from "@mui/material";
+import { connect } from "react-redux";
+import ChangePassword from "../../components/CustomModals/ChangePassword/ChangePassword";
+import Preloader from "../../components/Preloader";
+import UserService from "../../services/user.service";
+import EventBus from "../../utils/EventBus";
+import isLoggedIn from "../../utils/isLoggedIn";
+import "./Profile.css";
 
 class Profile extends Component {
 

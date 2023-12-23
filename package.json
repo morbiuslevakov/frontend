@@ -5,7 +5,6 @@
   "dependencies": {
     "@mui/icons-material": "^5.14.14",
     "@mui/material": "^5.14.20",
-    "@pepe-team/bridge-widget-embedder": "^0.1.11",
     "@stomp/stompjs": "^7.0.0",
     "axios": "^1.5.1",
     "bootstrap": "^5.3.2",
