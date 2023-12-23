@@ -185,7 +185,7 @@ class Login extends Component {
                                         onChange={this.onChangePassword}
                                         placeholder="Введите пароль" />
                                 </Form.Group>
-                                <div className="form-check mb-3" style={{ "display": "flex", "margin-top": "0" }}>
+                                <div className="form-check mb-3" style={{ "display": "flex", "marginTop": "0" }}>
                                     <input type="checkbox" id="default-checkbox" className="show-password form-check-input"
                                         onChange={this.passwordVisible} />
                                     <label htmlFor="default-checkbox" className="form-check-label show-password-text">Показать

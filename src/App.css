@@ -332,12 +332,12 @@ a {
   margin: auto;
 }
 .css-1ex1afd-MuiTableCell-root {
-  border-color: gray!important;
-  color: white!important;
+  /* border-color: gray!important; */
+  /* color: white!important; */
 }
 .css-1ygcj2i-MuiTableCell-root {
-  border-color: gray!important;
-  color: #929ba8!important;
+  /* border-color: gray!important; */
+  /* color: #929ba8!important; */
 }
 .profile {
   box-sizing: border-box;
@@ -356,10 +356,10 @@ a {
   border: none;
 }
 .MuiSvgIcon-root {
-  color: #6c757d;
+  /* color: #6c757d;
   width: 15vw!important;
   display: block!important;
-  margin: auto;
+  margin: auto; */
 }
 .transaction-btn {
   background-color: unset;
@@ -863,7 +863,7 @@ label {
 }
 @media (max-width: 390px) {
   .css-1ex1afd-MuiTableCell-root {
-    font-size: 0.75rem!important;
+    /* font-size: 0.75rem!important; */
   }
   .p2p-header {
     width: 90vw;
