@@ -169,7 +169,7 @@ class Login extends Component {
                                         required
                                         size="lg"
                                         type="email"
-                                        name="username"
+                                        name="email"
                                         value={this.state.username}
                                         onChange={this.onChangeUsername}
                                         placeholder="Введите email" />

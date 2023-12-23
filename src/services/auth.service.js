@@ -5,7 +5,7 @@ class AuthService {
     login(username, password, totpCode) {
         return api
             .post("/auth/signin", {
-                username,
+                email: username,
                 password,
                 totpCode
             })
