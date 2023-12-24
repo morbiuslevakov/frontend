@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Navigate } from "react-router-dom";
 import { InputLabel, Stack, Typography } from "@mui/material";
 import { BackButton } from "../../components/back-button/BackButton";
 import { WelcomeText } from "../../components/welcome-text/WelcomeText";
@@ -8,9 +9,15 @@ import { SubmitFormButton } from "../../components/auth-pages/SubmitFormButton";
 import { FormError } from "../../components/auth-pages/FormError";
 import { PasswordAddornment } from "../../components/auth-pages/PasswordAddornment";
 import { useRegister } from "../../hooks/use-register.hook";
+import UserContext from "../../context/user-context";
 
 export const Register = () => {
     const { states, changeHandlers, handleRegister, togglePasswordVisible } = useRegister()
+    const { user } = useContext(UserContext)
+
+    if (user) {
+        return <Navigate to={'/trade'} />
+    }
 
     return (
         <Wrapper>
@@ -36,7 +43,7 @@ export const Register = () => {
                             </Stack>
                             <SubmitFormButton text="Создать аккаунт" />
                         </FormWrapper>
-                        <RedirectLink text="Уже заргестрированы?" linkText="Войти" />
+                        <RedirectLink text="Уже заргестрированы?" linkText="Войти" link="/login" />
                     </CardContent>
                     <BackButton />
                 </CustomFormCard>

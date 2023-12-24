@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import { ThemeProvider } from "@mui/material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import Login from "./pages/login/Login";
+import { Login } from "./pages/login/Login";
 import { Register } from "./pages/register/Register";
 import Wallet from "./pages/wallet/Wallet";
 import { Trade } from "./pages/trade/Trade";

@@ -19,3 +19,14 @@ export const postUserToApi = async (payload) => {
     throw apiError
   }
 };
+
+export const postUserLoginToApi = async (payload) => {
+  const url = `${apiUrl}/auth/signin`
+  try {
+    const response = await axios.post(url, payload, apiConfig)
+    return response.data;
+  } catch (error) {
+    const apiError = error.response.data
+    throw apiError
+  }
+}
