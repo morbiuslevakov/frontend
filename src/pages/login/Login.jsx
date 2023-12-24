@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import { Button, Card, Alert, Form } from 'react-bootstrap';
 import { isEmail } from "validator";
 import { connect } from "react-redux";
 import AuthService from "../../services/auth.service";
 import { history } from '../../helpers/history';
-import { ReactComponent as BackIcon } from '../../images/back-icon.svg';
+import { BackButton } from "../../components/back-button/BackButton";
 
 const validator = (type, value) => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_-])[A-Za-z\d@$!%*?&_-]{8,}$/;
@@ -17,22 +17,6 @@ const validator = (type, value) => {
     }
 }
 
-function BackButton() {
-    const navigate = useNavigate();
-
-    function handleBack() {
-        navigate(-1);
-    }
-
-    return (
-        <Button onClick={handleBack} className="card-footer-btn">
-            <Card.Footer>
-                <BackIcon />
-                Назад
-            </Card.Footer>
-        </Button>
-    );
-}
 
 class Login extends Component {
     constructor(props) {

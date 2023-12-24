@@ -1,4 +1,5 @@
 import { Box, Stack, styled } from "@mui/material";
+import { DefaultCard } from "../card-wrappers/Styled";
 
 export const Wrapper = styled(Stack)({
   flexDirection: 'column',
@@ -9,10 +10,8 @@ export const PageContent = styled(Box)({
   maxWidth: '850px'
 })
 
-export const TradeCard = styled(Box)({
-  backgroundColor: "#2D2E2F",
+export const TradeCard = styled(DefaultCard)({
   padding: '20px',
-  borderRadius: '20px',
   cursor: "pointer",
   "&:hover": {
     opacity: 0.9
