@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Stack, Typography } from "@mui/material";
-import { ReactComponent as P2PLogo } from '../../images/p2p-logo.svg'
+import { ReactComponent as P2PLogo } from '../../images/p2p/p2p-logo.svg'
 import { PageContent, TradeCard, Wrapper } from "../../components/trade-page/Styled";
 
 export const Trade = () => {
