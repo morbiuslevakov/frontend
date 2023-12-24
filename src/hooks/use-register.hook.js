@@ -15,7 +15,7 @@ export const useRegister = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    if (3 <= username.length <= 20) {
+    if (!(username.length >= 3 && username.length <= 20)) {
       setIsError(true);
       setErrorMessage(authErrorMessages.username);
       return;
