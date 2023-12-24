@@ -1,41 +1,40 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { inputValidator } from '../utils/auth-utils';
-import { postUserToApi } from '../utils/api-utils';
 import { authErrorMessages } from '../utils/constants/auth';
+import { postUserLoginToApi } from '../utils/api-utils';
+import { setUserToStorage } from '../utils/user-utils';
 
-export const useRegister = () => {
-  const navigate = useNavigate();
+export const useLogin = () => {
+  const location = useLocation();
+  const emailFromLocation = location.state?.email;
 
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(emailFromLocation || "");
   const [password, setPassword] = useState("");
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(true);
 
-  const handleRegister = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    if (!(username.length >= 3 && username.length <= 20)) {
-      setIsError(true);
-      setErrorMessage(authErrorMessages.username);
-      return;
-    }
     if (!inputValidator("email", email)) {
       setIsError(true);
       setErrorMessage(authErrorMessages.email);
       return;
-    } else if (!inputValidator("password", password)) {
+    } else if (!password) {
       setIsError(true);
-      setErrorMessage(authErrorMessages.passwordValid);
+      setErrorMessage(authErrorMessages.password);
       return;
     } else {
       setIsError(false);
     }
 
-    const formData = JSON.stringify({ username: username, email: email, password: password })
+    const formData = JSON.stringify({ email: email, password: password })
 
-    postUserToApi(formData).then(() => navigate("/login", { state: { email: email } })).catch(error => {
+    postUserLoginToApi(formData).then(result => {
+      setUserToStorage(result)
+      window.location.reload()
+    }).catch((error) => {
       setErrorMessage(error);
       setIsError(true);
     })
@@ -47,18 +46,15 @@ export const useRegister = () => {
 
   const passwordType = showPassword ? 'password' : 'text'
 
-  const handleChangeUsername = (e) => setUsername(e.target.value)
   const handleChangeEmail = (e) => setEmail(e.target.value)
   const handleChangePassword = (e) => setPassword(e.target.value)
 
   const changeHandlers = {
-    username: handleChangeUsername,
     email: handleChangeEmail,
     password: handleChangePassword
   }
 
   const states = {
-    username,
     email,
     password,
     isError,
@@ -67,5 +63,5 @@ export const useRegister = () => {
     passwordType
   }
 
-  return { states, changeHandlers, handleRegister, togglePasswordVisible }
+  return { states, changeHandlers, handleLogin, togglePasswordVisible }
 }

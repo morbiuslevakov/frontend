@@ -577,9 +577,6 @@ label {
   }
 }
 @media (max-width: 665px) {
-  .card-main-title {
-    font-size: 1.75rem!important;
-  }
   .p2p-header {
     width: 70vw;
   }
@@ -591,9 +588,6 @@ label {
   }
 }
 @media (max-width: 550px) {
-  .card-main-title {
-    font-size: 1.5rem!important;
-  }
   .h6, h6 {
     font-size: 0.75rem!important;
   }
@@ -613,9 +607,6 @@ label {
   .p2p-header {
     width: 80vw;
   }
-  .card-main-title {
-    font-size: 1.25rem!important;
-  }
   .h6, h6 {
     font-size: 0.65rem!important;
   }
@@ -623,9 +614,6 @@ label {
 @media (max-width: 390px) {
   .p2p-header {
     width: 90vw;
-  }
-  .card-main-title {
-    font-size: 1rem!important;
   }
   .svg-email {
     width: 50px;

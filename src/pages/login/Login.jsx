@@ -1,235 +1,49 @@
-import React, { Component } from "react";
-import { Navigate } from 'react-router-dom';
-
-import { Button, Card, Alert, Form } from 'react-bootstrap';
-import { isEmail } from "validator";
-import { connect } from "react-redux";
-import AuthService from "../../services/auth.service";
-import { history } from '../../helpers/history';
+import React, { useContext } from "react";
+import { Navigate } from "react-router-dom";
+import { InputLabel, Stack, Typography } from "@mui/material";
 import { BackButton } from "../../components/back-button/BackButton";
+import { WelcomeText } from "../../components/welcome-text/WelcomeText";
+import { CardContent, CustomFormCard, CustomInput, FormWrapper, PageContent, Wrapper } from "../../components/auth-pages/Styled";
+import { RedirectLink } from "../../components/auth-pages/RedirectLink";
+import { SubmitFormButton } from "../../components/auth-pages/SubmitFormButton";
+import { FormError } from "../../components/auth-pages/FormError";
+import { PasswordAddornment } from "../../components/auth-pages/PasswordAddornment";
+import { useLogin } from "../../hooks/use-login.hook";
+import UserContext from "../../context/user-context";
 
-const validator = (type, value) => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_-])[A-Za-z\d@$!%*?&_-]{8,}$/;
-    if (type === "email") {
-        return isEmail(value);
-    } else if (type === "password") {
-        return passwordRegex.test(value)
+export const Login = () => {
+    const { states, changeHandlers, handleLogin, togglePasswordVisible } = useLogin()
+    const { user } = useContext(UserContext)
+
+    if (user) {
+        return <Navigate to={'/trade'} />
     }
+
+    return (
+        <Wrapper>
+            <PageContent>
+                <WelcomeText />
+                <CustomFormCard>
+                    <CardContent>
+                        <Typography fontSize={32}>Войти в аккаунт</Typography>
+                        <FormWrapper onSubmit={handleLogin}>
+                            <FormError isError={states.isError} errorMessage={states.errorMessage} />
+                            <Stack gap={1}>
+                                <InputLabel>Email</InputLabel>
+                                <CustomInput size="lg" type="email" value={states.email} onChange={changeHandlers.email} placeholder="Введите email" />
+                            </Stack>
+                            <Stack gap={1}>
+                                <InputLabel>Пароль</InputLabel>
+                                <CustomInput size="lg" type={states.passwordType} value={states.password} onChange={changeHandlers.password}
+                                    placeholder="Введите пароль" endAdornment={<PasswordAddornment callback={togglePasswordVisible} isVisible={states.showPassword} />} />
+                            </Stack>
+                            <SubmitFormButton text="Войти" />
+                        </FormWrapper>
+                        <RedirectLink text="Нет аккаунта?" linkText="Создать аккаунт" link="/register" />
+                    </CardContent>
+                    <BackButton />
+                </CustomFormCard>
+            </PageContent>
+        </Wrapper>
+    )
 }
-
-
-class Login extends Component {
-    constructor(props) {
-        super(props);
-        this.handleLogin = this.handleLogin.bind(this);
-        this.onChangeUsername = this.onChangeUsername.bind(this);
-        this.onChangePassword = this.onChangePassword.bind(this);
-        this.onChangeTotpCode = this.onChangeTotpCode.bind(this);
-
-        this.state = {
-            username: "",
-            password: "",
-            totpCode: "",
-            totpCodeRequired: false,
-            invalid: false,
-            message: "",
-            showPassword: "password"
-        };
-    }
-
-    onChangeUsername(e) {
-        this.setState({
-            username: e.target.value,
-        });
-    }
-
-    onChangeTotpCode(e) {
-        this.setState({
-            totpCode: e.target.value,
-        });
-    }
-
-    onChangePassword(e) {
-        this.setState({
-            password: e.target.value,
-        });
-    }
-
-    passwordVisible = (e) => {
-        if (this.state.showPassword === "password") {
-            this.setState({
-                showPassword: "text"
-            });
-            return;
-        }
-        this.setState({
-            showPassword: "password"
-        });
-    }
-
-    handleLogin(e) {
-        if (!validator("email", this.state.username)) {
-            this.setState({ invalid: true, message: "Введите правильный email." })
-            return;
-        } else {
-            this.setState({ invalid: false })
-        }
-
-        AuthService.login(
-            this.state.username,
-            this.state.password,
-            this.state.totpCode
-        ).then(
-            response => {
-                history.push("/wallet");
-                window.location.reload();
-            },
-            error => {
-                const resMessage =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-                if (error.response.status === 401) {
-                    if (error.response.data === "2FA required.") {
-                        this.setState({
-                            totpCodeRequired: true
-                        })
-                        return;
-                    }
-                    if (error.response.data === "Invalid 2FA code.") {
-                        this.setState({
-                            invalid: true,
-                            message: "Неверный код."
-                        });
-                        return;
-                    }
-                    this.setState({
-                        invalid: true,
-                        message: "Неверный пароль."
-                    });
-                } else {
-                    this.setState({
-                        invalid: true,
-                        message: resMessage
-                    });
-                }
-            }
-        );
-        e.preventDefault();
-    }
-
-    render() {
-        const { isLoggedIn } = this.props;
-
-        if (window.location.pathname === "/login" && isLoggedIn) {
-            return <Navigate to="/wallet" />;
-        } else if (isLoggedIn) {
-            window.location.reload();
-        }
-
-        return (
-            <div className="content-container">
-                <div className="text-container">
-                    <h1 className="title">Deaslide Network<br />Децентрализованный торговый протокол</h1>
-                    <p>Легко покупайте, торгуйте и зарабатывайте на крипте</p>
-                </div>
-                {!this.state.totpCodeRequired &&
-                    <Card className="card main-card">
-                        <Card.Body className="main-card-body">
-                            <Card.Title className="card-main-title title mt-4 mb-4">Войти в аккаунт</Card.Title>
-                            <Form className="mb-4 mt-3" onSubmit={this.handleLogin} ref={(c) => {
-                                this.form = c;
-                            }}>
-                                {this.state.invalid === true &&
-                                    (<Alert key="danger" variant="danger">
-                                        {this.state.message}
-                                    </Alert>)
-                                }
-                                <Form.Group className="mb-3 form-group" controlId="formBasicEmail">
-                                    <Form.Label>Email</Form.Label>
-                                    <Form.Control
-                                        required
-                                        size="lg"
-                                        type="email"
-                                        name="email"
-                                        value={this.state.username}
-                                        onChange={this.onChangeUsername}
-                                        placeholder="Введите email" />
-                                </Form.Group>
-                                <Form.Group className="mb-3 form-group" controlId="formBasicPassword">
-                                    <Form.Label>Пароль</Form.Label>
-                                    <Form.Control
-                                        required
-                                        size="lg"
-                                        type={this.state.showPassword}
-                                        name="password"
-                                        value={this.state.password}
-                                        onChange={this.onChangePassword}
-                                        placeholder="Введите пароль" />
-                                </Form.Group>
-                                <div className="form-check mb-3" style={{ "display": "flex", "marginTop": "0" }}>
-                                    <input type="checkbox" id="default-checkbox" className="show-password form-check-input"
-                                        onChange={this.passwordVisible} />
-                                    <label htmlFor="default-checkbox" className="form-check-label show-password-text">Показать
-                                        пароль</label>
-                                </div>
-                                <Button className="submit-btn mt-4" variant="secondary" onClick={this.handleLogin}>
-                                    Войти в аккаунт
-                                </Button>
-                            </Form>
-                            <a className="mb-2" style={{ "display": "block" }} href="/register">Забыли пароль?</a>
-                            <p className="plain-text">Нет аккаунта? <a href="/register">Создать аккаунт</a></p>
-                        </Card.Body>
-                        <BackButton />
-                    </Card>
-                }
-                {this.state.totpCodeRequired &&
-                    <Card className="card main-card">
-                        <Card.Body className="main-card-body">
-                            <Card.Title className="card-main-title title mt-4 mb-4">Войти в аккаунт</Card.Title>
-                            <Form className="mb-4 mt-3" onSubmit={this.handleLogin} ref={(c) => {
-                                this.form = c;
-                            }}>
-                                {this.state.invalid === true &&
-                                    (<Alert key="danger" variant="danger">
-                                        {this.state.message}
-                                    </Alert>)
-                                }
-                                <Form.Group className="mb-3 form-group" controlId="formBasicEmail">
-                                    <Form.Label>2FA код</Form.Label>
-                                    <Form.Control
-                                        required
-                                        size="lg"
-                                        type="text"
-                                        name="username"
-                                        value={this.state.totpCode}
-                                        onChange={this.onChangeTotpCode}
-                                        placeholder="Введите 2FA код" />
-                                </Form.Group>
-                                <Button className="submit-btn mt-4" variant="secondary" onClick={this.handleLogin}>
-                                    Войти в аккаунт
-                                </Button>
-                            </Form>
-                            <a className="mb-2" style={{ "display": "block" }} href="/register">Забыли пароль?</a>
-                            <p className="plain-text">Нет аккаунта? <a href="/register">Создать аккаунт</a></p>
-                        </Card.Body>
-                        <BackButton />
-                    </Card>
-                }
-            </div>
-        );
-    }
-}
-
-function mapStateToProps(state) {
-    const { isLoggedIn } = state.auth;
-    const { message } = state.message;
-    return {
-        isLoggedIn,
-        message
-    };
-}
-
-export default connect(mapStateToProps)(Login);
