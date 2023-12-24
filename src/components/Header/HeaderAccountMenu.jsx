@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Menu, MenuItem, Typography } from '@mui/material'
 import { headerAccountMenuItems, headerMenuSlotProps } from '../../utils/constants/header'
-import authService from '../../services/auth.service'
+import UserContext from '../../context/user-context'
 
 export const HeaderAccountMenu = ({ anchor, handleCloseMenu }) => {
+  const { logout } = useContext(UserContext);
   const navigate = useNavigate()
 
   const handleClick = (path) => {
     if (path === 'logout') {
-      authService.logout();
+      logout()
       navigate("/login");
       window.location.reload()
     }

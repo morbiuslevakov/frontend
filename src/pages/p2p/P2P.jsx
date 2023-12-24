@@ -29,7 +29,7 @@ function P2P() {
             </div>
             <div className="p2p-body">
                 <Card className="p2p-card">
-                    <a href="/p2p/orders" className="p2p-order-card" style={{ "border-bottom": "1px solid #000" }}>
+                    <a href="/p2p/orders" className="p2p-order-card" style={{ "borderBottom": "1px solid #000" }}>
                         <BoxIcon />
                         <div className="p2p-order-text">
                             <h5 className="p2p-order-title">Мои объявления</h5>

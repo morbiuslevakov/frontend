@@ -1,19 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Stack } from "@mui/material";
-import isLoggedIn from "../../utils/isLoggedIn";
-import { logout } from "../../actions/auth";
 import { HeaderWrapper } from './Styled'
 import { HeaderLogo } from "./HeaderLogo";
 import { HeaderMenu } from "./HeaderMenu";
 import { HeaderAccount } from "./HeaderAccount";
+import UserContext from "../../context/user-context";
 
 export default function Header() {
     const [isLogged, setIsLogged] = useState(false)
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
-        const isUserInStorage = isLoggedIn(logout)
-        setIsLogged(isUserInStorage)
-    }, [])
+        setIsLogged(!!user)
+    }, [user])
 
     return (
         <HeaderWrapper>

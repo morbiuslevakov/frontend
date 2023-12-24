@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -10,42 +9,16 @@ import Trade from "./pages/trade/Trade";
 import P2P from "./pages/p2p/P2P";
 import P2PSell from "./pages/p2p-sell/P2PSell";
 import { history } from './helpers/history';
-import AuthVerify from "./utils/auth-verify";
-import EventBus from "./utils/EventBus";
-import { logout } from "./actions/auth";
-import AuthService from "./services/auth.service";
 import Profile from "./pages/profile/Profile";
 import OrderCreate from "./pages/order-create/OrderCreate";
 import { SharedLayout } from "./pages/shared-layout/SharedLayout";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "./utils/constants/theme";
+import { UserProvider } from "./context/user-context";
 
-class App extends Component {
-
-  constructor(props) {
-    super(props);
-    this.logOut = this.logOut.bind(this);
-  }
-
-  componentDidMount() {
-    EventBus.on("logout", () => {
-      this.logOut();
-    });
-  }
-
-  componentWillUnmount() {
-    EventBus.remove("logout");
-  }
-
-  logOut() {
-    AuthService.logout();
-    history.push("/login");
-    window.location.reload();
-  }
-
-  render() {
-
-    return (
+export const App = () => {
+  return (
+    <UserProvider >
       <ThemeProvider theme={theme}>
         <Router history={history}>
           <Routes>
@@ -60,18 +33,8 @@ class App extends Component {
               <Route exact path={"/profile"} element={<Profile />}></Route>
             </Route>
           </Routes>
-          <AuthVerify logOut={logout} />
         </Router>
       </ThemeProvider>
-    );
-  }
+    </UserProvider>
+  );
 }
-
-function mapStateToProps(state) {
-  const { user } = state.auth;
-  return {
-    user,
-  };
-}
-
-export default connect(mapStateToProps)(App);
