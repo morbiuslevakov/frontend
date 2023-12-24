@@ -9,8 +9,14 @@ export const theme = createTheme({
       main: "#262626",
       light: "#808080",
     },
+    gray: {
+      main: "#898989"
+    },
     lightGray: {
       main: "#808080"
+    },
+    lightBrown: {
+      main: "#a19d9d"
     }
   },
   typography: {
@@ -22,6 +28,9 @@ export const theme = createTheme({
     },
     light: {
       color: "#262626"
+    },
+    gray: {
+      color: "#898989"
     },
     lightGray: {
       color: "#808080"

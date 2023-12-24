@@ -4,7 +4,7 @@ import { ThemeProvider } from "@mui/material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Login from "./pages/login/Login";
-import Register from "./pages/register/Register";
+import { Register } from "./pages/register/Register";
 import Wallet from "./pages/wallet/Wallet";
 import { Trade } from "./pages/trade/Trade";
 import P2P from "./pages/p2p/P2P";
@@ -23,7 +23,7 @@ export const App = () => {
         <Router history={history}>
           <Routes>
             <Route path="/" element={<SharedLayout />}>
-              <Route path={"register"} element={<Register history={history} />}></Route>
+              <Route path={"register"} element={<Register />}></Route>
               <Route path={"login"} element={<Login history={history} />}></Route>
               <Route path={"wallet"} element={<Wallet />}></Route>
               <Route path={"trade"} element={<Trade />}></Route>
