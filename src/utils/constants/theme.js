@@ -17,7 +17,7 @@ export const theme = createTheme({
     },
     lightBrown: {
       main: "#a19d9d"
-    }
+    },
   },
   typography: {
     fontFamily: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
