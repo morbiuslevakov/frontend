@@ -10,7 +10,7 @@ import { Trade } from "./pages/trade/Trade";
 import P2P from "./pages/p2p/P2P";
 import P2PSell from "./pages/p2p-sell/P2PSell";
 import { history } from './helpers/history';
-import Profile from "./pages/profile/Profile";
+import { Profile } from "./pages/profile/Profile";
 import OrderCreate from "./pages/order-create/OrderCreate";
 import { SharedLayout } from "./pages/shared-layout/SharedLayout";
 import { theme } from "./utils/constants/theme";
@@ -24,7 +24,7 @@ export const App = () => {
           <Routes>
             <Route path="/" element={<SharedLayout />}>
               <Route path={"register"} element={<Register />}></Route>
-              <Route path={"login"} element={<Login history={history} />}></Route>
+              <Route path={"login"} element={<Login />}></Route>
               <Route path={"wallet"} element={<Wallet />}></Route>
               <Route path={"trade"} element={<Trade />}></Route>
               <Route path={"p2p"} element={<P2P />}></Route>

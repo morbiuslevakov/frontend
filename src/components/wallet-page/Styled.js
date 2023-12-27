@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Stack, styled } from "@mui/material"
+import { Box, Button, Stack, styled } from "@mui/material"
 
 export const Wrapper = styled(Stack)({
   flexDirection: 'column',
@@ -13,11 +13,6 @@ export const PageContent = styled(Box)({
 export const WalletTokensWrapper = styled(Box)({
   background: "#262626",
   borderRadius: "15px"
-})
-
-export const UserAvatart = styled(Avatar)({
-  width: "180px",
-  height: "180px"
 })
 
 export const BalanceCurrency = styled(Box)({

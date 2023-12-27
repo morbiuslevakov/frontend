@@ -90,12 +90,6 @@ hr {
   margin-left: auto;
   align-items: center;
 }
-.text-muted {
-  color: #929ba8!important;
-  font-size: 0.75rem!important;
-  box-sizing: border-box;
-  line-height: 16px;
-}
 .card-footer {
   height: 48px;
   color: #898989;

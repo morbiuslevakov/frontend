@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import { Loader } from "../components/loader/Loader";
 
 const UserContext = createContext({
   user: null,
@@ -25,7 +26,7 @@ export const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider value={{ user, setUser, logout }}>
-      {!isLoading ? children : <div>Loading...</div>}
+      {!isLoading ? children : <Loader />}
     </UserContext.Provider>
   );
 };
