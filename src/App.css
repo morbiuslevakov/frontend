@@ -153,15 +153,6 @@ a {
 .tbody, td, tfoot, th, thead, tr {
   border-color: gray;
 }
-.table-container {
-  background: #2D2E2F;
-  box-shadow: 12px 18px 24px 8px rgba(0, 0, 0, 0.25);
-  border-radius: 8.5px;
-  width: 70% !important;
-  border: 0;
-  color: white!important;
-  margin: auto;
-}
 .profile {
   box-sizing: border-box;
 }
@@ -173,29 +164,6 @@ a {
   background-color: #2EA6A6FF!important;
   width: 100%;
   border: none;
-}
-.modal-form-control {
-  background-color: #1E1E1E!important;
-  border: none;
-}
-.transaction-btn {
-  background-color: unset;
-  box-shadow: none;
-  border: none;
-  color: white;
-  font-weight: 600;
-}
-.transaction-buttons {
-  text-align: center;
-  display: block!important;
-  margin: auto!important;
-}
-.custom-label {
-  display: inline-block;
-  float: right;
-}
-.commission-label {
-  display: inline-block;
 }
 .bi-question-circle {
   margin-left: 5px;
@@ -223,9 +191,6 @@ a {
 .form-select:focus {
   outline: none;
   box-shadow: none;
-}
-.form-control:disabled {
-  background-color: #242a3c;
 }
 .p2p-btn {
   height: 48px;
@@ -381,14 +346,6 @@ a {
   border-right: none;
   border-bottom: 1px solid #181818 !important;
 }
-.form-control.is-invalid, .was-validated .form-control:invalid:focus {
-  border-bottom: 2px solid #E03D3D!important;
-  box-shadow: none!important;
-  background-image: none;
-}
-.form-control.is-invalid:hover, .form-control.is-invalid:focus {
-  border-bottom: 2px solid #E03D3D !important;
-}
 .rnc__notification-container--top-right {
   right: 20px;
   top: 20px;
@@ -530,20 +487,11 @@ label {
   .h6, h6 {
     font-size: 0.80rem!important;
   }
-  .transaction-btn {
-    font-size: 0.85rem;
-  }
 }
 @media (max-width: 1025px) {
-  .table-container {
-    width: 80% !important;
-  }
   .transaction-icon {
     width: 32px;
     height: 32px;
-  }
-  .transaction-btn {
-    font-size: 0.8rem;
   }
 }
 @media (max-width: 992px) {
@@ -556,10 +504,6 @@ label {
   .register-link {
     float: left!important;
   }
-  .transaction-btn {
-    font-size: 0.7rem;
-  }
-
 }
 @media (max-width: 768px) {
   .svg-email {
@@ -569,12 +513,6 @@ label {
   .p2p-title {
     font-size: 1.5rem;
   }
-  .table-container {
-    width: 100% !important;
-  }
-  .transaction-btn {
-    font-size: 0.75rem;
-  }
 }
 @media (max-width: 665px) {
   .p2p-header {
@@ -582,9 +520,6 @@ label {
   }
   .p2p-body {
     width: 90vw;
-  }
-  .transaction-btn {
-    font-size: 0.7rem;
   }
 }
 @media (max-width: 550px) {
@@ -594,9 +529,6 @@ label {
   .yusra-icon {
     width: 40px;
     height: 40px;
-  }
-  .transaction-btn {
-    font-size: 0.65rem;
   }
 }
 @media (max-width: 480px) {
@@ -621,8 +553,5 @@ label {
   }
   .h6, h6 {
     font-size: 0.5rem!important;
-  }
-  .transaction-btn {
-    font-size: 0.5rem;
   }
 }

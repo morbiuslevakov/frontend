@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Login } from "./pages/login/Login";
 import { Register } from "./pages/register/Register";
-import Wallet from "./pages/wallet/Wallet";
+import { Wallet } from "./pages/wallet/Wallet";
 import { Trade } from "./pages/trade/Trade";
 import P2P from "./pages/p2p/P2P";
 import P2PSell from "./pages/p2p-sell/P2PSell";
