@@ -17,7 +17,7 @@ export const Wallet = () => {
         <Wrapper>
             <PageContent>
                 <Stack mt={10} gap={7}>
-                    <UserSection />
+                    <UserSection user={user} />
                     <TokensTable tokensRows={tokensRows} />
                 </Stack>
             </PageContent>

@@ -21,7 +21,7 @@ export default function Header() {
                     <HeaderLogo />
                     <HeaderMenu isLogged={isLogged} />
                 </Stack>
-                <HeaderAccount isLogged={isLogged} />
+                <HeaderAccount isLogged={isLogged} user={user} />
             </Stack>
         </HeaderWrapper>
     );
