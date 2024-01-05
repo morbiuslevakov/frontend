@@ -8,7 +8,7 @@ import { TotalBalance } from './TotalBalance';
 import { LargeAvatar } from '../avatar/LargeAvatar';
 
 export const UserSection = ({ user, walletInfo }) => {
-  const userBalance = walletInfo.balance.toFixed(2);
+  const userBalance = walletInfo.balance?.toFixed(2);
   const currencySymbol = walletInfo.symbol;
 
   return (
