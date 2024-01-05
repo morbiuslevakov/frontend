@@ -48,7 +48,7 @@ export const postUserLoginToApi = async (payload) => {
 }
 
 export const getWalletFromApi = async (token) => {
-  const url = `${apiUrl}/wallet/balances`
+  const url = `${apiUrl}/wallet/balances/RUB`
   const config = buildAuthorizationApiConfig(token)
   try {
     const response = await axios.get(url, config)

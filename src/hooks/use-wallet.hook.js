@@ -8,6 +8,7 @@ export const useWallet = () => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
 
+  const [walletInfo, setWalletInfo] = useState({})
   const [userBalance, setUserBalance] = useState({});
   const [tokensRows, setTokensRows] = useState([]);
 
@@ -27,7 +28,8 @@ export const useWallet = () => {
   const fetchWalletInfo = useCallback(async (token) => {
     try {
       const res = await getWalletFromApi(token);
-      setUserBalance(res.balance);
+      setUserBalance(res.assets);
+      setWalletInfo(res)
     } catch (error) {
       const newToken = await updateAccessToken();
       fetchWalletInfo(newToken);
@@ -44,11 +46,12 @@ export const useWallet = () => {
     if (userBalance) {
       const newTokenRows = Object.keys(userBalance).map(key => {
         const currentItem = userBalance[key];
-        return createTokenData(currentItem.alias, currentItem.balance, 100, 2);
+        const tokenPrice = currentItem.price.toFixed(2)
+        return createTokenData(currentItem.alias, currentItem.balance, currentItem.balance, tokenPrice);
       });
       setTokensRows(newTokenRows);
     }
   }, [userBalance]);
 
-  return { user, tokensRows }
+  return { user, tokensRows, walletInfo }
 }

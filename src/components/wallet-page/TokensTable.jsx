@@ -3,7 +3,10 @@ import { Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 import CurrencyBitcoinRoundedIcon from '@mui/icons-material/CurrencyBitcoinRounded';
 import { WalletTokensWrapper } from './Styled'
 
-export const TokensTable = ({ tokensRows }) => {
+export const TokensTable = ({ tokensRows, walletInfo }) => {
+  const currency = walletInfo.currency;
+  const currencySymbol = walletInfo.symbol;
+
   return (
     <TableContainer component={WalletTokensWrapper}>
       <Table aria-label="tokens table">
@@ -11,8 +14,8 @@ export const TokensTable = ({ tokensRows }) => {
           <TableRow>
             <TableCell ><Typography>Токен</Typography></TableCell>
             <TableCell align="right"><Typography>Баланс</Typography></TableCell>
-            <TableCell align="right"><Typography>Баланс, USD</Typography></TableCell>
-            <TableCell align="right"><Typography>Цена токена, USD</Typography></TableCell>
+            <TableCell align="right"><Typography>Баланс, {currency}</Typography></TableCell>
+            <TableCell align="right"><Typography>Цена токена, {currency}</Typography></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -28,8 +31,8 @@ export const TokensTable = ({ tokensRows }) => {
                 </Stack>
               </TableCell>
               <TableCell align="right"><Typography>{row.amount}</Typography></TableCell>
-              <TableCell align="right"><Typography>${row.amountUsd}</Typography></TableCell>
-              <TableCell align="right"><Typography>${row.priceUsd}</Typography></TableCell>
+              <TableCell align="right"><Typography>{currencySymbol} {row.amountUsd}</Typography></TableCell>
+              <TableCell align="right"><Typography>{currencySymbol} {row.priceUsd}</Typography></TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -7,7 +7,10 @@ import { WalletButton } from './Styled'
 import { TotalBalance } from './TotalBalance';
 import { LargeAvatar } from '../avatar/LargeAvatar';
 
-export const UserSection = ({ user }) => {
+export const UserSection = ({ user, walletInfo }) => {
+  const userBalance = walletInfo.balance.toFixed(2);
+  const currencySymbol = walletInfo.symbol;
+
   return (
     <Stack flexDirection={'row'} alignItems={'center'} gap={6}>
       <LargeAvatar name={user.name} />
@@ -16,7 +19,7 @@ export const UserSection = ({ user }) => {
           <Typography variant="gray" fontWeight={600} fontSize={18}>Общий баланс</Typography>
           <HelpOutlineRoundedIcon color="gray" />
         </Stack>
-        <TotalBalance currency='$' balance="7616.16" />
+        <TotalBalance currency={currencySymbol} balance={userBalance} />
         <WalletButton variant="outlined"><CallMadeRoundedIcon />Отправить</WalletButton>
         <WalletButton variant="outlined"><CallReceivedRoundedIcon />Получить</WalletButton>
       </Stack>
