@@ -50,11 +50,6 @@ body {
   background: linear-gradient(360deg, #0A57FF 0%, rgba(11, 84, 241, 0.39) 100%);
   border-radius: 10px;
 }
-.svg {
-  float: right;
-  margin: auto;
-  white-space: nowrap;
-}
 .card-text {
   clear: both;
   float: left;
@@ -82,14 +77,6 @@ hr {
   overflow: auto;
   margin-right: unset!important;
 }
-.register-btn {
-  display: flex;
-  float: right!important;
-  background: none!important;
-  color: gray;
-  margin-left: auto;
-  align-items: center;
-}
 .card-footer {
   height: 48px;
   color: #898989;
@@ -107,13 +94,6 @@ a {
 .back-svg {
   margin-right: 10px;
 }
-.avatar {
-  color: #898989!important;
-  float: right!important;
-  border-radius: 50%;
-  width: 56px!important;
-  height: 56px!important;
-}
 .dropdown-menu {
   margin: 0;
   position: absolute;
@@ -129,12 +109,6 @@ a {
   border: none!important;
   outline: none!important;
   box-shadow: none!important;
-}
-.avatar-block {
-  --bs-nav-link-padding-x: 1rem;
-  --bs-nav-link-padding-y: 0.5rem;
-  display: flex!important;
-  float: right!important;
 }
 .dropdown-toggle::after {
   border: solid white;
@@ -186,34 +160,7 @@ a {
   outline: none;
   box-shadow: none;
 }
-.p2p-btn {
-  height: 48px;
-  margin: 5px;
-  --bs-btn-bg: #2D2E2F!important;
-  font-weight: 500;
-  text-align: center;
-}
 
-.p2p-btns {
-  text-align: center;
-  width: 100%;
-  display: block!important;
-  margin: auto!important;
-}
-.p2p-header {
-  margin: auto;
-  width: 50vw;
-}
-.p2p-body {
-  margin: auto;
-  width: 50vw;
-}
-.p2p-card {
-  width: 100%;
-  overflow: auto;
-  border-radius: 8.5px!important;
-  background-color: #2D2E2F!important;
-}
 .modal-content {
   background-color: #2D2E2F!important;
   border: .5px solid gray;
@@ -266,23 +213,6 @@ a {
   font-size: .75rem;
   margin-bottom: .25rem;
 }
-.p2p-order-icon {
-  color: gray;
-  height: 20px;
-  width: 20px;
-  display: inline-block;
-  float: left!important;
-  vertical-align: middle;
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-left: 10px;
-}
-.p2p-order-text {
-  margin-top: auto;
-  margin-bottom: auto;
-  display: inline-block!important;
-  margin-left: 20px;
-}
 .order-type-ratio {
   text-align: right!important;
   float: right!important;
@@ -298,23 +228,6 @@ a {
   --bs-btn-border-radius: none;
   font-weight: 500!important;
 }
-.p2p-order-blackspace {
-  height: 10px!important;
-  background-color: black;
-  opacity: 0.6;
-  text-align: left!important;
-}
-.p2p-order-input-group {
-  border-radius: unset;
-  padding-bottom: 5px;
-  margin-left: 20px;
-  margin-right: 20px;
-  width: auto!important;
-}
-.p2p-order-found {
-  height: auto!important;
-  padding: 3px 20px;
-}
 .input-group-text {
   background-color: inherit;
   border: none;
@@ -323,23 +236,7 @@ a {
   border-radius: unset;
   float: left;
 }
-.p2p-order-input-field {
-  display: block!important;
-  text-align: left!important;
-  height: auto!important;
-  border: none;
-}
-.p2p-order-field {
-  background-color: #2D2E2F;
-  display: block;
-  padding: 0;
-  height: auto!important;
-  border-radius: unset;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 1px solid #181818 !important;
-}
+
 .rnc__notification-container--top-right {
   right: 20px;
   top: 20px;
@@ -375,38 +272,6 @@ a {
   --bs-list-group-bg: #505154;
   transition: .3s;
 }
-.payment-add-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-}
-.p2p-btn:hover {
-  background-color: unset!important;
-}
-.p2p-order-field-invalid {
-  background-color: #2D2E2F;
-  display: block;
-  padding: 0;
-  height: auto!important;
-  border-radius: unset;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 2px solid #E03D3D !important;
-}
-.p2p-order-field:focus {
-  background-color: #2D2E2F;
-  border: none;
-  transition: all .5s;
-  border-bottom: 2px solid aqua!important;
-}
-.p2p-order-field-invalid:focus {
-  background-color: #2D2E2F;
-  border: none;
-  transition: all .5s;
-  border-bottom: 2px solid #E03D3D!important;
-}
 .maximum-button {
   border: none;
   background-color: unset;
@@ -426,126 +291,4 @@ label {
   padding: 0;
   font-weight: 500!important;
   border: none;
-}
-.p2p-order-card {
-  color: white;
-  height: 60px;
-  display: flex;
-  text-align: left;
-  vertical-align: middle;
-}
-.p2p-order-input {
-  clear: both;
-  color: white;
-  height: 60px;
-  display: flex;
-}
-.p2p-order-title {
-  display: inline-block;
-  line-height: 0.9rem;
-}
-.p2p-order-description {
-  color: gray;
-  margin-bottom: auto;
-  line-height: 0.9rem;
-  font-size: 0.9rem;
-}
-.btn-buy {
-  width: 50%;
-  display: inline-block;
-  position: relative;
-}
-.btn-sell {
-  display: inline-block;
-  position: relative;
-}
-.p2p-icon {
-  margin-right: 10px;
-}
-.p2p-title {
-  text-align: center;
-  display: block!important;
-  font-weight: 700;
-  color: white;
-  font-size: 1.75rem;
-}
-.p2p-description {
-  text-align: center;
-  display: block!important;
-  color: gray;
-}
-@media (max-width: 1200px) {
-  .p2p-body {
-    width: 70vw;
-  }
-  .h6, h6 {
-    font-size: 0.80rem!important;
-  }
-}
-@media (max-width: 1025px) {
-  .transaction-icon {
-    width: 32px;
-    height: 32px;
-  }
-}
-@media (max-width: 992px) {
-  .p2p-body {
-    width: 80vw;
-  }
-  .register-btn {
-    float: left!important;
-  }
-  .register-link {
-    float: left!important;
-  }
-}
-@media (max-width: 768px) {
-  .svg-email {
-    width: 70px;
-    height: 68px;
-  }
-  .p2p-title {
-    font-size: 1.5rem;
-  }
-}
-@media (max-width: 665px) {
-  .p2p-header {
-    width: 70vw;
-  }
-  .p2p-body {
-    width: 90vw;
-  }
-}
-@media (max-width: 550px) {
-  .h6, h6 {
-    font-size: 0.75rem!important;
-  }
-  .yusra-icon {
-    width: 40px;
-    height: 40px;
-  }
-}
-@media (max-width: 480px) {
-  .svg-email {
-    width: 60px;
-    height: 58px;
-  }
-  .p2p-header {
-    width: 80vw;
-  }
-  .h6, h6 {
-    font-size: 0.65rem!important;
-  }
-}
-@media (max-width: 390px) {
-  .p2p-header {
-    width: 90vw;
-  }
-  .svg-email {
-    width: 50px;
-    height: 48px;
-  }
-  .h6, h6 {
-    font-size: 0.5rem!important;
-  }
 }

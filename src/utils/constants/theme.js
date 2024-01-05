@@ -18,6 +18,9 @@ export const theme = createTheme({
     lightBrown: {
       main: "#a19d9d"
     },
+    blue: {
+      main: "#89BCD3"
+    }
   },
   typography: {
     fontFamily: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -30,7 +33,8 @@ export const theme = createTheme({
       color: "#262626"
     },
     gray: {
-      color: "#898989"
+      color: "#898989",
+      fontWeight: 400
     },
     lightGray: {
       color: "#808080"
