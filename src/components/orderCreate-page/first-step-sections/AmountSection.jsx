@@ -8,7 +8,7 @@ export const AmountSection = ({ errorMessage, amount, setAmount, selectedToken }
       <FormContentWrapper>
         <Stack gap={1}>
           <Typography variant='blue' fontWeight={600}>Сумма</Typography>
-          <FormInput error={!!errorMessage} helperText={errorMessage} variant="standard" error={false} helperText="" onChange={(event) => { setAmount(event.target.value) }} value={amount} type="number" placeholder="5 ~ 10000" endAdornment={<Typography variant='gray'>{selectedToken}</Typography>} />
+          <FormInput error={!!errorMessage} helperText={errorMessage} variant="standard" onChange={(event) => { setAmount(event.target.value) }} value={amount} type="number" placeholder="5 ~ 10000" endAdornment={<Typography variant='gray'>{selectedToken}</Typography>} />
         </Stack>
       </FormContentWrapper>
     </FormSectionWrapper>
