@@ -11,6 +11,7 @@ export const useWallet = () => {
   const [walletInfo, setWalletInfo] = useState({})
   const [userBalance, setUserBalance] = useState({});
   const [tokensRows, setTokensRows] = useState([]);
+  const [currency, setCurrency] = useState("RUB")
 
   const updateAccessToken = useCallback(async () => {
     try {
@@ -25,9 +26,9 @@ export const useWallet = () => {
     }
   }, [navigate, setUser, user])
 
-  const fetchWalletInfo = useCallback(async (token) => {
+  const fetchWalletInfo = useCallback(async (token, currency) => {
     try {
-      const res = await getWalletFromApi(token);
+      const res = await getWalletFromApi(token, currency);
       setUserBalance(res.assets);
       setWalletInfo(res)
     } catch (error) {
@@ -38,20 +39,21 @@ export const useWallet = () => {
 
   useEffect(() => {
     if (user && user.accessToken) {
-      fetchWalletInfo(user.accessToken);
+      fetchWalletInfo(user.accessToken, currency);
     }
-  }, [user, fetchWalletInfo]);
+  }, [user, fetchWalletInfo, currency]);
 
   useEffect(() => {
     if (userBalance) {
       const newTokenRows = Object.keys(userBalance).map(key => {
         const currentItem = userBalance[key];
         const tokenPrice = currentItem.price.toFixed(2)
-        return createTokenData(currentItem.alias, currentItem.balance, currentItem.balance, tokenPrice);
+        const tokenBalance = currentItem.sum.toFixed(2)
+        return createTokenData(currentItem.svgIcon, currentItem.alias, currentItem.balance, tokenBalance, tokenPrice);
       });
       setTokensRows(newTokenRows);
     }
   }, [userBalance]);
 
-  return { user, tokensRows, walletInfo }
+  return { user, tokensRows, walletInfo, currency, setCurrency }
 }

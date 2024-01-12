@@ -27,3 +27,13 @@ export const WalletButton = styled(Button)({
   display: 'flex',
   gap: '5px'
 })
+
+export const TokenIcon = styled(Box)({
+  width: "24px",
+  height: "24px",
+  img: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover"
+  }
+})

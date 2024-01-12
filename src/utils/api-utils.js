@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = "https://deaslideproperty.com/api";
+const apiUrl = "https://api.deaslide.com/api";
 
 export const apiConfig = {
   withCredentials: true,
@@ -19,7 +19,7 @@ const buildAuthorizationApiConfig = (token) => {
   };
 }
 
-const buildRefreshTonekBody = (refreshToken) => {
+const buildRefreshTokenBody = (refreshToken) => {
   return {
     "refreshToken": refreshToken
   }
@@ -47,8 +47,8 @@ export const postUserLoginToApi = async (payload) => {
   }
 }
 
-export const getWalletFromApi = async (token) => {
-  const url = `${apiUrl}/wallet/balances/RUB`
+export const getWalletFromApi = async (token, currency) => {
+  const url = `${apiUrl}/wallet/balances/${currency}`
   const config = buildAuthorizationApiConfig(token)
   try {
     const response = await axios.get(url, config)
@@ -61,7 +61,7 @@ export const getWalletFromApi = async (token) => {
 
 export const refreshAccessToken = async (refreshToken) => {
   const url = `${apiUrl}/auth/refresh-token`
-  const payload = buildRefreshTonekBody(refreshToken)
+  const payload = buildRefreshTokenBody(refreshToken)
   try {
     const response = await axios.post(url, payload, apiConfig)
     return response.data;
@@ -71,3 +71,14 @@ export const refreshAccessToken = async (refreshToken) => {
   }
 }
 
+export const getCurrenciesFromApi = async (token) => {
+  const url = `${apiUrl}/wallet/balances`
+  const config = buildAuthorizationApiConfig(token)
+  try {
+    const response = await axios.get(url, config)
+    return response.data;
+  } catch (error) {
+    const apiError = error.response.data
+    throw apiError
+  }
+}

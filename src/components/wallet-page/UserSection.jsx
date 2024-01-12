@@ -8,12 +8,14 @@ import { TotalBalance } from './TotalBalance';
 import { LargeAvatar } from '../avatar/LargeAvatar';
 
 export const UserSection = ({ user, walletInfo }) => {
-  const userBalance = walletInfo.balance?.toFixed(2);
+  const userBalance = walletInfo.sum?.toFixed(2);
   const currencySymbol = walletInfo.symbol;
+
+  // console.log(walletInfo)
 
   return (
     <Stack flexDirection={'row'} alignItems={'center'} gap={6}>
-      <LargeAvatar name={user.name} />
+      <LargeAvatar username={user.username} />
       <Stack gap={1} alignItems={'start'}>
         <Stack flexDirection={'row'} gap={1} alignItems={'center'}>
           <Typography variant="gray" fontWeight={600} fontSize={18}>Общий баланс</Typography>

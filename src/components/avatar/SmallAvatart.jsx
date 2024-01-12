@@ -1,7 +1,14 @@
 import React from 'react'
+import { SmallUserAvatar } from './Styled'
 
-export const SmallAvatart = () => {
+export const SmallAvatar = ({ link, username }) => {
+  const firstUsernameLetter = username[0] || ''
+
+  if (link) {
+    return <SmallUserAvatar alt="user-avatar" src={link} />
+  }
+
   return (
-    <div>SmallAvatart</div>
+    <SmallUserAvatar>{firstUsernameLetter}</SmallUserAvatar>
   )
 }

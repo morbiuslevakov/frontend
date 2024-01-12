@@ -4,7 +4,6 @@ import { PageContent, Wrapper } from "../../components/p2p-page/Styled";
 import { PageHeader } from "../../components/p2p-page/PageHeader";
 import { ControlButtons } from "../../components/p2p-page/ControlButtons";
 import { AddsSection } from "../../components/p2p-page/AddsSection";
-import { Outlet } from "react-router-dom";
 
 export const P2P = () => {
     return (
@@ -15,7 +14,6 @@ export const P2P = () => {
                     <ControlButtons />
                 </Stack>
                 <AddsSection />
-                <Outlet />
             </PageContent>
         </Wrapper>
     )

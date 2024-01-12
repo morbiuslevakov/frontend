@@ -52,7 +52,6 @@ body {
 }
 .card-text {
   clear: both;
-  float: left;
   text-align: left;
   display: inline-block;
 }
@@ -147,7 +146,6 @@ a {
 }
 
 .btn-close {
-  --bs-btn-close-bg: url('./images/close.svg');
   border: 10px solid red
 }
 .form-select {

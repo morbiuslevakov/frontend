@@ -26,13 +26,11 @@ export const SubmitButton = styled(Button)({
 export const CardContent = styled(Stack)({
   padding: '20px',
   alignItems: "center",
-  width: '100%'
 })
 
 export const CustomFormCard = styled(DefaultCard)({
   width: '60%'
 })
-
 
 export const CustomInput = styled(OutlinedInput)({
   color: "#FFF",

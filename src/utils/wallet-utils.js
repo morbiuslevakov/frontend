@@ -1,3 +1,3 @@
-export const createTokenData = (name, amount, amountUsd, priceUsd) => {
-  return { name, amount, amountUsd, priceUsd };
+export const createTokenData = (svgIcon, name, amount, balance, tokenPrice) => {
+  return { svgIcon, name, amount, balance, tokenPrice };
 }

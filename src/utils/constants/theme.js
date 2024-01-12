@@ -20,6 +20,9 @@ export const theme = createTheme({
     },
     blue: {
       main: "#89BCD3"
+    },
+    dark: {
+      main: "#151515"
     }
   },
   typography: {
@@ -41,6 +44,9 @@ export const theme = createTheme({
     },
     lightBrown: {
       color: "#a19d9d"
-    }
+    },
+    blue: {
+      color: "#89BCD3"
+    },
   },
 });

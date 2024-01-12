@@ -1,7 +1,6 @@
 import React from 'react'
 import { Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
-import CurrencyBitcoinRoundedIcon from '@mui/icons-material/CurrencyBitcoinRounded';
-import { WalletTokensWrapper } from './Styled'
+import { TokenIcon, WalletTokensWrapper } from './Styled'
 
 export const TokensTable = ({ tokensRows, walletInfo }) => {
   const currency = walletInfo.currency;
@@ -12,10 +11,10 @@ export const TokensTable = ({ tokensRows, walletInfo }) => {
       <Table aria-label="tokens table">
         <TableHead>
           <TableRow>
-            <TableCell ><Typography>Токен</Typography></TableCell>
-            <TableCell align="right"><Typography>Баланс</Typography></TableCell>
-            <TableCell align="right"><Typography>Баланс, {currency}</Typography></TableCell>
-            <TableCell align="right"><Typography>Цена токена, {currency}</Typography></TableCell>
+            <TableCell><Typography>ТОКЕН</Typography></TableCell>
+            <TableCell><Typography>БАЛАНС</Typography></TableCell>
+            <TableCell><Typography>БАЛАНС, {currency}</Typography></TableCell>
+            <TableCell><Typography>ЦЕНА ТОКЕНА, {currency}</Typography></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -26,17 +25,19 @@ export const TokensTable = ({ tokensRows, walletInfo }) => {
             >
               <TableCell component="th" scope="row">
                 <Stack flexDirection={'row'} gap={1}>
-                  <CurrencyBitcoinRoundedIcon color="primary" />
+                  <TokenIcon>
+                    <img src={"https://s3.deaslide.com/" + row.svgIcon} alt={row.name} />
+                  </TokenIcon>
                   <Typography>{row.name}</Typography>
                 </Stack>
               </TableCell>
-              <TableCell align="right"><Typography>{row.amount}</Typography></TableCell>
-              <TableCell align="right"><Typography>{currencySymbol} {row.amountUsd}</Typography></TableCell>
-              <TableCell align="right"><Typography>{currencySymbol} {row.priceUsd}</Typography></TableCell>
+              <TableCell><Typography>{row.amount}</Typography></TableCell>
+              <TableCell><Typography>{currencySymbol} {row.balance}</Typography></TableCell>
+              <TableCell><Typography>{currencySymbol} {row.tokenPrice}</Typography></TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
+    </TableContainer >
   )
 }

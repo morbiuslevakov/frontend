@@ -28,7 +28,7 @@ export const HeaderAccount = ({ isLogged, user }) => {
     <>
       <Tooltip title="Профиль">
         <IconButton onClick={handleOpenUserMenu}>
-          <Avatar name={user.name} />
+          <Avatar username={user.username} />
         </IconButton>
       </Tooltip>
       <HeaderAccountMenu anchor={anchorEl} handleCloseMenu={handleCloseMenu} />

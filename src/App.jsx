@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Login } from "./pages/login/Login";
 import { Register } from "./pages/register/Register";
@@ -9,7 +8,6 @@ import { Wallet } from "./pages/wallet/Wallet";
 import { Trade } from "./pages/trade/Trade";
 import { P2P } from "./pages/p2p/P2P";
 import { P2PSell } from "./pages/p2p-sell/P2PSell";
-import { history } from './helpers/history';
 import { Profile } from "./pages/profile/Profile";
 import { OrderCreate } from "./pages/order-create/OrderCreate";
 import { SharedLayout } from "./pages/shared-layout/SharedLayout";
@@ -20,7 +18,7 @@ export const App = () => {
   return (
     <UserProvider >
       <ThemeProvider theme={theme}>
-        <Router history={history}>
+        <Router>
           <Routes>
             <Route path="/" element={<SharedLayout />}>
               <Route path="register" element={<Register />}></Route>
