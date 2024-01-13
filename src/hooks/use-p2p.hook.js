@@ -8,6 +8,7 @@ export const useP2P = () => {
   const { user } = useContext(UserContext)
   const { walletInfo, currency, setCurrency } = useWallet();
   const allTokens = []
+  const [limit, setLimit] = useState(walletInfo.limit)
 
   useEffect(() => {
     const fetchCurrencies = async () => {
@@ -21,6 +22,7 @@ export const useP2P = () => {
         console.log(error)
       })
     }
+    setLimit(walletInfo.limit)
   }, [user.accessToken, walletInfo])
 
   const tokens = walletInfo.assets;
@@ -33,5 +35,5 @@ export const useP2P = () => {
 
   const isLoading = allTokens.length && walletInfo && allCurrencies.length;
 
-  return { walletInfo, allTokens, isLoading, allCurrencies, currency, setCurrency }
+  return { walletInfo, allTokens, isLoading, allCurrencies, currency, setCurrency, limit }
 }

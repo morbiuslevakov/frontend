@@ -14,7 +14,7 @@ export const PricesInfoSection = ({ states }) => {
         </Stack>
         <Stack flexDirection={'row'} gap={1}>
           <Typography variant='gray'>Ваша цена:</Typography>
-          <Typography>0,00{states.walletInfo.symbol} за 1 {states.selectedToken}</Typography>
+          <Typography>{states.customTokenPrice}{states.walletInfo.symbol} за 1 {states.selectedToken}</Typography>
         </Stack>
       </Box>
     </FormContentWrapper>
