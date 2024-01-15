@@ -1,22 +1,24 @@
 import React from 'react'
 import { Stack } from '@mui/material'
-import { PaymentPreview } from './second-step-sections/PaymentPreview'
-
-const mockPayments = [
-  { id: 696969, name: "Сбербанк", currency: "RUB", number: "79999999999" },
-  { id: 109245, name: "Тинькоф", currency: "RUB", number: "+79956327213" },
-  { id: 456386, name: "Альфа-банк", currency: "RUB", number: "79999912345" },
-  { id: 982536, name: "СБП", currency: "RUB", number: "+79956327213" }
-]
+import { BankPreview } from './second-step-sections/BankPreview'
+import { useBanks } from '../../hooks/use-banks.hook'
+import { PaymentMethod } from './second-step-sections/PaymentMethod'
 
 export const SecondStep = ({ states, setState }) => {
+  const { allBanks, userPaymentMethods, addPaymentMethod } = useBanks(states.currency)
+
   return (
-    <>
+    <Stack gap={2}>
       <Stack gap={0.2}>
-        {mockPayments.map(payment => {
-          return <PaymentPreview key={payment.id} payment={payment} selectedMehod={states.paymentMethod} setPayment={setState.paymentMethod} />
+        {userPaymentMethods.map(method => {
+          return <PaymentMethod key={method.id} method={method} states={states} setPaymentMethods={setState.paymentMethods} />
         })}
       </Stack>
-    </>
+      <Stack gap={0.2}>
+        {allBanks.map(bank => {
+          return <BankPreview key={bank.id} bank={bank} currency={states.currency} addPaymentMethod={addPaymentMethod} />
+        })}
+      </Stack>
+    </Stack>
   )
 }

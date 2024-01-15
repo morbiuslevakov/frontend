@@ -3,7 +3,7 @@ import { Typography } from '@mui/material'
 import { CurrencyWrapper, FormContentWrapper, FormSectionWrapper, FormStack } from '../Styled'
 import { ListDrawer } from '../../drawer/ListDrawer'
 
-export const CurrencySection = ({ allCurrencies, currency, handleCurrencySelect }) => {
+export const CurrencySection = ({ allCurrencies, currency, setCurrency }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleDrawer = () => {
@@ -11,7 +11,7 @@ export const CurrencySection = ({ allCurrencies, currency, handleCurrencySelect 
   }
 
   const handleCurrency = (value) => {
-    handleCurrencySelect(value)
+    setCurrency(value)
     handleDrawer()
   }
 

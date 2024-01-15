@@ -33,7 +33,7 @@ export const useWallet = () => {
       setWalletInfo(res)
     } catch (error) {
       const newToken = await updateAccessToken();
-      fetchWalletInfo(newToken);
+      fetchWalletInfo(newToken, currency);
     }
   }, [updateAccessToken])
 

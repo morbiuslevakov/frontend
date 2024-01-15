@@ -2,7 +2,15 @@ import React from 'react'
 import { Button, Stack, Typography } from '@mui/material'
 import { ControlSectionText, FormContentWrapper, FormSectionWrapper, FormStack } from '../Styled'
 
-export const ControlSection = ({ orderAction, buyHandler, sellHandler }) => {
+export const ControlSection = ({ orderAction, setOrderAction }) => {
+  const buyHandler = () => {
+    setOrderAction("BUY")
+  }
+
+  const sellHandler = () => {
+    setOrderAction("SELL")
+  }
+
   return (
     <FormSectionWrapper>
       <FormContentWrapper>
@@ -10,10 +18,10 @@ export const ControlSection = ({ orderAction, buyHandler, sellHandler }) => {
           <Typography>Я хочу</Typography>
           <Stack flexDirection={'row'} gap={1}>
             <Button onClick={buyHandler}>
-              <ControlSectionText active={String(orderAction === "Купить")}>Купить</ControlSectionText>
+              <ControlSectionText active={String(orderAction === "BUY")}>Купить</ControlSectionText>
             </Button>
             <Button onClick={sellHandler}>
-              <ControlSectionText active={String(orderAction === "Продать")}>Продать</ControlSectionText>
+              <ControlSectionText active={String(orderAction === "SELL")}>Продать</ControlSectionText>
             </Button>
           </Stack>
         </FormStack>

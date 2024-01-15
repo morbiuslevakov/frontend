@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useP2P } from './use-p2p.hook'
+import { buildOrderData } from '../utils/p2p-utils'
+import { postOrderToApi } from '../utils/api-utils'
 
 export const useOrderCreate = () => {
   const [currentStep, setCurrentStep] = useState(1)
-  const [orderAction, setOrderAction] = useState('Продать')
+  const [orderAction, setOrderAction] = useState('SELL')
   const [selectedToken, setSelectedToken] = useState("YUSRA")
-  const [priceType, setPriceType] = useState("float")
-  const { walletInfo, allTokens, isLoading, allCurrencies, currency, setCurrency, limit } = useP2P()
+  const [priceType, setPriceType] = useState("FLOATING")
+  const { walletInfo, allTokens, isLoading, allCurrencies, currency, setCurrency, limit, user, userDetails } = useP2P()
 
   const [percentPrice, setPercentPrice] = useState('')
   const [amount, setAmount] = useState('')
@@ -14,13 +16,18 @@ export const useOrderCreate = () => {
   const [isAvailableNext, setIsAvailableNext] = useState(false)
   const [time, setTime] = useState(15)
 
-  const [paymentMethod, setPaymentMethod] = useState(null)
+  const [paymentMethods, setPaymentMethods] = useState([])
 
   const [percentPriceError, setPercentPriceError] = useState("")
   const [amountError, setAmountError] = useState("")
   const [dealSumError, setDealSumError] = useState("")
   const [customTokenPrice, setCustomTokenPrice] = useState(0)
+
+  const [isCreated, setIsCreated] = useState(false)
+
+  const selectedTokenId = allTokens.find(token => token.alias === selectedToken)?.id
   const selectedTokenPrice = allTokens.find(token => token.alias === selectedToken)?.price?.toFixed(2)
+  const selectedTokenFee = allTokens.find(token => token.alias === selectedToken)?.fee?.toFixed(4)
 
   const errors = {
     percentPrice: percentPriceError,
@@ -56,13 +63,19 @@ export const useOrderCreate = () => {
         setAmountError(`Минимальная сумма ${minAmount} ${selectedToken}`)
         return;
       }
-      const hightDealSum = (Number(amount) * selectedTokenPrice).toFixed(2)
+      const hightDealSum = (Number(amount) * selectedTokenPrice * Number(percentPrice) / 100).toFixed(2)
       if (Number(dealSum) > hightDealSum) {
         setDealSumError(`Максимальная сумма сделки ${hightDealSum} ${currency}`)
         return;
       }
     }
     if (currentStep === 3) {
+      const orderData = buildOrderData(orderAction, selectedTokenId, currency, priceType, percentPrice, amount, selectedTokenFee, dealSum, time, paymentMethods)
+      postOrderToApi(user.accessToken, orderData).then(() => {
+        setIsCreated(true)
+      }).catch(error => {
+        console.log(error)
+      })
       return;
     }
     setCurrentStep(currentStep + 1)
@@ -74,30 +87,6 @@ export const useOrderCreate = () => {
     }
   }
 
-  const buyHandler = () => {
-    setOrderAction("Купить")
-  }
-
-  const sellHandler = () => {
-    setOrderAction("Продать")
-  }
-
-  const handleTokenSelect = (event) => {
-    setSelectedToken(event.target.value)
-  }
-
-  const handleTimeSelect = (event) => {
-    setTime(event.target.value)
-  }
-
-  const handlePriceTypeSelect = (event) => {
-    setPriceType(event.target.value)
-  }
-
-  const handleCurrencySelect = (value) => {
-    setCurrency(value)
-  }
-
   useEffect(() => {
     if (currentStep === 1) {
       if (percentPrice && amount && dealSum) {
@@ -106,26 +95,18 @@ export const useOrderCreate = () => {
         setIsAvailableNext(false)
       }
     } else if (currentStep === 2) {
-      if (paymentMethod) {
+      if (paymentMethods.length) {
         setIsAvailableNext(true)
       } else {
         setIsAvailableNext(false)
       }
     }
-  }, [percentPrice, amount, dealSum, currentStep, paymentMethod])
+  }, [percentPrice, amount, dealSum, currentStep, paymentMethods])
 
   const handlers = {
     prevStep: handlePreviousStep,
     nextStep: handleNextStep,
-    buy: buyHandler,
-    sell: sellHandler,
-    tokenSelect: handleTokenSelect,
-    selectPriceType: handlePriceTypeSelect,
-    selectCurrency: handleCurrencySelect,
-    selectTime: handleTimeSelect
   }
-
-  const orderButtonName = currentStep === 3 ? "Создать объявление" : "Далее"
 
   const states = {
     walletInfo,
@@ -136,25 +117,30 @@ export const useOrderCreate = () => {
     amount,
     dealSum,
     isAvailableNext,
-    paymentMethod,
+    paymentMethods,
     allTokens,
-    orderButtonName,
     priceType,
     currency,
     allCurrencies,
     time,
     limit,
-    customTokenPrice
+    customTokenPrice,
+    selectedTokenFee,
+    userDetails,
+    selectedTokenPrice,
+    isCreated
   }
 
   const setState = {
     percentPrice: setPercentPrice,
+    orderAction: setOrderAction,
     amount: setAmount,
     dealSum: setDealSum,
-    paymentMethod: setPaymentMethod,
+    paymentMethods: setPaymentMethods,
     priceType: setPriceType,
     currency: setCurrency,
-    time: setTime
+    time: setTime,
+    token: setSelectedToken
   }
 
   return { isLoading, states, setState, errors, handlers }

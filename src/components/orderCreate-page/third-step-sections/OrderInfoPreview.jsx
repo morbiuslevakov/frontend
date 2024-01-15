@@ -1,7 +1,10 @@
-import { Stack, Typography } from '@mui/material'
 import React from 'react'
+import { Stack, Typography } from '@mui/material'
 
 export const OrderInfoPreview = ({ states }) => {
+  const paymentMethods = states.paymentMethods
+  const totalPrice = (states.selectedTokenPrice * states.amount * states.percentPrice / 100).toFixed(2)
+
   return (
     <Stack pt={2} gap={0.7}>
       <Stack flexDirection={'row'} justifyContent={'space-between'}>
@@ -10,15 +13,20 @@ export const OrderInfoPreview = ({ states }) => {
       </Stack>
       <Stack flexDirection={'row'} justifyContent={'space-between'}>
         <Typography variant='gray'>Лимиты</Typography>
-        <Typography>5.98 WAVES</Typography>
+        <Typography>{states.dealSum} - {totalPrice} {states.currency}</Typography>
       </Stack>
       <Stack flexDirection={'row'} justifyContent={'space-between'}>
         <Typography variant='gray'>Методы оплаты</Typography>
-        <Typography>5.98 WAVES</Typography>
+        <Stack flexDirection={'row'}>
+          <Typography >{paymentMethods.length > 1
+            ? paymentMethods.map(method => method.bank.name).join(', ')
+            : paymentMethods.map(method => method.bank.name)}
+          </Typography>
+        </Stack>
       </Stack>
       <Stack flexDirection={'row'} justifyContent={'space-between'}>
         <Typography variant='gray'>Время оплаты</Typography>
-        <Typography>15 минут</Typography>
+        <Typography>{states.time} минут</Typography>
       </Stack>
     </Stack>
   )

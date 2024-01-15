@@ -11,8 +11,6 @@ export const UserSection = ({ user, walletInfo }) => {
   const userBalance = walletInfo.sum?.toFixed(2);
   const currencySymbol = walletInfo.symbol;
 
-  // console.log(walletInfo)
-
   return (
     <Stack flexDirection={'row'} alignItems={'center'} gap={6}>
       <LargeAvatar username={user.username} />

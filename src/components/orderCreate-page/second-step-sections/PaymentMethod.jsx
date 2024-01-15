@@ -1,12 +1,22 @@
 import React from 'react'
-import { FormContentWrapper, FormSectionWrapper, FormStack } from '../Styled'
 import { Stack, Switch, Typography } from '@mui/material'
+import { FormContentWrapper, FormSectionWrapper, FormStack } from '../Styled'
 
-export const PaymentPreview = ({ payment, selectedMehod, setPayment }) => {
-  const isSelected = selectedMehod === payment.id;
+export const PaymentMethod = ({ method, states, setPaymentMethods }) => {
+  const isSelected = states.paymentMethods.some(payment => {
+    return payment.id === method.id
+  });
 
   const handleChange = () => {
-    setPayment(payment.id)
+    if (isSelected) {
+      setPaymentMethods(state => {
+        return state.filter(state => state.id !== method.id)
+      })
+    } else {
+      setPaymentMethods(state => {
+        return [...state, method]
+      })
+    }
   }
 
   return (
@@ -15,24 +25,27 @@ export const PaymentPreview = ({ payment, selectedMehod, setPayment }) => {
         <FormStack>
           <Stack>
             <Typography>
-              {payment.name}
+              {method.bank.name}
             </Typography>
             <Stack flexDirection={'row'} gap={1} >
               <Typography fontSize={14} variant={'gray'}>
-                {payment.name}
+                {method.bank.name}
               </Typography>
               <Typography fontSize={14} variant={'gray'}>
                 ·
               </Typography>
               <Typography fontSize={14} variant={'gray'}>
-                {payment.currency}
+                {states.currency}
               </Typography>
             </Stack>
             <Typography fontSize={14} variant={'gray'}>
-              {payment.number}
+              {method.account}
             </Typography>
           </Stack>
-          <Switch color="blue" checked={isSelected} onChange={handleChange} />
+          <Switch color="blue"
+            checked={isSelected}
+            onChange={handleChange}
+          />
         </FormStack>
       </FormContentWrapper>
     </FormSectionWrapper>

@@ -2,7 +2,11 @@ import React from 'react'
 import { Typography } from '@mui/material'
 import { FormContentWrapper, FormSectionWrapper, FormSelect, FormStack } from '../Styled'
 
-export const TimeSection = ({ time, handleTimeSelect }) => {
+export const TimeSection = ({ setTime }) => {
+  const handleTimeSelect = (event) => {
+    setTime(event.target.value)
+  }
+
   return (
     <FormSectionWrapper mt={2}>
       <FormContentWrapper>
