@@ -14,7 +14,7 @@ export const MainInfoPreview = ({ states }) => {
         <FormStack>
           <Stack>
             <Typography>{totalPrice} RUB</Typography>
-            <Typography variant='gray'>{states.percentPrice}% от рыночной цены за {states.amount} {states.selectedToken}</Typography>
+            <Typography variant='gray'>{states.percentPrice}% от рыночной цены за 1 {states.selectedToken}</Typography>
           </Stack>
           <OrderActionWrapper>
             <Typography fontWeight={600} variant='lightBrown'>{orderAction}</Typography>

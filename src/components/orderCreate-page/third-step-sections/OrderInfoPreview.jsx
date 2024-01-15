@@ -4,12 +4,13 @@ import { Stack, Typography } from '@mui/material'
 export const OrderInfoPreview = ({ states }) => {
   const paymentMethods = states.paymentMethods
   const totalPrice = (states.selectedTokenPrice * states.amount * states.percentPrice / 100).toFixed(2)
+  const finalAmount = states.amount - states.selectedTokenFee
 
   return (
     <Stack pt={2} gap={0.7}>
       <Stack flexDirection={'row'} justifyContent={'space-between'}>
         <Typography variant='gray'>Количество</Typography>
-        <Typography>{states.amount} {states.selectedToken}</Typography>
+        <Typography>{finalAmount} {states.selectedToken}</Typography>
       </Stack>
       <Stack flexDirection={'row'} justifyContent={'space-between'}>
         <Typography variant='gray'>Лимиты</Typography>
