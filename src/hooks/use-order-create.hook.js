@@ -68,6 +68,11 @@ export const useOrderCreate = () => {
         setDealSumError(`Максимальная сумма сделки ${hightDealSum} ${currency}`)
         return;
       }
+      const selectedTokenBalance = walletInfo?.assets[selectedToken]?.balance?.toFixed(3)
+      if (orderAction === "SELL" && Number(amount) > selectedTokenBalance) {
+        setAmountError(`Максимальная сумма ${selectedTokenBalance} ${selectedToken}`)
+        return;
+      }
     }
     if (currentStep === 3) {
       const orderData = buildOrderData(orderAction, selectedTokenId, currency, priceType, percentPrice, amount, selectedTokenFee, dealSum, time, paymentMethods)
