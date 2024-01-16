@@ -10,3 +10,9 @@ export const LargeUserAvatar = styled(Avatar)({
   fontSize: "60px"
 })
 
+export const SmallUserAvatar = styled(Avatar)({
+  width: "30px",
+  height: "30px",
+  fontSize: "16px"
+})
+

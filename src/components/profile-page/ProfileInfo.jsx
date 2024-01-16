@@ -6,7 +6,7 @@ import { LargeAvatar } from '../avatar/LargeAvatar'
 export const ProfileInfo = ({ user }) => {
   return (
     <Stack flexDirection={'row'} gap={10}>
-      <LargeAvatar name={user.name} />
+      <LargeAvatar username={user.username} />
       <Stack gap={3}>
         <Stack flexDirection={'row'} gap={5}>
           <Stack alignItems={'center'}>
@@ -23,7 +23,7 @@ export const ProfileInfo = ({ user }) => {
           </Stack>
         </Stack>
         <Stack flexDirection={'row'} alignItems={'center'} gap={1}>
-          <Typography fontSize={26} fontWeight={600}>{user.name}</Typography>
+          <Typography fontSize={26} fontWeight={600}>{user.username}</Typography>
           <Tooltip title={<Typography width={'180px'} fontSize={12}>Ваше имя которое будет отображаться в рамках ордера</Typography>}>
             <HelpOutlineRoundedIcon fontSize="small" color="primary" />
           </Tooltip>

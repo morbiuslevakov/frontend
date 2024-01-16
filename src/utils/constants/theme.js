@@ -18,9 +18,15 @@ export const theme = createTheme({
     lightBrown: {
       main: "#a19d9d"
     },
+    blue: {
+      main: "#89BCD3"
+    },
+    dark: {
+      main: "#151515"
+    }
   },
   typography: {
-    fontFamily: `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    fontFamily: `'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif`,
     body1: {
@@ -30,13 +36,17 @@ export const theme = createTheme({
       color: "#262626"
     },
     gray: {
-      color: "#898989"
+      color: "#898989",
+      fontWeight: 400
     },
     lightGray: {
       color: "#808080"
     },
     lightBrown: {
       color: "#a19d9d"
-    }
+    },
+    blue: {
+      color: "#89BCD3"
+    },
   },
 });

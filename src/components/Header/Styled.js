@@ -1,19 +1,18 @@
 import { Link } from "react-router-dom";
-import { styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
 
-export const HeaderWrapper = styled('header')({
+export const HeaderWrapper = styled('header')(({ theme }) => ({
   position: 'fixed',
   top: 0,
   left: 0,
   display: 'flex',
   alignItems: 'center',
   width: '100%',
-  padding: '10px 16px',
-  background: "#1D262C",
+  backgroundColor: theme.palette.dark.main,
   zIndex: 100
-})
+}))
 
-export const LogoWrapper = styled('div')({
+export const LogoWrapper = styled(Box)({
   cursor: "pointer"
 })
 
@@ -22,4 +21,9 @@ export const HeaderMenuItem = styled(Link)({
   "&:hover": {
     opacity: 0.7
   }
+})
+
+export const Container = styled(Box)({
+  padding: '10px 16px',
+  width: '100%'
 })

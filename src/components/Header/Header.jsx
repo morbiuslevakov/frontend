@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Stack } from "@mui/material";
-import { HeaderWrapper } from './Styled'
+import { Container, HeaderWrapper } from './Styled'
 import { HeaderLogo } from "./HeaderLogo";
 import { HeaderMenu } from "./HeaderMenu";
 import { HeaderAccount } from "./HeaderAccount";
@@ -16,13 +16,15 @@ export default function Header() {
 
     return (
         <HeaderWrapper>
-            <Stack flexDirection={'row'} justifyContent={'space-between'} width={'100%'}>
-                <Stack flexDirection={'row'} gap={10}>
-                    <HeaderLogo />
-                    <HeaderMenu isLogged={isLogged} />
+            <Container>
+                <Stack flexDirection={'row'} justifyContent={'space-between'} width={'100%'}>
+                    <Stack flexDirection={'row'} gap={10}>
+                        <HeaderLogo />
+                        <HeaderMenu isLogged={isLogged} />
+                    </Stack>
+                    <HeaderAccount isLogged={isLogged} user={user} />
                 </Stack>
-                <HeaderAccount isLogged={isLogged} user={user} />
-            </Stack>
+            </Container>
         </HeaderWrapper>
     );
 }
