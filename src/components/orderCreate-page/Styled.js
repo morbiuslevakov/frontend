@@ -20,6 +20,13 @@ export const FormSectionWrapper = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
 }))
 
+export const FormSectionClickWrapper = styled(FormSectionWrapper)({
+  cursor: 'pointer',
+  "&:hover": {
+    opacity: 0.8
+  }
+})
+
 export const FormContentWrapper = styled(Box)({
   padding: "10px 30px"
 })

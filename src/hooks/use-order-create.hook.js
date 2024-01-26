@@ -2,19 +2,22 @@ import { useEffect, useState } from 'react'
 import { useP2P } from './use-p2p.hook'
 import { buildOrderData } from '../utils/p2p-utils'
 import { postOrderToApi } from '../utils/api-utils'
+import { useApiRequest } from './use-api-request.hook'
 
 export const useOrderCreate = () => {
+  const apiRequest = useApiRequest();
   const [currentStep, setCurrentStep] = useState(1)
   const [orderAction, setOrderAction] = useState('SELL')
   const [selectedToken, setSelectedToken] = useState("YUSRA")
   const [priceType, setPriceType] = useState("FLOATING")
-  const { walletInfo, allTokens, isLoading, allCurrencies, currency, setCurrency, limit, user, userDetails } = useP2P()
+  const { walletInfo, allTokens, isLoading, allCurrencies, currency, setCurrency, limit, userDetails } = useP2P()
 
   const [percentPrice, setPercentPrice] = useState('')
   const [amount, setAmount] = useState('')
   const [dealSum, setDealSum] = useState('')
   const [isAvailableNext, setIsAvailableNext] = useState(false)
   const [time, setTime] = useState(15)
+  const [comment, setComment] = useState("")
 
   const [paymentMethods, setPaymentMethods] = useState([])
 
@@ -24,6 +27,7 @@ export const useOrderCreate = () => {
   const [customTokenPrice, setCustomTokenPrice] = useState(0)
 
   const [isCreated, setIsCreated] = useState(false)
+  const [orderError, setOrderError] = useState('')
 
   const selectedTokenId = allTokens.find(token => token.alias === selectedToken)?.id
   const selectedTokenPrice = allTokens.find(token => token.alias === selectedToken)?.price?.toFixed(2)
@@ -74,12 +78,12 @@ export const useOrderCreate = () => {
         return;
       }
     }
-    if (currentStep === 3) {
-      const orderData = buildOrderData(orderAction, selectedTokenId, currency, priceType, percentPrice, amount, selectedTokenFee, dealSum, time, paymentMethods)
-      postOrderToApi(user.accessToken, orderData).then(() => {
+    if (currentStep === 4) {
+      const orderData = buildOrderData(orderAction, selectedTokenId, currency, priceType, percentPrice, amount, selectedTokenFee, dealSum, time, paymentMethods, comment)
+      apiRequest(postOrderToApi, orderData).then(() => {
         setIsCreated(true)
-      }).catch(error => {
-        console.log(error)
+      }).catch(() => {
+        setOrderError('Ваш аккаунт не подтвержден (подтвердите почту в письме после регистрации)')
       })
       return;
     }
@@ -133,7 +137,9 @@ export const useOrderCreate = () => {
     selectedTokenFee,
     userDetails,
     selectedTokenPrice,
-    isCreated
+    isCreated,
+    orderError,
+    comment
   }
 
   const setState = {
@@ -145,7 +151,9 @@ export const useOrderCreate = () => {
     priceType: setPriceType,
     currency: setCurrency,
     time: setTime,
-    token: setSelectedToken
+    token: setSelectedToken,
+    orderError: setOrderError,
+    comment: setComment
   }
 
   return { isLoading, states, setState, errors, handlers }

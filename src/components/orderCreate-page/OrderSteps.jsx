@@ -2,6 +2,7 @@ import React from 'react'
 import { FirstStep } from './FirstStep'
 import { SecondStep } from './SecondStep'
 import { ThirdStep } from './ThirdStep'
+import { CommentStep } from './CommentStep'
 
 export const OrderSteps = ({ states, setState, errors }) => {
   switch (states.currentStep) {
@@ -12,7 +13,10 @@ export const OrderSteps = ({ states, setState, errors }) => {
       return <SecondStep states={states} setState={setState} />;
 
     case 3:
-      return <ThirdStep states={states} />;
+      return <CommentStep states={states} setState={setState} />;
+
+    case 4:
+      return <ThirdStep states={states} setState={setState} />;
 
     default:
       return <></>;

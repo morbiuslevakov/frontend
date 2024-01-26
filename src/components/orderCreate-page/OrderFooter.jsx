@@ -1,15 +1,14 @@
 import React from 'react'
-import { Box, Button, Typography } from '@mui/material'
+import { Box } from '@mui/material'
+import { FormFooterButton } from '../buttons/FormFooterButton'
 
 export const OrderFooter = ({ states, handleNext }) => {
   const isDisabled = !states.isAvailableNext
-  const buttonText = states.currentStep === 3 ? "Создать объявление" : "Далее"
+  const buttonText = states.currentStep === 4 ? "Создать объявление" : "Далее"
 
   return (
     <Box mt={2}>
-      <Button variant="contained" color="blue" fullWidth disabled={isDisabled} onClick={handleNext}>
-        <Typography variant="secondary">{buttonText}</Typography>
-      </Button>
+      <FormFooterButton text={buttonText} isDisabled={isDisabled} callback={handleNext} />
     </Box>
   )
 }

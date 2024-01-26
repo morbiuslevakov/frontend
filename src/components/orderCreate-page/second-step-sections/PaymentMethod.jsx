@@ -1,6 +1,6 @@
 import React from 'react'
 import { Stack, Switch, Typography } from '@mui/material'
-import { FormContentWrapper, FormSectionWrapper, FormStack } from '../Styled'
+import { FormStackSection } from '../../form/FormStackSection';
 
 export const PaymentMethod = ({ method, states, setPaymentMethods }) => {
   const isSelected = states.paymentMethods.some(payment => {
@@ -20,34 +20,30 @@ export const PaymentMethod = ({ method, states, setPaymentMethods }) => {
   }
 
   return (
-    <FormSectionWrapper>
-      <FormContentWrapper>
-        <FormStack>
-          <Stack>
-            <Typography>
-              {method.bank.name}
-            </Typography>
-            <Stack flexDirection={'row'} gap={1} >
-              <Typography fontSize={14} variant={'gray'}>
-                {method.bank.name}
-              </Typography>
-              <Typography fontSize={14} variant={'gray'}>
-                ·
-              </Typography>
-              <Typography fontSize={14} variant={'gray'}>
-                {states.currency}
-              </Typography>
-            </Stack>
-            <Typography fontSize={14} variant={'gray'}>
-              {method.account}
-            </Typography>
-          </Stack>
-          <Switch color="blue"
-            checked={isSelected}
-            onChange={handleChange}
-          />
-        </FormStack>
-      </FormContentWrapper>
-    </FormSectionWrapper>
+    <FormStackSection >
+      <Stack>
+        <Typography>
+          {method.bank.name}
+        </Typography>
+        <Stack flexDirection={'row'} gap={1} >
+          <Typography fontSize={14} variant={'gray'}>
+            {method.bank.name}
+          </Typography>
+          <Typography fontSize={14} variant={'gray'}>
+            ·
+          </Typography>
+          <Typography fontSize={14} variant={'gray'}>
+            {states.currency}
+          </Typography>
+        </Stack>
+        <Typography fontSize={14} variant={'gray'}>
+          {method.account}
+        </Typography>
+      </Stack>
+      <Switch color="blue"
+        checked={isSelected}
+        onChange={handleChange}
+      />
+    </FormStackSection>
   )
 }

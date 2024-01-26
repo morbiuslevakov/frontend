@@ -23,6 +23,18 @@ export const theme = createTheme({
     },
     dark: {
       main: "#151515"
+    },
+    red: {
+      main: "#E83232"
+    },
+    lightRed: {
+      main: "#5A2727"
+    },
+    yellow: {
+      main: "#F1C011"
+    },
+    darkBackground: {
+      main: "#1E1E1E"
     }
   },
   typography: {
@@ -48,5 +60,14 @@ export const theme = createTheme({
     blue: {
       color: "#89BCD3"
     },
+    red: {
+      color: "#E83232"
+    },
+    lightRed: {
+      color: "#5A2727"
+    },
+    yellow: {
+      color: "#F1C011"
+    }
   },
 });

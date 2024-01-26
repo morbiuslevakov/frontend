@@ -1,11 +1,11 @@
-import { useContext, useEffect, useState } from 'react';
-import { getCurrenciesFromApi, getUserDetailsFromApi } from '../utils/api-utils';
+import { useEffect, useState } from 'react';
+import { getCurrencies, getUserDetailsFromApi } from '../utils/api-utils';
 import { useWallet } from './use-wallet.hook'
-import UserContext from '../context/user-context';
+import { useApiRequest } from './use-api-request.hook';
 
 export const useP2P = () => {
+  const apiRequest = useApiRequest();
   const [allCurrencies, setAllCurrencies] = useState([])
-  const { user } = useContext(UserContext)
   const { walletInfo, currency, setCurrency } = useWallet();
   const allTokens = []
   const [limit, setLimit] = useState(walletInfo.limit)
@@ -13,7 +13,7 @@ export const useP2P = () => {
 
   useEffect(() => {
     const fetchCurrencies = async () => {
-      const currencies = await getCurrenciesFromApi(user.accessToken)
+      const currencies = await apiRequest(getCurrencies)
       return currencies.providedCurrencies
     }
     if (Object.keys(walletInfo).length) {
@@ -24,17 +24,17 @@ export const useP2P = () => {
       })
     }
     setLimit(walletInfo.limit)
-  }, [user.accessToken, walletInfo])
+  }, [walletInfo, apiRequest])
 
   useEffect(() => {
     const fetchUserDetails = async () => {
-      const userDetailsFromApi = await getUserDetailsFromApi(user.accessToken)
+      const userDetailsFromApi = await apiRequest(getUserDetailsFromApi)
       return userDetailsFromApi
     }
     fetchUserDetails().then(res => { setUserDetails(res) }).catch(error => {
       console.log(error)
     })
-  }, [user.accessToken])
+  }, [apiRequest])
 
   const tokens = walletInfo.assets;
 
@@ -46,5 +46,5 @@ export const useP2P = () => {
 
   const isLoading = allTokens.length && walletInfo && allCurrencies.length;
 
-  return { walletInfo, allTokens, isLoading, allCurrencies, currency, setCurrency, limit, user, userDetails }
+  return { walletInfo, allTokens, isLoading, allCurrencies, currency, setCurrency, limit, userDetails }
 }

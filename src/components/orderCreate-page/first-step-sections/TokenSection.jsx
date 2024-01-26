@@ -1,7 +1,8 @@
 import React from 'react'
 import { Typography } from '@mui/material'
-import { FormContentWrapper, FormSectionWrapper, FormSelect, FormStack } from '../Styled'
+import { FormSelect } from '../Styled'
 import { actionType } from '../../../utils/constants/order-create'
+import { FormStackSection } from '../../form/FormStackSection'
 
 export const TokenSection = ({ orderAction, allTokens, setToken }) => {
   const handleTokenSelect = (event) => {
@@ -9,17 +10,13 @@ export const TokenSection = ({ orderAction, allTokens, setToken }) => {
   }
 
   return (
-    <FormSectionWrapper>
-      <FormContentWrapper>
-        <FormStack>
-          <Typography>{actionType[orderAction]} криптовалюту</Typography>
-          <FormSelect defaultValue={allTokens[0].alias} disableUnderline onChange={handleTokenSelect}>
-            {allTokens.map(token => {
-              return <option key={token.alias} value={token.alias}>{token.alias}</option>
-            })}
-          </FormSelect>
-        </FormStack>
-      </FormContentWrapper>
-    </FormSectionWrapper>
+    <FormStackSection >
+      <Typography>{actionType[orderAction]} криптовалюту</Typography>
+      <FormSelect defaultValue={allTokens[0].alias} disableUnderline onChange={handleTokenSelect}>
+        {allTokens.map(token => {
+          return <option key={token.alias} value={token.alias}>{token.alias}</option>
+        })}
+      </FormSelect>
+    </FormStackSection>
   )
 }
