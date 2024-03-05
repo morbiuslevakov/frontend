@@ -14,7 +14,7 @@ export const OrderHeader = ({ states, handlePrevious }) => {
           <NavigateBeforeIcon />
         </IconButton>
         <Typography>{stepsNames[states.currentStep]}</Typography>
-        <Typography variant='gray'>{states.currentStep}/3</Typography>
+        <Typography variant='gray'>{states.currentStep}/4</Typography>
       </Stack>
     </FormContentWrapper>
   )

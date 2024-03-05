@@ -1,8 +1,8 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import { Button, Stack, Typography } from '@mui/material'
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
-import { useNavigate } from 'react-router-dom';
 
 export const ControlButtons = () => {
   const navigate = useNavigate()
@@ -12,7 +12,7 @@ export const ControlButtons = () => {
   }
 
   const handleBuy = () => {
-    // navigate('/p2p/buy')
+    navigate('/p2p/buy')
   }
 
   return (

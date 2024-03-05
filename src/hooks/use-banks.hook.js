@@ -1,51 +1,36 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 import UserContext from '../context/user-context';
-import { getBanksFromApi, getPaymentMethodsFromApi, refreshAccessToken } from '../utils/api-utils';
+import { getBanksFromApi, getPaymentMethodsFromApi } from '../utils/api-utils';
+import { useApiRequest } from './use-api-request.hook';
 
 export const useBanks = (currency) => {
-  const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
+  const apiRequest = useApiRequest();
+  const { user } = useContext(UserContext);
   const [allBanks, setAllBanks] = useState([])
   const [userPaymentMethods, setUserPaymentMethods] = useState([])
 
-  const updateAccessToken = useCallback(async () => {
+  const fetchBanksInfo = useCallback(async (currency) => {
     try {
-      const res = await refreshAccessToken(user.refreshToken);
-      setUser({ ...user, accessToken: res.accessToken });
-      localStorage.setItem('user', JSON.stringify({ ...user, accessToken: res.accessToken }));
-      return res.accessToken;
-    } catch (error) {
-      localStorage.removeItem('user');
-      navigate('/login');
-      window.location.reload();
-    }
-  }, [navigate, setUser, user])
-
-  const fetchBanksInfo = useCallback(async (token, currency) => {
-    try {
-      const res = await getBanksFromApi(token, currency);
+      const res = await apiRequest(getBanksFromApi, currency)
       setAllBanks(res)
     } catch (error) {
-      const newToken = await updateAccessToken();
-      fetchBanksInfo(newToken, currency);
+      console.log(error)
     }
-  }, [updateAccessToken])
+  }, [apiRequest])
 
-  const fetchUserPaymentMethods = useCallback(async (token) => {
+  const fetchUserPaymentMethods = useCallback(async () => {
     try {
-      const res = await getPaymentMethodsFromApi(token);
+      const res = await apiRequest(getPaymentMethodsFromApi)
       setUserPaymentMethods(res)
     } catch (error) {
-      const newToken = await updateAccessToken();
-      fetchUserPaymentMethods(newToken);
+      console.log(error)
     }
-  }, [updateAccessToken])
+  }, [apiRequest])
 
   useEffect(() => {
-    if (user && user.accessToken) {
-      fetchBanksInfo(user.accessToken, currency);
-      fetchUserPaymentMethods(user.accessToken)
+    if (user) {
+      fetchBanksInfo(currency);
+      fetchUserPaymentMethods()
     }
   }, [user, fetchBanksInfo, fetchUserPaymentMethods, currency]);
 

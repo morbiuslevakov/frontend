@@ -19,7 +19,6 @@ export const AmountSection = ({ errorMessage, states, setAmount }) => {
               )
             }}
           />
-
         </Stack>
       </FormContentWrapper>
     </FormSectionWrapper>

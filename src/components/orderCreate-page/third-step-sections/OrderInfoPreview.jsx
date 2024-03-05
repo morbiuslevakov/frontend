@@ -3,6 +3,13 @@ import { Stack, Typography } from '@mui/material'
 
 export const OrderInfoPreview = ({ states }) => {
   const paymentMethods = states.paymentMethods
+
+  const displayPaymentMethods = states.orderAction === "SELL" ? paymentMethods.length > 1
+    ? paymentMethods.map(method => method.bank.name).join(', ')
+    : paymentMethods.map(method => method.bank.name) : paymentMethods.length > 1
+    ? paymentMethods.map(bank => bank.name).join(', ')
+    : paymentMethods.map(bank => bank.name)
+
   const totalPrice = (states.selectedTokenPrice * states.amount * states.percentPrice / 100).toFixed(2)
   const finalAmount = states.amount - states.selectedTokenFee
 
@@ -19,10 +26,7 @@ export const OrderInfoPreview = ({ states }) => {
       <Stack flexDirection={'row'} justifyContent={'space-between'}>
         <Typography variant='gray'>Методы оплаты</Typography>
         <Stack flexDirection={'row'}>
-          <Typography >{paymentMethods.length > 1
-            ? paymentMethods.map(method => method.bank.name).join(', ')
-            : paymentMethods.map(method => method.bank.name)}
-          </Typography>
+          <Typography >{displayPaymentMethods}</Typography>
         </Stack>
       </Stack>
       <Stack flexDirection={'row'} justifyContent={'space-between'}>
