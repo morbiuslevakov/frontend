@@ -9,11 +9,13 @@ export const OrderDetails = ({ states, setState, order, maxLimit }) => {
     setState.step('details')
   }
 
+  const bankNames = Object.keys(order.payments)
+
   return (
     <Stack gap={0.2}>
       <FormStackSection>
         <Typography>Методы оплаты</Typography>
-        <Typography>{order.payments}</Typography>
+        <Typography>{bankNames}</Typography>
       </FormStackSection>
       <FormStackSection>
         <Typography>Лимиты</Typography>

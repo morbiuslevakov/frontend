@@ -35,6 +35,12 @@ export const theme = createTheme({
     },
     darkBackground: {
       main: "#1E1E1E"
+    },
+    aqua: {
+      main: "#667DEA"
+    },
+    darkAqua: {
+      main: "#3A4475"
     }
   },
   typography: {
@@ -68,6 +74,12 @@ export const theme = createTheme({
     },
     yellow: {
       color: "#F1C011"
+    },
+    aqua: {
+      color: "#667DEA"
+    },
+    darkAqua: {
+      color: "#3A4475"
     }
   },
 });

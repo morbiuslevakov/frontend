@@ -2,6 +2,7 @@ import React from 'react'
 import { Stack, Typography } from '@mui/material'
 
 export const TradeItemDetails = ({ states, order, token, maxLimit }) => {
+  const bankNames = Object.keys(order.payments)
   return (
     <Stack pt={2} gap={0.7}>
       <Stack flexDirection={'row'} justifyContent={'space-between'}>
@@ -15,7 +16,7 @@ export const TradeItemDetails = ({ states, order, token, maxLimit }) => {
       <Stack flexDirection={'row'} justifyContent={'space-between'}>
         <Typography variant='gray'>Методы оплаты</Typography>
         <Stack flexDirection={'row'}>
-          <Typography >{order.payments}</Typography>
+          <Typography >{bankNames}</Typography>
         </Stack>
       </Stack>
     </Stack>

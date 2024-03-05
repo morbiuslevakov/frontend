@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Stack } from '@mui/material'
 import { UserAndAction } from './UserAndAction'
-import { FormContentWrapper } from '../../orderCreate-page/Styled'
 import { Steps } from './Steps'
 
 export const P2PSteps = ({ states, setState }) => {
@@ -11,9 +10,7 @@ export const P2PSteps = ({ states, setState }) => {
 
   return (
     <Stack>
-      <FormContentWrapper margin={'20px 0'}>
-        <UserAndAction username={selectedOrder.user.username} text="Вы отправляете" />
-      </FormContentWrapper>
+      <UserAndAction step={currentStep} username={selectedOrder.user.username} text="Вы отправляете" />
       <Steps amount={amount} setAmount={setAmount} currentStep={currentStep} states={states} order={selectedOrder} setState={setState} />
     </Stack>
   )

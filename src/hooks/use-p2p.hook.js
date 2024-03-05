@@ -44,6 +44,15 @@ export const useP2P = () => {
     })
   }
 
+  console.log(allTokens)
+  console.log(allTokens.length)
+
+  console.log(walletInfo)
+
+  console.log(allCurrencies)
+
+  console.log(allCurrencies.length)
+
   const isLoading = allTokens.length && walletInfo && allCurrencies.length;
 
   return { walletInfo, allTokens, isLoading, allCurrencies, currency, setCurrency, limit, userDetails }

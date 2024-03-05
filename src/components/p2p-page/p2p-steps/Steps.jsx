@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { OrderFullDetails } from './OrderFullDetails'
 import { Box } from '@mui/material'
 import { FormFooterButton } from '../../buttons/FormFooterButton'
 import { InputSection } from './InputSection'
 import { OrderDetails } from './OrderDetails'
-import { OrderFormingDetails } from './OrderFormingDetails'
+import { CompleteStep } from './FinalSteps/CompleteStep'
+import { WaitingStep } from './FinalSteps/WaitingStep'
+import { initDealToApi } from '../../../utils/api-utils'
+import { createDealData } from '../../../utils/p2p-utils'
+import { OrderDeal } from '../orderDeal/OrderDeal'
 
 export const Steps = ({ amount, setAmount, currentStep, states, order, setState }) => {
+  const [deal, setDeal] = useState({})
   const isDisabled = amount <= 0
 
   const selectedToken = states.cryptoDetails?.find(crypto => crypto.asset === states.crypto)
@@ -22,12 +27,74 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
     setState.step(3)
   }
 
+
+  const handleInitDeal = async () => {
+    const finalAmount = (amount / oneTokenPrice)
+    const data = createDealData(states.type, order, finalAmount)
+    initDealToApi(data).then(res => {
+      console.log(res)
+      setDeal(res)
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
+  // после idit deal мы берем dealId
+
+  //   useEffect(() => {
+  //     const client = Stomp.over(new WebSocket('wss://api.deaslide.com/ws'));
+
+  //     client.connect({}, () => {
+  //         client.subscribe('/topic/deal/65e383ea57c44e38659371f3', async (message) => {
+  //             console.log("Получены данные: ", message.body);
+  //             const data = JSON.parse(message.body);
+  //             if (data.status === "OPENED") {
+  //                 console.log(`Статус открыт, выполняем платеж для сделки ${data.dealId}`);
+  //                 await makePaymentsFromApi(data.dealId);
+  //             }
+  //         });
+  //     }, (error) => {
+  //         console.error("Ошибка соединения", error);
+  //     });
+
+  //     return () => {
+  //         client.disconnect();
+  //     };
+  // }, []);
+
+  // useEffect(() => {
+  //     confirmPaymentApi('65e383ea57c44e38659371f3').then(res => {
+  //         console.log(res)
+  //     }).catch(error => {
+  //         console.log('error ', error)
+  //     })
+  // }, [])
+
+  // confirmPaymentApi('65e383ea57c44e38659371f3').then(res => {
+  //     console.log(res)
+  // }).catch(error => {
+  //     console.log('error ', error)
+  // })
+
+
   if (currentStep === 'details') {
     return <>
       <OrderFullDetails states={states} order={order} oneTokenPrice={oneTokenPrice} maxLimit={maxLimit} />
       <Box mt={2}>
         <FormFooterButton text={'Назад'} callback={handleBack} />
       </Box>
+    </>
+  }
+
+  if (currentStep === 'complete') { // поменять потом на complete
+    return <>
+      <CompleteStep states={states} amount={amount} />
+    </>
+  }
+
+  if (currentStep === 'waiting') { // поменять потом на waiting
+    return <>
+      <WaitingStep />
     </>
   }
 
@@ -43,9 +110,9 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
 
   if (currentStep === 3) {
     return <>
-      <OrderFormingDetails states={states} setState={setState} amount={amount} tokenPrice={oneTokenPrice} />
+      <OrderDeal deal={deal} states={states} setState={setState} amount={amount} tokenPrice={oneTokenPrice} order={order} />
       <Box mt={2}>
-        <FormFooterButton text={'Создать сделку'} callback={handleClick} />
+        <FormFooterButton text={'Создать сделку'} callback={handleInitDeal} />
       </Box>
     </>
   }

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = "https://api.deaslide.com/api";
+const apiUrl = "https://api.deaslide.com/v1";
 
 export const apiConfig = {
   withCredentials: true,
@@ -59,6 +59,7 @@ export const getWalletFromApi = async (token, currency) => {
 }
 
 export const getBanksFromApi = async (token, currency) => {
+  console.log(token, currency)
   const url = `${apiUrl}/p2p/get-banks/${currency}`
   const config = buildAuthorizationApiConfig(token)
   try {
@@ -162,6 +163,38 @@ export const getCryptoFromApi = async (token, currency) => {
   const config = buildAuthorizationApiConfig(token)
   try {
     const response = await axios.get(url, config)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}
+
+export const initDealToApi = async (payload) => {
+  const url = `${apiUrl}/p2p/init-deal`;
+  try {
+    const response = await axios.post(url, payload, apiConfig)
+    return response.data;
+  } catch (error) {
+    const apiError = error.response.data
+    throw apiError
+  }
+};
+
+export const makePaymentsFromApi = async (dealId) => {
+  const url = `${apiUrl}/p2p/make-payment/${dealId}`
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}
+
+
+export const confirmPaymentApi = async (dealId) => {
+  const url = `${apiUrl}/p2p/confirm-payment/${dealId}`
+  try {
+    const response = await axios.get(url, apiConfig)
     return response.data;
   } catch (error) {
     throw error

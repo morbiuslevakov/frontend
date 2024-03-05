@@ -5,6 +5,8 @@ import { CommentSection } from './CommentSection';
 import { FormStackSection } from '../../form/FormStackSection';
 
 export const OrderFullDetails = ({ states, order, oneTokenPrice, maxLimit }) => {
+  const bankNames = Object.keys(order.payments)
+
   return (
     <Stack gap={0.2}>
       <FormStackSection>
@@ -21,7 +23,7 @@ export const OrderFullDetails = ({ states, order, oneTokenPrice, maxLimit }) => 
       </FormStackSection>
       <FormStackSection>
         <Typography>Методы оплаты</Typography>
-        <Typography>{order.payments}</Typography>
+        <Typography>{bankNames}</Typography>
       </FormStackSection>
       <FormStackSection>
         <Typography>Время на оплату</Typography>

@@ -29,11 +29,11 @@ export const useLogin = () => {
       setIsError(false);
     }
 
-    const formData = JSON.stringify({ email: email, password: password })
+    const formData = JSON.stringify({ principal: email, password: password })
 
     postUserLoginToApi(formData).then(result => {
       setUserToStorage(result)
-      window.location.reload()
+      // window.location.reload()
     }).catch((error) => {
       setErrorMessage(error);
       setIsError(true);

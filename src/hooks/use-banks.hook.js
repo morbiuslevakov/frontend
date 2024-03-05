@@ -28,7 +28,7 @@ export const useBanks = (currency) => {
   }, [apiRequest])
 
   useEffect(() => {
-    if (user && user.accessToken) {
+    if (user) {
       fetchBanksInfo(currency);
       fetchUserPaymentMethods()
     }

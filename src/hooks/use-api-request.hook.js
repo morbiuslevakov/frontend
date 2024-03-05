@@ -26,12 +26,12 @@ export const useApiRequest = () => {
     } catch (error) {
       console.log(error.status)
       console.log(error.response.status)
-      if (error.response && error.response.status === 444) {
-        const newToken = await updateAccessToken();
-        return requestFunction(newToken, ...params);
-      } else {
-        throw error.response.data;
-      }
+      // if (error.response && error.response.status === 444) {
+      //   const newToken = await updateAccessToken();
+      //   return requestFunction(newToken, ...params);
+      // } else {
+      //   throw error.response.data;
+      // }
     }
   }, [user, updateAccessToken]);
 

@@ -24,9 +24,12 @@ export const useWallet = () => {
   }, [apiRequest])
 
   useEffect(() => {
-    if (user && user.accessToken) {
+    if (user) {
       fetchWalletInfo(currency);
     }
+    // if (user && user.accessToken) {
+    //   fetchWalletInfo(currency);
+    // }
   }, [user, fetchWalletInfo, currency]);
 
   useEffect(() => {

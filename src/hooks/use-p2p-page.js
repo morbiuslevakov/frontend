@@ -13,7 +13,7 @@ export const useP2PPage = (type) => {
   const [step, setStep] = useState(1)
   const [orders, setOrders] = useState([])
   // const [orderPage, setOrderPage] = useState(1)
-  const orderPage = 1
+  const orderPage = 0
   const [isLoading, setLoading] = useState(true)
 
   const { cryptoDetails } = useCrypto(currency)
@@ -28,15 +28,18 @@ export const useP2PPage = (type) => {
       setOrders([]);
       return;
     }
-    const orderData = buildOrdersPayload(type, currency, crypto, filteredBanks)
-    apiRequest(getOrders, orderData, orderPage).then(res => {
-      setOrders(res)
-    }).catch(error => {
-      console.log(error)
-    }).finally(() => {
-      setLoading(false)
-    })
-  }, [type, currency, crypto, selectedBanks, orderPage, apiRequest])
+    const selectedCryptoId = cryptoDetails.find(token => token.asset === crypto)?.id
+    if (selectedCryptoId) {
+      const orderData = buildOrdersPayload(type, currency, selectedCryptoId, filteredBanks)
+      apiRequest(getOrders, orderData, orderPage).then(res => {
+        setOrders(res)
+      }).catch(error => {
+        console.log(error)
+      }).finally(() => {
+        setLoading(false)
+      })
+    }
+  }, [type, currency, crypto, selectedBanks, orderPage, apiRequest, cryptoDetails])
 
   useEffect(() => {
     if (allBanks.length > 0) {

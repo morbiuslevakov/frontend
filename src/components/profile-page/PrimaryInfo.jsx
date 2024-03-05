@@ -1,24 +1,9 @@
-import React, { useState } from 'react'
-import { Box, IconButton, Stack, Tooltip, Typography } from '@mui/material'
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import DoneIcon from '@mui/icons-material/Done';
+import React from 'react'
+import { Box, Stack, Typography } from '@mui/material'
 import { InfoCard } from './Styled'
+import { CopyButton } from '../p2p-page/orderDeal/CopyButton';
 
 export const PrimaryInfo = ({ user }) => {
-  const [copied, setCopied] = useState(false)
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(user.address)
-    setCopied(true)
-    setTimeout(() => {
-      setCopied(false)
-    }, 1500)
-  }
-
-  const tooltipText = copied ? "Скопировано" : "Скопировать адрес"
-
-  const copyIcon = copied ? <DoneIcon fontSize='small' color='primary' /> : <ContentCopyIcon fontSize='small' color='primary' />
-
   return (
     <InfoCard>
       <Stack gap={2}>
@@ -27,11 +12,7 @@ export const PrimaryInfo = ({ user }) => {
           <Typography variant="lightGray" fontWeight={600} fontSize={14} lineHeight={1}>Адрес:</Typography>
           <Stack flexDirection={'row'} alignItems={'center'} gap={1}>
             <Typography>{user.address}</Typography>
-            <Tooltip title={tooltipText}>
-              <IconButton onClick={handleCopy}>
-                {copyIcon}
-              </IconButton>
-            </Tooltip>
+            <CopyButton text={user.address} />
           </Stack>
         </Box>
         <Box>
