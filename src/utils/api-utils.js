@@ -200,3 +200,13 @@ export const confirmPaymentApi = async (dealId) => {
     throw error
   }
 }
+
+export const getUserDealsFromApi = async () => {
+  const url = `${apiUrl}/p2p/get-deals`
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}

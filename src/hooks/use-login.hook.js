@@ -33,7 +33,7 @@ export const useLogin = () => {
 
     postUserLoginToApi(formData).then(result => {
       setUserToStorage(result)
-      // window.location.reload()
+      window.location.reload()
     }).catch((error) => {
       setErrorMessage(error);
       setIsError(true);

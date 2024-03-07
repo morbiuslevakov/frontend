@@ -1,8 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import { Button, Stack, Typography } from '@mui/material'
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
-import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import { Box, Button, Stack, Typography } from '@mui/material'
 
 export const ControlButtons = () => {
   const navigate = useNavigate()
@@ -16,15 +14,17 @@ export const ControlButtons = () => {
   }
 
   return (
-    <Stack flexDirection={'row'} gap={2}>
-      <Button fullWidth variant="outlined" onClick={handleBuy}>
-        <ArrowCircleUpIcon fontSize="small" />
-        <Typography pl={1}>Купить</Typography>
-      </Button>
-      <Button fullWidth variant="outlined" onClick={handleSend}>
-        <ArrowCircleDownIcon fontSize="small" />
-        <Typography pl={1}>Продать</Typography>
-      </Button>
+    <Stack flexDirection={'row'} gap={2} width={'100%'} justifyContent={'center'}>
+      <Box width={'40%'}>
+        <Button fullWidth variant="outlined" onClick={handleBuy}>
+          <Typography pl={1}>Купить</Typography>
+        </Button>
+      </Box>
+      <Box width={'30%'}>
+        <Button fullWidth variant="outlined" onClick={handleSend}>
+          <Typography pl={1}>Продать</Typography>
+        </Button>
+      </Box>
     </Stack>
   )
 }

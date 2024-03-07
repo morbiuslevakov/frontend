@@ -32,13 +32,15 @@ export const OrderDeal = ({ deal, states, setState, amount, tokenPrice, order })
       </FormContentWrapper>
       <Stack gap={0.2}>
         <Status
-          //  deal={deal} 
-          deal={fakeDeal}
+          deal={deal}
+        // deal={fakeDeal}
         />
         <Time />
       </Stack>
-      <SmallDetails deal={fakeDeal} states={states} bankNames={bankNames} amount={amount} tokenPrice={tokenPrice} />
-      <DealPayments payment={fakeDeal.payment} />
+      <SmallDetails deal={deal} states={states} bankNames={bankNames} amount={amount} tokenPrice={tokenPrice} />
+      <DealPayments
+        // payment={fakeDeal.payment} 
+        payment={deal.payment} />
     </Stack>
   )
 }

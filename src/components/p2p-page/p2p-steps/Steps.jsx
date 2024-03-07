@@ -27,7 +27,6 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
     setState.step(3)
   }
 
-
   const handleInitDeal = async () => {
     const finalAmount = (amount / oneTokenPrice)
     const data = createDealData(states.type, order, finalAmount)
