@@ -63,7 +63,7 @@ export const createDealData = (type, order, finalAmount) => {
   return {
     "type": dealType,
     "orderId": order.id,
-    "amount": finalAmount,
+    "amount": String(finalAmount),
     "paymentId": Object.values(order.payments)[0]
   }
 }
