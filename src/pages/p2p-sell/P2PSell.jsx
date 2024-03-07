@@ -6,7 +6,7 @@ import { OptionsAndList } from '../../components/p2p-page/OptionsAndList';
 import { P2PSteps } from '../../components/p2p-page/p2p-steps/P2PSteps';
 
 export const P2PSell = () => {
-    const { states, setState } = useP2PPage('SELL')
+    const { states, setState } = useP2PPage('BUY')
 
     return (
         <Wrapper>

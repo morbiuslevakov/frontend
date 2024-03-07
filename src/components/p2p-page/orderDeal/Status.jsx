@@ -62,7 +62,6 @@ export const Status = ({ deal }) => {
 
   return (
     <>
-      {String(status) + deal.sum}
       <FormStackSection>
         <Stack>
           <Typography variant={'gray'}>Статус</Typography>

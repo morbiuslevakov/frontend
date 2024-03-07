@@ -58,10 +58,10 @@ export const switchType = (type) => {
 }
 
 export const createDealData = (type, order, finalAmount) => {
-  const dealType = switchType(type)
+  // const dealType = switchType(type)
 
   return {
-    "type": dealType,
+    "type": type,
     "orderId": order.id,
     "amount": finalAmount,
     "paymentId": Object.values(order.payments)[0]
