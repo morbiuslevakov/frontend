@@ -5,6 +5,7 @@ import { Status } from './Status';
 import { Time } from './Time';
 import { SmallDetails } from './SmallDetails';
 import { DealPayments } from './DealPayments';
+import { countFinalAmount } from '../../../utils/p2p-utils';
 
 
 const fakeDeal = {
@@ -19,7 +20,8 @@ const fakeDeal = {
 
 
 export const OrderDeal = ({ deal, states, setState, amount, tokenPrice, order }) => {
-  const finalAmount = (amount / tokenPrice).toFixed(2)
+  const finalAmount = countFinalAmount(states.type, amount, tokenPrice)
+  // const finalAmount = (amount / tokenPrice).toFixed(2)
   const bankNames = Object.keys(order.payments)
 
   return (

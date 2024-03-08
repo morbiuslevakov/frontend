@@ -1,21 +1,32 @@
 import React from 'react'
-import { Stack, Typography } from '@mui/material'
+import { Button, Stack, Typography } from '@mui/material'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { FormStackSection } from '../../form/FormStackSection';
 import { FormStackClickSection } from '../../form/FormStackClickSection';
 
-export const OrderDetails = ({ states, setState, order, maxLimit }) => {
+export const OrderDetails = ({ states, setState, order, maxLimit, cryptoBalance }) => {
+  const bankNames = Object.keys(order.payments)
+  const paymentsName = states.paymentMethods.map(payment => payment.bank.name);
+
   const handleClick = () => {
     setState.step('details')
   }
 
-  const bankNames = Object.keys(order.payments)
+  const handlePayments = () => {
+    setState.step('payments')
+  }
 
   return (
     <Stack gap={0.2}>
       <FormStackSection>
+        <Typography>Доступный баланс</Typography>
+        <Typography>{cryptoBalance} {states.crypto}</Typography>
+      </FormStackSection>
+      <FormStackSection>
         <Typography>Методы оплаты</Typography>
-        <Typography>{bankNames}</Typography>
+        {states.type === "BUY" ?
+          <Button color='blue' onClick={handlePayments}>{!states.paymentMethods.length ? 'Добавить' : paymentsName.join(', ')}</Button>
+          : <Typography>{bankNames}</Typography>}
       </FormStackSection>
       <FormStackSection>
         <Typography>Лимиты</Typography>

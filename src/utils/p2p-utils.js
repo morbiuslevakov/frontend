@@ -18,7 +18,7 @@ export const buildOrderData = (type, assetId, currency, priceType, percentPrice,
 }
 
 export const calcutaleInputWidth = (amount) => {
-  return `${Math.min(10 + String(amount).length * 4, 100)}%`;
+  return `400px`;
 }
 
 export const P2PInputHandleChange = (event, setAmount, maxLimit) => {
@@ -55,6 +55,60 @@ export const switchType = (type) => {
     default:
       break;
   }
+}
+
+export const orderActionText = (type) => {
+  switch (type) {
+    case "SELL":
+      return "Вы покупаете у"
+    case "BUY":
+      return "Вы продаете"
+    default:
+      break;
+  }
+}
+
+export const orderButtonText = (type) => {
+  switch (type) {
+    case "SELL":
+      return "Купить"
+    case "BUY":
+      return "Продать"
+    default:
+      break;
+  }
+}
+
+export const inputText = (type, crypto, currency) => {
+  switch (type) {
+    case "SELL":
+      return currency
+    case "BUY":
+      return crypto
+    default:
+      break;
+  }
+}
+
+export const countMaxLimit = (type, available, oneTokenPrice, cryptoBalance) => {
+  if (type === "SELL") {
+    return (available * oneTokenPrice).toFixed(2);
+  }
+  return Math.min(available, parseFloat(cryptoBalance));
+}
+
+export const countFinalAmount = (type, amount, tokenPrice) => {
+  if (type === "SELL") {
+    return parseFloat((amount / tokenPrice).toFixed(2))
+  }
+  return amount
+}
+
+export const countFinalAmountInCurrency = (type, amount, tokenPrice) => {
+  if (type === "BUY") {
+    return parseFloat((amount * tokenPrice).toFixed(2))
+  }
+  return amount
 }
 
 export const createDealData = (type, order, finalAmount) => {

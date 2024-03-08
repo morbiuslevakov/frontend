@@ -53,7 +53,7 @@ const getStatusIcon = (status) => {
 export const Status = ({ deal }) => {
   const status = deal.status;
 
-  console.log(status)
+  // console.log(status)
 
   const dealSum = parseFloat(Number(deal.sum).toFixed(2))
   const statusText = getStatusText(status)
