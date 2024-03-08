@@ -4,8 +4,10 @@ import { buildOrdersPayload } from '../utils/p2p-utils';
 import { getOrders } from '../utils/api-utils';
 import { useApiRequest } from './use-api-request.hook';
 import { useCrypto } from './use-crypto.hook';
+import { useP2P } from './use-p2p.hook';
 
 export const useP2PPage = (type) => {
+  const { walletInfo } = useP2P()
   const apiRequest = useApiRequest();
   const [currency, setCurrency] = useState("RUB")
   const [crypto, setCrypto] = useState("YUSRA")
@@ -18,8 +20,9 @@ export const useP2PPage = (type) => {
 
   const { cryptoDetails } = useCrypto(currency)
 
-  const { allBanks } = useBanks(currency)
+  const { allBanks, userPaymentMethods, addPaymentMethod } = useBanks(currency)
   const [selectedBanks, setSelectedBanks] = useState(['All', ...allBanks.map(bank => bank.id)]);
+  const [paymentMethods, setPaymentMethods] = useState([])
 
   useEffect(() => {
     setLoading(true)
@@ -47,14 +50,16 @@ export const useP2PPage = (type) => {
     }
   }, [allBanks]);
 
-  const states = { currency, crypto, selectedBanks, selectedOrder, step, orders, type, isLoading, cryptoDetails }
+  const states = { walletInfo, currency, crypto, selectedBanks, selectedOrder, step, orders, type, isLoading, cryptoDetails, paymentMethods, userPaymentMethods, allBanks }
 
   const setState = {
     currency: setCurrency,
     crypto: setCrypto,
     banks: setSelectedBanks,
     order: setSelectedOrder,
-    step: setStep
+    step: setStep,
+    paymentMethods: setPaymentMethods,
+    addPaymentMethod
   }
 
   return { states, setState }

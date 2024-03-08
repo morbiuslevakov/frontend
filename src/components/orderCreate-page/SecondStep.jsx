@@ -8,12 +8,6 @@ import { LitePaymentMethod } from './second-step-sections/LitePaymentMethod'
 export const SecondStep = ({ states, setState }) => {
   const { allBanks, userPaymentMethods, addPaymentMethod } = useBanks(states.currency)
 
-  console.log(states.currency)
-
-  console.log(allBanks)
-
-
-
   if (states.orderAction === "BUY") {
     return <Stack gap={0.2}>
       {allBanks.map(bank => {

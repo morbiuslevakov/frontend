@@ -11,7 +11,6 @@ export const P2PTradeItem = ({ states, order, setOrder, setStep }) => {
   const maxLimit = (order.available * oneTokenPrice).toFixed(2);
 
   const handleSelect = () => {
-    console.log(order)
     setOrder(order.id)
     setStep(2)
   }

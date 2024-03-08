@@ -12,6 +12,10 @@ export const P2PFormHeader = ({ step, setStep, setOrder }) => {
       setStep(2)
       return;
     }
+    if (step === 'payments') {
+      setStep(2)
+      return;
+    }
     if (step === 1) {
       navigate(-1)
     }

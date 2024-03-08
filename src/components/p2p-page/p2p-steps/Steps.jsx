@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { OrderFullDetails } from './OrderFullDetails'
 import { Box } from '@mui/material'
 import { FormFooterButton } from '../../buttons/FormFooterButton'
@@ -6,18 +6,26 @@ import { InputSection } from './InputSection'
 import { OrderDetails } from './OrderDetails'
 import { CompleteStep } from './FinalSteps/CompleteStep'
 import { WaitingStep } from './FinalSteps/WaitingStep'
-import { initDealToApi } from '../../../utils/api-utils'
-import { createDealData } from '../../../utils/p2p-utils'
+import { initDealToApi, makePaymentsFromApi } from '../../../utils/api-utils'
+import { countFinalAmount, countMaxLimit, createDealData, orderButtonText } from '../../../utils/p2p-utils'
 import { OrderDeal } from '../orderDeal/OrderDeal'
+import { Stomp } from '@stomp/stompjs'
+import { OrderPayments } from './OrderPayments'
 
 export const Steps = ({ amount, setAmount, currentStep, states, order, setState }) => {
   const [deal, setDeal] = useState({})
   const isDisabled = amount <= 0
+  const buttonText = orderButtonText(states.type)
+
+  const cryptoBalance = states.walletInfo.assets[states.crypto].balance
 
   const selectedToken = states.cryptoDetails?.find(crypto => crypto.asset === states.crypto)
   const oneTokenPrice = order.priceType === 'FIXED' ? order.price : ((order.price * 0.01) * selectedToken.price).toFixed(2)
 
-  const maxLimit = (order.available * oneTokenPrice).toFixed(2);
+  const maxLimit = countMaxLimit(states.type, order.available, oneTokenPrice, cryptoBalance)
+  const maxLimitInCurrency = (order.available * oneTokenPrice).toFixed(2);
+
+  console.log(maxLimit)
 
   const handleBack = () => {
     setState.step(2)
@@ -28,10 +36,11 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
   }
 
   const handleInitDeal = async () => {
-    const finalAmount = (amount / oneTokenPrice)
+    const finalAmount = countFinalAmount(states.type, amount, oneTokenPrice)
+    // console.log(order)
     const data = createDealData(states.type, order, finalAmount)
     initDealToApi(data).then(res => {
-      console.log(res)
+      // console.log(res)
       setDeal(res)
     }).catch(error => {
       console.log(error)
@@ -40,33 +49,40 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
 
   // после idit deal мы берем dealId
 
-  //   useEffect(() => {
-  //     const client = Stomp.over(new WebSocket('wss://api.deaslide.com/ws'));
+  useEffect(() => {
+    if (Object.keys(deal).length !== 0) { // Проверяем, что deal не пустой
+      const dealId = deal.dealId; // Или как вы получаете dealId из ответа
+      const client = Stomp.over(new WebSocket('wss://api.example.com/ws'));
 
-  //     client.connect({}, () => {
-  //         client.subscribe('/topic/deal/65e383ea57c44e38659371f3', async (message) => {
-  //             console.log("Получены данные: ", message.body);
-  //             const data = JSON.parse(message.body);
-  //             if (data.status === "OPENED") {
-  //                 console.log(`Статус открыт, выполняем платеж для сделки ${data.dealId}`);
-  //                 await makePaymentsFromApi(data.dealId);
-  //             }
-  //         });
-  //     }, (error) => {
-  //         console.error("Ошибка соединения", error);
-  //     });
+      client.connect({}, () => {
+        client.subscribe(`/topic/deal/${dealId}`, async (message) => {
+          console.log("Получены данные: ", message.body);
+          const data = JSON.parse(message.body);
+          if (data.status === "OPENED") {
+            console.log(`Статус открыт, выполняем платеж для сделки ${data.dealId}`);
+            await makePaymentsFromApi(data.dealId);
+          }
+          // Обновляем состояние сделки каждый раз, когда получаем сообщение
+          setDeal(prevDeal => ({ ...prevDeal, ...data }));
+        });
+      }, (error) => {
+        console.error("Ошибка соединения", error);
+      });
 
-  //     return () => {
-  //         client.disconnect();
-  //     };
-  // }, []);
+      return () => {
+        client.disconnect();
+      };
+    }
+  }, [deal]); // Зависимость от deal
 
   // useEffect(() => {
-  //     confirmPaymentApi('65e383ea57c44e38659371f3').then(res => {
-  //         console.log(res)
-  //     }).catch(error => {
-  //         console.log('error ', error)
-  //     })
+  // if(deal){
+  //   confirmPaymentApi('deal.dealId').then(res => {
+  //     console.log(res)
+  // }).catch(error => {
+  //     console.log('error ', error)
+  // })
+  // }
   // }, [])
 
   // confirmPaymentApi('65e383ea57c44e38659371f3').then(res => {
@@ -75,6 +91,11 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
   //     console.log('error ', error)
   // })
 
+  if (currentStep === 'payments') {
+    return <>
+      <OrderPayments order={order} states={states} setState={setState} />
+    </>
+  }
 
   if (currentStep === 'details') {
     return <>
@@ -97,12 +118,16 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
     </>
   }
 
+  console.log(order)
+  console.log(states.crypto)
+  console.log(states.type)
+
   if (currentStep === 2) {
     return <>
       <InputSection amount={amount} setAmount={setAmount} states={states} oneTokenPrice={oneTokenPrice} maxLimit={maxLimit} />
-      <OrderDetails states={states} setState={setState} order={order} maxLimit={maxLimit} />
+      <OrderDetails cryptoBalance={cryptoBalance} states={states} setState={setState} order={order} maxLimit={maxLimitInCurrency} />
       <Box mt={2}>
-        <FormFooterButton text={'Купить'} isDisabled={isDisabled} callback={handleClick} />
+        <FormFooterButton text={buttonText} isDisabled={isDisabled} callback={handleClick} />
       </Box>
     </>
   }

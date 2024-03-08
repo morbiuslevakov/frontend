@@ -1,8 +1,11 @@
 import { Stack, Typography } from '@mui/material'
 import React from 'react'
 import { FormStackSection } from '../../form/FormStackSection'
+import { countFinalAmountInCurrency } from '../../../utils/p2p-utils'
 
 export const SmallDetails = ({ states, bankNames, amount, tokenPrice }) => {
+  const finalAmount = countFinalAmountInCurrency(states.type, amount, tokenPrice)
+
   return (
     <Stack gap={0.2}>
       <FormStackSection>
@@ -11,7 +14,7 @@ export const SmallDetails = ({ states, bankNames, amount, tokenPrice }) => {
       </FormStackSection>
       <FormStackSection>
         <Typography>Сумма</Typography>
-        <Typography>{amount} {states.currency}</Typography>
+        <Typography>{finalAmount} {states.currency}</Typography>
       </FormStackSection>
       <FormStackSection>
         <Typography>Методы оплаты</Typography>
