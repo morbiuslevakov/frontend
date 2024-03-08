@@ -7,7 +7,7 @@ import { FormStackSection } from '../../form/FormStackSection'
 import { CopyButton } from './CopyButton';
 
 export const DealPayments = ({ payment }) => {
-  console.log(payment)
+  // console.log(payment)
 
   // поменять на нормальный номер карты или телефон
 

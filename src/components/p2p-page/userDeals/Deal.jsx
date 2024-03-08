@@ -7,7 +7,7 @@ import { actionType } from '../../../utils/constants/order-create'
 import { dealString } from '../../../utils/deal-utils'
 
 export const Deal = ({ deal }) => {
-  console.log(deal)
+  // console.log(deal)
 
   // amount: 12.171052631578949
   // createdAt: 1709409258637
