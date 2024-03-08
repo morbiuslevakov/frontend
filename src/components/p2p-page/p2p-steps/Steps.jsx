@@ -52,7 +52,7 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
   useEffect(() => {
     if (Object.keys(deal).length !== 0) { // Проверяем, что deal не пустой
       const dealId = deal.dealId; // Или как вы получаете dealId из ответа
-      const client = Stomp.over(new WebSocket('wss://api.example.com/ws'));
+      const client = Stomp.over(new WebSocket('wss://api.deaslide.com/ws'));
 
       client.connect({}, () => {
         client.subscribe(`/topic/deal/${dealId}`, async (message) => {
