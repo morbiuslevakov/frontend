@@ -59,7 +59,6 @@ export const getWalletFromApi = async (token, currency) => {
 }
 
 export const getBanksFromApi = async (token, currency) => {
-  console.log(token, currency)
   const url = `${apiUrl}/p2p/get-banks/${currency}`
   const config = buildAuthorizationApiConfig(token)
   try {
@@ -189,7 +188,6 @@ export const makePaymentsFromApi = async (dealId) => {
     throw error
   }
 }
-
 
 export const confirmPaymentApi = async (dealId) => {
   const url = `${apiUrl}/p2p/confirm-payment/${dealId}`

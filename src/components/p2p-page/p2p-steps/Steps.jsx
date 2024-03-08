@@ -6,15 +6,33 @@ import { InputSection } from './InputSection'
 import { OrderDetails } from './OrderDetails'
 import { CompleteStep } from './FinalSteps/CompleteStep'
 import { WaitingStep } from './FinalSteps/WaitingStep'
-import { initDealToApi, makePaymentsFromApi } from '../../../utils/api-utils'
+import { confirmPaymentApi, initDealToApi, makePaymentsFromApi } from '../../../utils/api-utils'
 import { countFinalAmount, countMaxLimit, createDealData, orderButtonText } from '../../../utils/p2p-utils'
 import { OrderDeal } from '../orderDeal/OrderDeal'
 import { Stomp } from '@stomp/stompjs'
 import { OrderPayments } from './OrderPayments'
 
+const isButtonDisabled = (amount, type, payments) => {
+  if (type === "BUY") {
+    if (amount <= 0) {
+      return true
+    }
+    if (payments.length <= 0) {
+      return true
+    }
+    return false
+  }
+  return amount <= 0
+}
+
 export const Steps = ({ amount, setAmount, currentStep, states, order, setState }) => {
   const [deal, setDeal] = useState({})
-  const isDisabled = amount <= 0
+  const dealStatus = deal.status
+
+  const isDisabled = isButtonDisabled(amount, states.type, states.paymentMethods)
+
+  console.log(states.type)
+
   const buttonText = orderButtonText(states.type)
 
   const cryptoBalance = states.walletInfo.assets[states.crypto].balance
@@ -24,8 +42,6 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
 
   const maxLimit = countMaxLimit(states.type, order.available, oneTokenPrice, cryptoBalance)
   const maxLimitInCurrency = (order.available * oneTokenPrice).toFixed(2);
-
-  console.log(maxLimit)
 
   const handleBack = () => {
     setState.step(2)
@@ -37,14 +53,39 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
 
   const handleInitDeal = async () => {
     const finalAmount = countFinalAmount(states.type, amount, oneTokenPrice)
-    // console.log(order)
-    const data = createDealData(states.type, order, finalAmount)
+    const data = createDealData(states.type, order, finalAmount, states.paymentMethods)
     initDealToApi(data).then(res => {
-      // console.log(res)
       setDeal(res)
     }).catch(error => {
       console.log(error)
     })
+  }
+
+  const handleMakePayment = async () => {
+    makePaymentsFromApi(deal.dealId)
+  }
+
+  const handleConfirmPayment = async () => {
+    confirmPaymentApi(deal.dealId)
+  }
+
+  const getFooterButton = (status) => {
+    if (status === "PROCESSED") {
+      return <Box mt={2}>
+        <FormFooterButton text={'Подтвердить платеж'} callback={handleConfirmPayment} />
+      </Box>
+    }
+    if (status === "OPENED") {
+      return <Box mt={2}>
+        <FormFooterButton text={'Совершить платеж'} callback={handleMakePayment} />
+      </Box>
+    }
+    if (status === "INITIALIZED") {
+      return null
+    }
+    return <Box mt={2}>
+      <FormFooterButton text={'Создать сделку'} callback={handleInitDeal} />
+    </Box>
   }
 
   // после idit deal мы берем dealId
@@ -52,18 +93,18 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
   useEffect(() => {
     if (Object.keys(deal).length !== 0) { // Проверяем, что deal не пустой
       const dealId = deal.dealId; // Или как вы получаете dealId из ответа
-      const client = Stomp.over(new WebSocket('wss://api.example.com/ws'));
+      const client = Stomp.over(new WebSocket('wss://api.deaslide.com/ws'));
 
       client.connect({}, () => {
         client.subscribe(`/topic/deal/${dealId}`, async (message) => {
           console.log("Получены данные: ", message.body);
           const data = JSON.parse(message.body);
-          if (data.status === "OPENED") {
-            console.log(`Статус открыт, выполняем платеж для сделки ${data.dealId}`);
-            await makePaymentsFromApi(data.dealId);
-          }
+          // if (data.status === "OPENED") {
+          //   console.log(`Статус открыт, выполняем платеж для сделки ${data.dealId}`);
+          //   await makePaymentsFromApi(data.dealId);
+          // }
           // Обновляем состояние сделки каждый раз, когда получаем сообщение
-          setDeal(prevDeal => ({ ...prevDeal, ...data }));
+          setDeal(data);
         });
       }, (error) => {
         console.error("Ошибка соединения", error);
@@ -73,23 +114,9 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
         client.disconnect();
       };
     }
-  }, [deal]); // Зависимость от deal
+  }, [deal.dealId]); // Зависимость от deal
 
-  // useEffect(() => {
-  // if(deal){
-  //   confirmPaymentApi('deal.dealId').then(res => {
-  //     console.log(res)
-  // }).catch(error => {
-  //     console.log('error ', error)
-  // })
-  // }
-  // }, [])
 
-  // confirmPaymentApi('65e383ea57c44e38659371f3').then(res => {
-  //     console.log(res)
-  // }).catch(error => {
-  //     console.log('error ', error)
-  // })
 
   if (currentStep === 'payments') {
     return <>
@@ -106,21 +133,19 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
     </>
   }
 
-  if (currentStep === 'complete') { // поменять потом на complete
+  if (dealStatus === "COMPLETED") { // поменять потом на complete
     return <>
-      <CompleteStep states={states} amount={amount} />
+      <CompleteStep states={states} amount={deal.amount} />
     </>
   }
 
-  if (currentStep === 'waiting') { // поменять потом на waiting
+  if (dealStatus === "CONFIRMED") {
     return <>
       <WaitingStep />
     </>
   }
 
-  console.log(order)
-  console.log(states.crypto)
-  console.log(states.type)
+  console.log('deal ', deal)
 
   if (currentStep === 2) {
     return <>
@@ -132,12 +157,12 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
     </>
   }
 
+  const footerButton = getFooterButton(deal.status)
+
   if (currentStep === 3) {
     return <>
       <OrderDeal deal={deal} states={states} setState={setState} amount={amount} tokenPrice={oneTokenPrice} order={order} />
-      <Box mt={2}>
-        <FormFooterButton text={'Создать сделку'} callback={handleInitDeal} />
-      </Box>
+      {footerButton}
     </>
   }
 

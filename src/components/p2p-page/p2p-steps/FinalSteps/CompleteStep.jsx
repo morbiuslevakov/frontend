@@ -15,7 +15,7 @@ export const CompleteStep = ({ states, amount }) => {
     <Stack alignItems={'center'} py={5} gap={3}>
       <StatusAndAppeal image={<ConfirmImage />}
         title={'Платеж подтвержден'}
-        text={`В течение 2 минуты сумма ${amount} ${states.crypto} будет зачислена на ваш кошелёк.`} />
+        text={`В течение 2 минут сумма ${amount} ${states.crypto} будет зачислена на ваш кошелёк.`} />
       <Button variant="contained" color='darkAqua' onClick={handleP2P}>
         <Typography variant='aqua'>Открыть P2P Маркет</Typography>
       </Button>
