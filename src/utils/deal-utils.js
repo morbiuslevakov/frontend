@@ -1,3 +1,6 @@
+import { Box } from "@mui/material"
+import { FormFooterButton } from "../components/buttons/FormFooterButton"
+
 export const dealString = {
   "INITIALIZED": "ОЖИДАЕТ ПОДТВЕРЖДЕНИЯ",
   "OPENED": "ОЖИДАЕТ ОПЛАТЫ",
@@ -8,4 +11,36 @@ export const dealString = {
   "CANCELED": "ОТМЕНЕНО",
   "APPEAL": "АПЕЛЛЯЦИЯ",
   "CLOSED": "ЗАКРЫТО",
+}
+
+export const getFooterButton = (status, handleConfirmPayment, handleMakePayment, handleInitDeal) => {
+  if (status === "PROCESSED") {
+    return <Box mt={2}>
+      <FormFooterButton text={'Подтвердить платеж'} callback={handleConfirmPayment} />
+    </Box>
+  }
+  if (status === "OPENED") {
+    return <Box mt={2}>
+      <FormFooterButton text={'Совершить платеж'} callback={handleMakePayment} />
+    </Box>
+  }
+  if (status === "INITIALIZED") {
+    return null
+  }
+  return <Box mt={2}>
+    <FormFooterButton text={'Создать сделку'} callback={handleInitDeal} />
+  </Box>
+}
+
+export const isButtonDisabled = (amount, type, payments) => {
+  if (type === "BUY") {
+    if (amount <= 0) {
+      return true
+    }
+    if (payments.length <= 0) {
+      return true
+    }
+    return false
+  }
+  return amount <= 0
 }

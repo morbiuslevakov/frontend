@@ -5,6 +5,7 @@ import { FormSectionWrapper, FormWrapper } from '../../orderCreate-page/Styled'
 import { Stack, Typography } from '@mui/material'
 
 export const UserDeals = ({ deals }) => {
+  console.log(deals)
   return (
     <DealsWrapper>
       <FormWrapper>

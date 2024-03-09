@@ -7,10 +7,6 @@ import { FormStackSection } from '../../form/FormStackSection'
 import { CopyButton } from './CopyButton';
 
 export const DealPayments = ({ payment }) => {
-  // console.log(payment)
-
-  // поменять на нормальный номер карты или телефон
-
   return payment ? (
     <Stack gap={0.2}>
       <FormContentWrapper>
@@ -21,7 +17,7 @@ export const DealPayments = ({ payment }) => {
           <AccountBalanceIcon color='primary' />
           <Stack>
             <Typography variant={'gray'}>Метод оплаты</Typography>
-            <Typography>Альфа-Банк</Typography>
+            <Typography>{payment.bank.name}</Typography>
           </Stack>
         </Stack>
       </FormStackSection>
@@ -30,10 +26,10 @@ export const DealPayments = ({ payment }) => {
           <PaymentIcon color='primary' />
           <Stack>
             <Typography variant={'gray'}>Аккаунт, номер карты или телефон</Typography>
-            <Typography>5469021249433536</Typography>
+            <Typography>{payment.account}</Typography>
           </Stack>
         </Stack>
-        <CopyButton text={'5469021249433536'} />
+        <CopyButton text={payment.account} />
       </FormStackSection>
     </Stack>
   ) : <></>
