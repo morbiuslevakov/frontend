@@ -31,7 +31,6 @@ export const useOrderCreate = () => {
 
   const selectedTokenId = allTokens.find(token => token.alias === selectedToken)?.id
   const selectedTokenPrice = allTokens.find(token => token.alias === selectedToken)?.price?.toFixed(2)
-  const selectedTokenFee = allTokens.find(token => token.alias === selectedToken)?.fee?.toFixed(4)
 
   const errors = {
     percentPrice: percentPriceError,
@@ -79,7 +78,7 @@ export const useOrderCreate = () => {
       }
     }
     if (currentStep === 4) {
-      const orderData = buildOrderData(orderAction, selectedTokenId, currency, priceType, percentPrice, amount, selectedTokenFee, dealSum, time, paymentMethods, comment)
+      const orderData = buildOrderData(orderAction, selectedTokenId, currency, priceType, percentPrice, amount, dealSum, time, paymentMethods, comment)
       apiRequest(postOrderToApi, orderData).then(() => {
         setIsCreated(true)
       }).catch(() => {
@@ -134,7 +133,6 @@ export const useOrderCreate = () => {
     time,
     limit,
     customTokenPrice,
-    selectedTokenFee,
     userDetails,
     selectedTokenPrice,
     isCreated,

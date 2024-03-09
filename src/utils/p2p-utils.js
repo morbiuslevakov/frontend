@@ -1,4 +1,4 @@
-export const buildOrderData = (type, assetId, currency, priceType, percentPrice, amount, fee, minSum, time, paymentMethods, comment) => {
+export const buildOrderData = (type, assetId, currency, priceType, percentPrice, amount, minSum, time, paymentMethods, comment) => {
   const payments = paymentMethods.map(method => method.id)
   const orderComment = comment === '' ? null : comment
 
@@ -9,7 +9,6 @@ export const buildOrderData = (type, assetId, currency, priceType, percentPrice,
     "priceType": priceType,
     "price": Number(percentPrice),
     "amount": Number(amount),
-    "fee": Number(fee),
     "minSum": Number(minSum),
     "paymentTime": Number(time),
     "payments": payments,
@@ -26,7 +25,7 @@ export const P2PInputHandleChange = (event, setAmount, maxLimit) => {
   if (value.length > 10) {
     return;
   }
-  if (Number(value) > maxLimit) {
+  if (Number(value) > Number(maxLimit)) {
     return;
   }
   let formattedValue = value.startsWith('0') && !value.startsWith('0.') && value.length > 1 ? value.substring(1) : value;
@@ -79,33 +78,33 @@ export const orderButtonText = (type) => {
   }
 }
 
-export const inputText = (type, crypto, currency) => {
-  switch (type) {
-    case "SELL":
-      return currency
-    case "BUY":
+export const inputText = (isCrypto, crypto, currency) => {
+  switch (isCrypto) {
+    case true:
       return crypto
+    case false:
+      return currency
     default:
       break;
   }
 }
 
-export const countMaxLimit = (type, available, oneTokenPrice, cryptoBalance) => {
-  if (type === "SELL") {
+export const countMaxLimit = (inputValue, available, oneTokenPrice, cryptoBalance) => {
+  if (inputValue === "currency") {
     return (available * oneTokenPrice).toFixed(2);
   }
   return Math.min(available, parseFloat(cryptoBalance));
 }
 
-export const countFinalAmount = (type, amount, tokenPrice) => {
-  if (type === "SELL") {
+export const countFinalAmount = (inputValue, amount, tokenPrice) => {
+  if (inputValue === "currency") {
     return parseFloat((amount / tokenPrice).toFixed(2))
   }
   return amount
 }
 
-export const countFinalAmountInCurrency = (type, amount, tokenPrice) => {
-  if (type === "BUY") {
+export const countFinalAmountInCurrency = (inputValue, amount, tokenPrice) => {
+  if (inputValue === "crypto") {
     return parseFloat((amount * tokenPrice).toFixed(2))
   }
   return amount
