@@ -208,3 +208,13 @@ export const getUserDealsFromApi = async () => {
     throw error
   }
 }
+
+export const getDealFromApi = async (dealId) => {
+  const url = `${apiUrl}/p2p/get-deal/${dealId}`
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}

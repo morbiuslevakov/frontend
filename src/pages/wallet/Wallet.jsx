@@ -9,12 +9,6 @@ import { TokensTable } from "../../components/wallet-page/TokensTable";
 export const Wallet = () => {
     const { user, tokensRows, walletInfo } = useWallet()
 
-    // console.log('user ', user)
-
-    // console.log(tokensRows)
-
-    // console.log(walletInfo)
-
     if (!user) {
         return <Navigate to={'/login'} />;
     }

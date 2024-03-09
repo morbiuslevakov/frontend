@@ -11,19 +11,8 @@ import { countFinalAmount, countMaxLimit, createDealData, orderButtonText } from
 import { OrderDeal } from '../orderDeal/OrderDeal'
 import { Stomp } from '@stomp/stompjs'
 import { OrderPayments } from './OrderPayments'
+import { getFooterButton, isButtonDisabled } from '../../../utils/deal-utils'
 
-const isButtonDisabled = (amount, type, payments) => {
-  if (type === "BUY") {
-    if (amount <= 0) {
-      return true
-    }
-    if (payments.length <= 0) {
-      return true
-    }
-    return false
-  }
-  return amount <= 0
-}
 
 export const Steps = ({ amount, setAmount, currentStep, states, order, setState }) => {
   const [deal, setDeal] = useState({})
@@ -69,41 +58,15 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
     confirmPaymentApi(deal.dealId)
   }
 
-  const getFooterButton = (status) => {
-    if (status === "PROCESSED") {
-      return <Box mt={2}>
-        <FormFooterButton text={'Подтвердить платеж'} callback={handleConfirmPayment} />
-      </Box>
-    }
-    if (status === "OPENED") {
-      return <Box mt={2}>
-        <FormFooterButton text={'Совершить платеж'} callback={handleMakePayment} />
-      </Box>
-    }
-    if (status === "INITIALIZED") {
-      return null
-    }
-    return <Box mt={2}>
-      <FormFooterButton text={'Создать сделку'} callback={handleInitDeal} />
-    </Box>
-  }
-
-  // после idit deal мы берем dealId
-
   useEffect(() => {
-    if (Object.keys(deal).length !== 0) { // Проверяем, что deal не пустой
-      const dealId = deal.dealId; // Или как вы получаете dealId из ответа
+    if (Object.keys(deal).length !== 0) {
+      const dealId = deal.dealId;
       const client = Stomp.over(new WebSocket('wss://api.deaslide.com/ws'));
 
       client.connect({}, () => {
         client.subscribe(`/topic/deal/${dealId}`, async (message) => {
           console.log("Получены данные: ", message.body);
           const data = JSON.parse(message.body);
-          // if (data.status === "OPENED") {
-          //   console.log(`Статус открыт, выполняем платеж для сделки ${data.dealId}`);
-          //   await makePaymentsFromApi(data.dealId);
-          // }
-          // Обновляем состояние сделки каждый раз, когда получаем сообщение
           setDeal(data);
         });
       }, (error) => {
@@ -133,7 +96,7 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
     </>
   }
 
-  if (dealStatus === "COMPLETED") { // поменять потом на complete
+  if (dealStatus === "COMPLETED") {
     return <>
       <CompleteStep states={states} amount={deal.amount} />
     </>
@@ -157,7 +120,11 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
     </>
   }
 
-  const footerButton = getFooterButton(deal.status)
+  const footerButton = getFooterButton(deal.status, handleConfirmPayment, handleMakePayment, handleInitDeal)
+
+  console.log(deal.status)
+
+  console.log(order)
 
   if (currentStep === 3) {
     return <>
@@ -165,5 +132,4 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
       {footerButton}
     </>
   }
-
 }

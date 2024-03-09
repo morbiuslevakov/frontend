@@ -3,7 +3,7 @@ import React from 'react'
 import { FormStackSection } from '../../form/FormStackSection'
 import { countFinalAmountInCurrency } from '../../../utils/p2p-utils'
 
-export const SmallDetails = ({ states, bankNames, amount, tokenPrice }) => {
+export const SmallDetails = ({ deal, states, bankNames, amount, tokenPrice }) => {
   const finalAmount = countFinalAmountInCurrency(states.type, amount, tokenPrice)
 
   return (
@@ -22,7 +22,7 @@ export const SmallDetails = ({ states, bankNames, amount, tokenPrice }) => {
       </FormStackSection>
       <FormStackSection>
         <Typography>Время на оплату</Typography>
-        <Typography>15 мин</Typography>
+        <Typography>{deal.paymentTime} мин</Typography>
       </FormStackSection>
     </Stack>
   )

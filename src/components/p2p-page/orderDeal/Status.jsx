@@ -5,37 +5,31 @@ import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { FormStackSection } from '../../form/FormStackSection'
 
-// {"dealId":"65e383ea57c44e38659371f3","status":"OPENED",
-// "assetId":"65d305b8ead27cc777095fe8","assetAlias":"YUSRA",
-// "amount":12.171052631578949,"sum":222.00000000000003,"price":18.24,
-// "currency":"RUB","paymentTime":15,"chatAvailable":true,
-// "payment":{"id":"65dcfb727364a9728fbd2ecb","type":"BANK","account":"79999999999","bank":{"id":"65d324fd97ba9a0aac8b07a6","name":"Тинькофф"}},
-// "createdAt":1709409258637,"maker":{"role":"SELLER","deals":0,"completedPercent":0,"username":"morbiuslevakov"},
-// "taker":{"role":"SELLER","deals":0,"completedPercent":0,"username":"howtonik"}}
-
-const getStatusText = (status) => {
+const getStatusText = (status, type) => {
+  const isSell = type === "SELL";
   switch (status) {
     case 'INITIALIZED':
-      return "Ожидается подтверждение продавца"
+      return isSell ? "Ожидается подтверждение продавца" : "Ожидается подтверждение покупателя"
     case 'OPENED':
-      return "Продавец подтвердил сделку"
+      return isSell ? "Продавец подтвердил сделку" : "Покупатель подтвердил сделку"
     case 'PROCESSED':
-      return "Продавец подтвердил сделку"
+      return isSell ? "Продавец подтвердил сделку" : "Покупатель подтвердил сделку"
     default:
       return 'Сделка формируется'
   }
 }
 
-const getStatusAdditionalText = (status, paymentTime, dealSum, currency) => {
+const getStatusAdditionalText = (status, paymentTime, dealSum, currency, type) => {
+  const isSell = type === "SELL";
   switch (status) {
     case 'INITIALIZED':
-      return "Ожидается подтверждение сделки от продавца"
+      return isSell ? "Ожидается подтверждение сделки от продавца" : "Ожидается подтверждение сделки от покупателя"
     case 'OPENED':
-      return `Вы должны отправить ${dealSum} ${currency} в течение ${paymentTime} мин`
+      return isSell ? `Вы должны запросить реквизиты в течение 10 минут` : `Покупатель должен запросить реквизиты в течение 10 минут`
     case 'PROCESSED':
-      return `Вы должны отправить ${dealSum} ${currency} в течение ${paymentTime} мин`
+      return isSell ? `Вы должны отправить ${dealSum} ${currency} в течение ${paymentTime} мин` : `Покупатель должен отправить вам ${dealSum} ${currency} в течение ${paymentTime} мин`
     default:
-      return 'Продавец должен подтвердить сделку в течении 10 минут после ее создания'
+      return isSell ? 'Продавец должен подтвердить сделку в течении 10 минут после ее создания' : "Покупатель должен подтвердить сделку в течении 10 минут после ее создания"
   }
 }
 
@@ -50,15 +44,15 @@ const getStatusIcon = (status) => {
   }
 }
 
-export const Status = ({ deal }) => {
+export const Status = ({ type, deal }) => {
   const status = deal.status;
 
   // console.log(status)
 
   const dealSum = parseFloat(Number(deal.sum).toFixed(2))
-  const statusText = getStatusText(status)
+  const statusText = getStatusText(status, type)
   const statusIcon = getStatusIcon(status)
-  const additionalText = getStatusAdditionalText(status, deal.paymentTime, dealSum, deal.currency)
+  const additionalText = getStatusAdditionalText(status, deal.paymentTime, dealSum, deal.currency, type)
 
   return (
     <>

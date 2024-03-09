@@ -5,6 +5,7 @@ import { FormStackSection } from '../../form/FormStackSection';
 import { FormStackClickSection } from '../../form/FormStackClickSection';
 
 export const OrderDetails = ({ states, setState, order, maxLimit, cryptoBalance }) => {
+  const isBuy = states.type === "BUY"
   const bankNames = Object.keys(order.payments)
   const paymentsName = states.paymentMethods.map(payment => payment.bank.name);
 
@@ -18,13 +19,13 @@ export const OrderDetails = ({ states, setState, order, maxLimit, cryptoBalance 
 
   return (
     <Stack gap={0.2}>
-      <FormStackSection>
+      {isBuy && <FormStackSection>
         <Typography>Доступный баланс</Typography>
         <Typography>{cryptoBalance} {states.crypto}</Typography>
-      </FormStackSection>
+      </FormStackSection>}
       <FormStackSection>
         <Typography>Методы оплаты</Typography>
-        {states.type === "BUY" ?
+        {isBuy ?
           <Button color='blue' onClick={handlePayments}>{!states.paymentMethods.length ? 'Добавить' : paymentsName.join(', ')}</Button>
           : <Typography>{bankNames}</Typography>}
       </FormStackSection>
