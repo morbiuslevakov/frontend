@@ -1,11 +1,11 @@
 import { Stack } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { UserAndAction } from './UserAndAction';
-import { Steps } from './Steps';
+// import { Steps } from './Steps';
 import { orderActionText } from '../../../utils/p2p-utils';
 import { Stomp } from '@stomp/stompjs';
 import { confirmPaymentApi, getDealFromApi, makePaymentsFromApi } from '../../../utils/api-utils';
-import { OrderDeal } from '../orderDeal/OrderDeal';
+// import { OrderDeal } from '../orderDeal/OrderDeal';
 import { getFooterButton } from '../../../utils/deal-utils';
 import { OrderOnlyDeal } from '../orderDeal/OrderOnlyDeal';
 import { CompleteStep } from './FinalSteps/CompleteStep';
@@ -31,7 +31,7 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
     }).catch(error => { console.log(error) })
   }, [dealId])
 
-  useEffect(() => {
+  useEffect(() => { // надо избавиться от зависимостей. подумать. возможно через хук с подклчюениями + обработкой саба
     if (Object.keys(deal).length !== 0) {
       const client = Stomp.over(new WebSocket('wss://api.deaslide.com/ws'));
 
@@ -50,8 +50,6 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
       };
     }
   }, [deal.dealId]);
-
-  console.log('deal in p2p deal steps ', deal)
 
   if (dealStatus === "COMPLETED") {
     return <>

@@ -89,9 +89,12 @@ export const inputText = (isCrypto, crypto, currency) => {
   }
 }
 
-export const countMaxLimit = (inputValue, available, oneTokenPrice, cryptoBalance) => {
+export const countMaxLimit = (inputValue, available, oneTokenPrice, cryptoBalance, type) => {
   if (inputValue === "currency") {
     return (available * oneTokenPrice).toFixed(2);
+  }
+  if (type === "SELL") {
+    return available
   }
   return Math.min(available, parseFloat(cryptoBalance));
 }

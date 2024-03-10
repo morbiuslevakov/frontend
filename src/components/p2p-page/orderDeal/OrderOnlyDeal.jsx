@@ -31,7 +31,7 @@ export const OrderOnlyDeal = ({ deal, states }) => {
         </FormStackSection>
         <FormStackSection>
           <Typography>Сумма</Typography>
-          <Typography>{deal.amount} {states.currency}</Typography>
+          <Typography>{deal.sum} {states.currency}</Typography>
         </FormStackSection>
         <FormStackSection>
           <Typography>Методы оплаты</Typography>

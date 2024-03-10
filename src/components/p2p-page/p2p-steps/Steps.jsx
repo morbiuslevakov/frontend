@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { OrderFullDetails } from './OrderFullDetails'
 import { Box } from '@mui/material'
 import { FormFooterButton } from '../../buttons/FormFooterButton'
@@ -14,9 +14,6 @@ import { useNavigate } from 'react-router-dom'
 
 export const Steps = ({ amount, setAmount, currentStep, states, order, setState }) => {
   const navigate = useNavigate()
-  const [deal, setDeal] = useState({})
-
-  const isDisabled = isButtonDisabled(amount, states.type, states.paymentMethods)
 
   const buttonText = orderButtonText(states.type)
 
@@ -25,8 +22,12 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
   const selectedToken = states.cryptoDetails?.find(crypto => crypto.asset === states.crypto)
   const oneTokenPrice = order.priceType === 'FIXED' ? order.price : ((order.price * 0.01) * selectedToken.price).toFixed(2)
 
-  const maxLimit = countMaxLimit(states.inputValue, order.available, oneTokenPrice, cryptoBalance)
+  const maxLimit = countMaxLimit(states.inputValue, order.available, oneTokenPrice, cryptoBalance, states.type)
   const maxLimitInCurrency = (order.available * oneTokenPrice).toFixed(2);
+
+  const minSumIncrypto = parseFloat((order.minSum / oneTokenPrice).toFixed(2))
+
+  const isDisabled = isButtonDisabled(amount, states.type, states.paymentMethods, order.minSum, states.inputValue, minSumIncrypto)
 
   const handleBack = () => {
     setState.step(2)
@@ -78,7 +79,7 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
 
   if (currentStep === 3) {
     return <>
-      <OrderDeal deal={deal} states={states} setState={setState} amount={amount} tokenPrice={oneTokenPrice} order={order} />
+      <OrderDeal deal={{}} states={states} setState={setState} amount={amount} tokenPrice={oneTokenPrice} order={order} />
       <Box mt={2}>
         <FormFooterButton text={'Создать сделку'} callback={handleInitDeal} />
       </Box>

@@ -32,9 +32,10 @@ export const getFooterButton = (status, handleConfirmPayment, handleMakePayment,
   </Box>
 }
 
-export const isButtonDisabled = (amount, type, payments) => {
+export const isButtonDisabled = (amount, type, payments, minSum, inputValue, minSumIncrypto) => {
+  const minValue = inputValue === "crypto" ? minSumIncrypto : minSum
   if (type === "BUY") {
-    if (amount <= 0) {
+    if (amount <= minValue) {
       return true
     }
     if (payments.length <= 0) {
@@ -42,5 +43,5 @@ export const isButtonDisabled = (amount, type, payments) => {
     }
     return false
   }
-  return amount <= 0
+  return amount <= minValue
 }
