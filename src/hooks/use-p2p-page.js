@@ -14,6 +14,7 @@ export const useP2PPage = (type) => {
   const [selectedOrder, setSelectedOrder] = useState('')
   const [step, setStep] = useState(1)
   const [orders, setOrders] = useState([])
+  const [inputValue, setInputValue] = useState('currency')
   // const [orderPage, setOrderPage] = useState(1)
   const orderPage = 0
   const [isLoading, setLoading] = useState(true)
@@ -50,7 +51,11 @@ export const useP2PPage = (type) => {
     }
   }, [allBanks]);
 
-  const states = { walletInfo, currency, crypto, selectedBanks, selectedOrder, step, orders, type, isLoading, cryptoDetails, paymentMethods, userPaymentMethods, allBanks }
+  const states = {
+    walletInfo, currency, crypto, selectedBanks,
+    selectedOrder, step, orders, type, isLoading,
+    cryptoDetails, paymentMethods, userPaymentMethods, allBanks, inputValue
+  }
 
   const setState = {
     currency: setCurrency,
@@ -59,7 +64,8 @@ export const useP2PPage = (type) => {
     order: setSelectedOrder,
     step: setStep,
     paymentMethods: setPaymentMethods,
-    addPaymentMethod
+    addPaymentMethod,
+    inputValue: setInputValue
   }
 
   return { states, setState }

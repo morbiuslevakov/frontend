@@ -47,8 +47,6 @@ const getStatusIcon = (status) => {
 export const Status = ({ type, deal }) => {
   const status = deal.status;
 
-  // console.log(status)
-
   const dealSum = parseFloat(Number(deal.sum).toFixed(2))
   const statusText = getStatusText(status, type)
   const statusIcon = getStatusIcon(status)

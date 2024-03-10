@@ -9,6 +9,8 @@ import { OrderCreatedModal } from './third-step-sections/OrderCreatedModal'
 import { OrderErrorModal } from './third-step-sections/OrderErrorModal'
 
 export const ThirdStep = ({ states, setState }) => {
+  const isSell = states.orderAction === "SELL"
+
   return (
     <>
       <OrderErrorModal error={states.orderError} setError={setState.orderError} />
@@ -22,7 +24,7 @@ export const ThirdStep = ({ states, setState }) => {
           </FormContentWrapper>
         </FormSectionWrapper>
       </Stack>
-      <FeeSection states={states} />
+      {isSell && <FeeSection />}
     </>
   )
 }

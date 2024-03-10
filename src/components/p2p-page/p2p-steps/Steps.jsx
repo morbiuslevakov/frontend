@@ -1,26 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { OrderFullDetails } from './OrderFullDetails'
 import { Box } from '@mui/material'
 import { FormFooterButton } from '../../buttons/FormFooterButton'
 import { InputSection } from './InputSection'
 import { OrderDetails } from './OrderDetails'
-import { CompleteStep } from './FinalSteps/CompleteStep'
-import { WaitingStep } from './FinalSteps/WaitingStep'
-import { confirmPaymentApi, initDealToApi, makePaymentsFromApi } from '../../../utils/api-utils'
+import { initDealToApi } from '../../../utils/api-utils'
 import { countFinalAmount, countMaxLimit, createDealData, orderButtonText } from '../../../utils/p2p-utils'
 import { OrderDeal } from '../orderDeal/OrderDeal'
-import { Stomp } from '@stomp/stompjs'
 import { OrderPayments } from './OrderPayments'
-import { getFooterButton, isButtonDisabled } from '../../../utils/deal-utils'
+import { isButtonDisabled } from '../../../utils/deal-utils'
+import { useNavigate } from 'react-router-dom'
 
 
 export const Steps = ({ amount, setAmount, currentStep, states, order, setState }) => {
+  const navigate = useNavigate()
   const [deal, setDeal] = useState({})
-  const dealStatus = deal.status
 
   const isDisabled = isButtonDisabled(amount, states.type, states.paymentMethods)
-
-  console.log(states.type)
 
   const buttonText = orderButtonText(states.type)
 
@@ -29,7 +25,7 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
   const selectedToken = states.cryptoDetails?.find(crypto => crypto.asset === states.crypto)
   const oneTokenPrice = order.priceType === 'FIXED' ? order.price : ((order.price * 0.01) * selectedToken.price).toFixed(2)
 
-  const maxLimit = countMaxLimit(states.type, order.available, oneTokenPrice, cryptoBalance)
+  const maxLimit = countMaxLimit(states.inputValue, order.available, oneTokenPrice, cryptoBalance)
   const maxLimitInCurrency = (order.available * oneTokenPrice).toFixed(2);
 
   const handleBack = () => {
@@ -44,42 +40,16 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
     const finalAmount = countFinalAmount(states.type, amount, oneTokenPrice)
     const data = createDealData(states.type, order, finalAmount, states.paymentMethods)
     initDealToApi(data).then(res => {
-      setDeal(res)
+      if (states.type === "SELL") {
+        navigate(`/p2p/sell/${res.dealId}`, { dealId: res.dealId })
+      }
+      if (states.type === "BUY") {
+        navigate(`/p2p/buy/${res.dealId}`, { dealId: res.dealId })
+      }
     }).catch(error => {
       console.log(error)
     })
   }
-
-  const handleMakePayment = async () => {
-    makePaymentsFromApi(deal.dealId)
-  }
-
-  const handleConfirmPayment = async () => {
-    confirmPaymentApi(deal.dealId)
-  }
-
-  useEffect(() => {
-    if (Object.keys(deal).length !== 0) {
-      const dealId = deal.dealId;
-      const client = Stomp.over(new WebSocket('wss://api.deaslide.com/ws'));
-
-      client.connect({}, () => {
-        client.subscribe(`/topic/deal/${dealId}`, async (message) => {
-          console.log("Получены данные: ", message.body);
-          const data = JSON.parse(message.body);
-          setDeal(data);
-        });
-      }, (error) => {
-        console.error("Ошибка соединения", error);
-      });
-
-      return () => {
-        client.disconnect();
-      };
-    }
-  }, [deal.dealId]); // Зависимость от deal
-
-
 
   if (currentStep === 'payments') {
     return <>
@@ -96,23 +66,9 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
     </>
   }
 
-  if (dealStatus === "COMPLETED") {
-    return <>
-      <CompleteStep states={states} amount={deal.amount} />
-    </>
-  }
-
-  if (dealStatus === "CONFIRMED") {
-    return <>
-      <WaitingStep />
-    </>
-  }
-
-  console.log('deal ', deal)
-
   if (currentStep === 2) {
     return <>
-      <InputSection amount={amount} setAmount={setAmount} states={states} oneTokenPrice={oneTokenPrice} maxLimit={maxLimit} />
+      <InputSection amount={amount} setAmount={setAmount} states={states} setState={setState} oneTokenPrice={oneTokenPrice} maxLimit={maxLimit} order={order} />
       <OrderDetails cryptoBalance={cryptoBalance} states={states} setState={setState} order={order} maxLimit={maxLimitInCurrency} />
       <Box mt={2}>
         <FormFooterButton text={buttonText} isDisabled={isDisabled} callback={handleClick} />
@@ -120,16 +76,12 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
     </>
   }
 
-  const footerButton = getFooterButton(deal.status, handleConfirmPayment, handleMakePayment, handleInitDeal)
-
-  console.log(deal.status)
-
-  console.log(order)
-
   if (currentStep === 3) {
     return <>
       <OrderDeal deal={deal} states={states} setState={setState} amount={amount} tokenPrice={oneTokenPrice} order={order} />
-      {footerButton}
+      <Box mt={2}>
+        <FormFooterButton text={'Создать сделку'} callback={handleInitDeal} />
+      </Box>
     </>
   }
 }

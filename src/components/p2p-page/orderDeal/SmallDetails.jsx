@@ -4,7 +4,8 @@ import { FormStackSection } from '../../form/FormStackSection'
 import { countFinalAmountInCurrency } from '../../../utils/p2p-utils'
 
 export const SmallDetails = ({ deal, states, bankNames, amount, tokenPrice }) => {
-  const finalAmount = countFinalAmountInCurrency(states.type, amount, tokenPrice)
+  const finalAmount = countFinalAmountInCurrency(states.inputValue, amount, tokenPrice)
+  const orderTime = states.orders.find(order => order.id === states.selectedOrder)?.paymentTime
 
   return (
     <Stack gap={0.2}>
@@ -22,7 +23,7 @@ export const SmallDetails = ({ deal, states, bankNames, amount, tokenPrice }) =>
       </FormStackSection>
       <FormStackSection>
         <Typography>Время на оплату</Typography>
-        <Typography>{deal.paymentTime} мин</Typography>
+        <Typography>{orderTime || deal.paymentTime} мин</Typography>
       </FormStackSection>
     </Stack>
   )

@@ -7,8 +7,8 @@ import { SmallDetails } from './SmallDetails';
 import { DealPayments } from './DealPayments';
 import { countFinalAmount } from '../../../utils/p2p-utils';
 
-export const OrderDeal = ({ deal, states,  amount, tokenPrice, order }) => {
-  const finalAmount = countFinalAmount(states.type, amount, tokenPrice)
+export const OrderDeal = ({ deal, states, amount, tokenPrice, order }) => {
+  const finalAmount = countFinalAmount(states.inputValue, amount, tokenPrice)
   const bankNames = Object.keys(order.payments)
 
   return (
@@ -23,14 +23,11 @@ export const OrderDeal = ({ deal, states,  amount, tokenPrice, order }) => {
         <Status
           type={states.type}
           deal={deal}
-        // deal={fakeDeal}
         />
         <Time />
       </Stack>
       <SmallDetails deal={deal} states={states} bankNames={bankNames} amount={amount} tokenPrice={tokenPrice} />
-      <DealPayments
-        // payment={fakeDeal.payment} 
-        payment={deal.payment} />
+      <DealPayments payment={deal.payment} />
     </Stack>
   )
 }
