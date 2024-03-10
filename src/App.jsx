@@ -32,8 +32,8 @@ export const App = () => {
               <Route path="p2p/sell/:dealId" element={<P2PSell />} />
               <Route path="p2p/buy/:dealId" element={<P2PBuy />} />
               <Route path="profile" element={<Profile />}></Route>
-              {/* <Route path="*" element={<Navigate to={"trade"} />}></Route> */}
-              {/* <Route path="" element={<Navigate to={"trade"} />}></Route> */}
+              <Route path="*" element={<Navigate to={"trade"} />}></Route>
+              <Route path="" element={<Navigate to={"trade"} />}></Route>
             </Route>
           </Routes>
         </Router>

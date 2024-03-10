@@ -29,8 +29,8 @@ export const Login = () => {
                         <FormWrapper onSubmit={handleLogin}>
                             <FormError isError={states.isError} errorMessage={states.errorMessage} />
                             <Stack gap={1}>
-                                <InputLabel>Email</InputLabel>
-                                <CustomInput size="lg" type="email" value={states.email} onChange={changeHandlers.email} placeholder="Введите email" />
+                                <InputLabel>Почта или логин</InputLabel>
+                                <CustomInput size="lg" type="text" value={states.email} onChange={changeHandlers.email} placeholder="Email or username" />
                             </Stack>
                             <Stack gap={1}>
                                 <InputLabel>Пароль</InputLabel>
