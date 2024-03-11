@@ -36,6 +36,17 @@ export const postUserToApi = async (payload) => {
   }
 };
 
+export const signOutApi = async () => {
+  const url = `${apiUrl}/auth/signout`;
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    const apiError = error.response.data
+    throw apiError
+  }
+};
+
 export const postUserLoginToApi = async (payload) => {
   const url = `${apiUrl}/auth/signin`
   try {
