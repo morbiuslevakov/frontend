@@ -1,25 +1,27 @@
 import { Stack } from '@mui/material';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { UserAndAction } from './UserAndAction';
-// import { Steps } from './Steps';
 import { orderActionText } from '../../../utils/p2p-utils';
 import { Stomp } from '@stomp/stompjs';
-import { confirmPaymentApi, getDealFromApi, makePaymentsFromApi } from '../../../utils/api-utils';
-// import { OrderDeal } from '../orderDeal/OrderDeal';
-import { getFooterButton } from '../../../utils/deal-utils';
+import { acceptDealApi, cancelDealApi, confirmPaymentApi, getDealFromApi, makePaymentsFromApi, proofPaymentApi } from '../../../utils/api-utils';
+import { getCancelButton, getFooterButton } from '../../../utils/deal-utils';
 import { OrderOnlyDeal } from '../orderDeal/OrderOnlyDeal';
 import { CompleteStep } from './FinalSteps/CompleteStep';
 import { WaitingStep } from './FinalSteps/WaitingStep';
+import UserContext from '../../../context/user-context';
 
 export const P2PDealSteps = ({ states, setState, dealId }) => {
+  const { user } = useContext(UserContext)
+  const username = user.username
   const [deal, setDeal] = useState([])
   const dealStatus = deal.status
 
   const currentStep = states.step;
-  const username = deal.maker?.username
-  // const [amount, setAmount] = useState(0)
-  // const selectedOrder = states.orders.find(order => order.id === states.selectedOrder)
-  const actionText = orderActionText(states.type)
+  const makerUsername = deal.maker?.username
+  const takerUsername = deal.taker?.username
+  const myRole = makerUsername === username ? "maker" : "taker"
+
+  const actionText = orderActionText(states.type, myRole)
 
   useEffect(() => {
     const fetchDeal = async () => {
@@ -53,18 +55,20 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
 
   if (dealStatus === "COMPLETED") {
     return <>
-      <CompleteStep states={states} amount={deal.amount} />
+      <CompleteStep states={states} amount={deal.amount} myRole={myRole} />
     </>
   }
 
-  if (dealStatus === "CONFIRMED") {
+  if (dealStatus === "CONFIRMED" && myRole === 'taker') {
     return <>
       <WaitingStep />
     </>
   }
+  // return <>
+  //   <WaitingStep />
+  // </>
 
-
-  const handleInitDeal = () => { }
+  console.log(deal)
 
   const handleMakePayment = async () => {
     makePaymentsFromApi(dealId)
@@ -74,16 +78,30 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
     confirmPaymentApi(dealId)
   }
 
-  const footerButton = getFooterButton(deal.status, handleConfirmPayment, handleMakePayment, handleInitDeal)
+  const handleProofPayment = async () => {
+    proofPaymentApi(dealId)
+  }
+
+  const handleAcceptDeal = async () => {
+    acceptDealApi(dealId)
+  }
+
+  const handleCancelDeal = async () => {
+    cancelDealApi(dealId)
+  }
+
+  const footerButton = getFooterButton(deal.status, handleAcceptDeal, handleConfirmPayment, handleMakePayment, handleProofPayment, myRole)
+  const cancelButton = getCancelButton(deal.status, handleCancelDeal)
 
   return (
     <Stack>
-      {username && <UserAndAction step={currentStep} username={username} text={actionText} />}
+      {(myRole === 'maker' && takerUsername) && <UserAndAction step={currentStep} username={takerUsername} text={actionText} />}
+      {(myRole === 'taker' && makerUsername) && <UserAndAction step={currentStep} username={makerUsername} text={actionText} />}
       <>
-        <OrderOnlyDeal deal={deal} states={states} setState={setState} />
+        <OrderOnlyDeal deal={deal} states={states} setState={setState} myRole={myRole} />
+        {cancelButton}
         {footerButton}
       </>
-      {/* <Steps amount={amount} setAmount={setAmount} currentStep={currentStep} states={states} order={selectedOrder} setState={setState} /> */}
     </Stack>
   )
 }

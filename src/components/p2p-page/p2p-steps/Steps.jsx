@@ -38,14 +38,14 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
   }
 
   const handleInitDeal = async () => {
-    const finalAmount = countFinalAmount(states.type, amount, oneTokenPrice)
+    const finalAmount = countFinalAmount(states.inputValue, amount, oneTokenPrice)
     const data = createDealData(states.type, order, finalAmount, states.paymentMethods)
     initDealToApi(data).then(res => {
       if (states.type === "SELL") {
-        navigate(`/p2p/sell/${res.dealId}`, { dealId: res.dealId })
+        navigate(`/p2p/buy/${res.dealId}`, { dealId: res.dealId })
       }
       if (states.type === "BUY") {
-        navigate(`/p2p/buy/${res.dealId}`, { dealId: res.dealId })
+        navigate(`/p2p/sell/${res.dealId}`, { dealId: res.dealId })
       }
     }).catch(error => {
       console.log(error)

@@ -210,6 +210,46 @@ export const confirmPaymentApi = async (dealId) => {
   }
 }
 
+export const proofPaymentApi = async (dealId) => {
+  const url = `${apiUrl}/p2p/proof-payment/${dealId}`
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}
+
+export const acceptDealApi = async (dealId) => {
+  const url = `${apiUrl}/p2p/accept-deal/${dealId}`
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}
+
+export const rejectDealApi = async (dealId) => {
+  const url = `${apiUrl}/p2p/reject-deal/${dealId}`
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}
+
+export const cancelDealApi = async (dealId) => {
+  const url = `${apiUrl}/p2p/cancel-deal/${dealId}`
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}
+
 export const getUserDealsFromApi = async () => {
   const url = `${apiUrl}/p2p/get-deals`
   try {

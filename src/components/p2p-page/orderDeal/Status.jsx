@@ -14,20 +14,30 @@ const getStatusText = (status, type) => {
       return isSell ? "Продавец подтвердил сделку" : "Покупатель подтвердил сделку"
     case 'PROCESSED':
       return isSell ? "Продавец подтвердил сделку" : "Покупатель подтвердил сделку"
+    case 'CONFIRMED':
+      return "Покупатель подтвердил оплату"
     default:
       return 'Сделка формируется'
   }
 }
 
-const getStatusAdditionalText = (status, paymentTime, dealSum, currency, type) => {
+const getStatusAdditionalText = (status, paymentTime, dealSum, currency, type, myRole) => {
   const isSell = type === "SELL";
   switch (status) {
     case 'INITIALIZED':
       return isSell ? "Ожидается подтверждение сделки от продавца" : "Ожидается подтверждение сделки от покупателя"
     case 'OPENED':
+      if (myRole === 'maker') {
+        return isSell ? `Покупатель должен запросить реквизиты в течение 10 минут` : `Вы должны запросить реквизиты в течение 10 минут`
+      }
+      if (myRole === 'taker') {
+        return isSell ? `Вы должны запросить реквизиты в течение 10 минут` : `Покупатель должен запросить реквизиты в течение 10 минут`
+      }
       return isSell ? `Вы должны запросить реквизиты в течение 10 минут` : `Покупатель должен запросить реквизиты в течение 10 минут`
     case 'PROCESSED':
       return isSell ? `Вы должны отправить ${dealSum} ${currency} в течение ${paymentTime} мин` : `Покупатель должен отправить вам ${dealSum} ${currency} в течение ${paymentTime} мин`
+    case 'CONFIRMED':
+      return "Проверьте, получили ли вы платеж"
     default:
       return isSell ? 'Продавец должен подтвердить сделку в течении 10 минут после ее создания' : "Покупатель должен подтвердить сделку в течении 10 минут после ее создания"
   }
@@ -44,13 +54,13 @@ const getStatusIcon = (status) => {
   }
 }
 
-export const Status = ({ type, deal }) => {
+export const Status = ({ type, deal, myRole }) => {
   const status = deal.status;
 
   const dealSum = parseFloat(Number(deal.sum).toFixed(2))
   const statusText = getStatusText(status, type)
   const statusIcon = getStatusIcon(status)
-  const additionalText = getStatusAdditionalText(status, deal.paymentTime, dealSum, deal.currency, type)
+  const additionalText = getStatusAdditionalText(status, deal.paymentTime, dealSum, deal.currency, type, myRole)
 
   return (
     <>

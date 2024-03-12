@@ -56,12 +56,12 @@ export const switchType = (type) => {
   }
 }
 
-export const orderActionText = (type) => {
+export const orderActionText = (type, myRole) => {
   switch (type) {
     case "SELL":
-      return "Вы покупаете у"
+      return myRole === "maker" ? "Вы продаете" : "Вы покупаете у"
     case "BUY":
-      return "Вы продаете"
+      return myRole === "maker" ? "Вы покупаете у" : "Вы продаете"
     default:
       break;
   }
@@ -77,6 +77,17 @@ export const orderButtonText = (type) => {
       break;
   }
 }
+
+export const getStatusMessage = (states, myRole, amount) => {
+  return states.type === "BUY"
+    ? myRole === "maker"
+      ? `В течение 2 минут сумма ${amount} ${states.crypto} будет списана с вашего кошелька.`
+      : `В течение 2 минут сумма ${amount} ${states.crypto} будет зачислена на ваш кошелёк.`
+    : states.type === "SELL"
+      ? `В течение 2 минут сумма ${amount} ${states.crypto} будет ${myRole === "maker" ? "списана с" : "зачислена на"} ваш кошелька.`
+      : "Не удалось определить сообщение";
+};
+
 
 export const inputText = (isCrypto, crypto, currency) => {
   switch (isCrypto) {
