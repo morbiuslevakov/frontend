@@ -8,7 +8,29 @@ import { FormStackSection } from '../../form/FormStackSection';
 
 export const OrderOnlyDeal = ({ deal, states, myRole }) => {
   // console.log(states.type)
-  const bankNames = deal.payment ? states.type === "BUY" ? Object.keys(deal.payments) : deal.payment?.bank?.name : ""
+  console.log('deal.paymentdeal.paymentdeal.paymentdeal.paymentdeal.payment ', deal.payment)
+
+  let bankNames = "";
+
+  if (deal.payment) {
+    if (states.type === "SELL") {
+      bankNames = deal.payment?.bank?.name
+      // if (myRole === 'taker') {
+      // } else {
+      //   bankNames = Object.keys(deal.payments)
+      // }
+    } else {
+      if (myRole === 'maker') {
+        // bankNames = Object.keys(deal.payments)
+        bankNames = deal.payment?.bank?.name
+      } else {
+        // bankNames = Object.keys(deal.payments)
+        bankNames = deal.payment?.bank?.name
+      }
+    }
+  }
+
+  // const bankNames = deal.payment ? states.type === "SELL" ? deal.payment?.bank?.name : Object.keys(deal.payments) : deal.payment?.bank?.name : ""
 
   return (
     <Stack gap={3}>

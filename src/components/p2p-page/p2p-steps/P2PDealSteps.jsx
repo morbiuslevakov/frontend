@@ -78,7 +78,13 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
     </>
   }
 
-  if (dealStatus === "CONFIRMED" && myRole === 'taker') {
+  if (dealStatus === "CONFIRMED" && myRole === 'maker' && states.type === "BUY") {
+    return <>
+      <WaitingStep />
+    </>
+  }
+
+  if (dealStatus === "CONFIRMED" && myRole === 'taker' && states.type === "SELL") {
     return <>
       <WaitingStep />
     </>
@@ -109,7 +115,7 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
     cancelDealApi(dealId)
   }
 
-  const footerButton = getFooterButton(deal.status, handleAcceptDeal, handleConfirmPayment, handleMakePayment, handleProofPayment, myRole)
+  const footerButton = getFooterButton(states.type, deal.status, handleAcceptDeal, handleConfirmPayment, handleMakePayment, handleProofPayment, myRole)
   const cancelButton = getCancelButton(deal.status, handleCancelDeal)
 
   return (

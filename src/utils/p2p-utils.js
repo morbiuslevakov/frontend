@@ -81,8 +81,8 @@ export const orderButtonText = (type) => {
 export const getStatusMessage = (states, myRole, amount) => {
   return states.type === "BUY"
     ? myRole === "maker"
-      ? `В течение 2 минут сумма ${amount} ${states.crypto} будет списана с вашего кошелька.`
-      : `В течение 2 минут сумма ${amount} ${states.crypto} будет зачислена на ваш кошелёк.`
+      ? `В течение 2 минут сумма ${amount} ${states.crypto} будет зачислена на ваш кошелёк.`
+      : `В течение 2 минут сумма ${amount} ${states.crypto} будет списана с вашего кошелька.`
     : states.type === "SELL"
       ? `В течение 2 минут сумма ${amount} ${states.crypto} будет ${myRole === "maker" ? "списана с" : "зачислена на"} ваш кошелька.`
       : "Не удалось определить сообщение";

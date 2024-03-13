@@ -14,21 +14,32 @@ export const dealString = {
   "CLOSED": "ЗАКРЫТО",
 }
 
-export const getFooterButton = (status, handleAcceptDeal, handleConfirmPayment, handleMakePayment, handleProofPayment, myRole) => {
-  console.log(' myRolemyRolemyRolemyRolemyRolemyRole ', myRole)
+export const getFooterButton = (type, status, handleAcceptDeal, handleConfirmPayment, handleMakePayment, handleProofPayment, myRole) => {
+  console.log(type)
+  console.log('myRole = ', myRole)
   if (status === "INITIALIZED") {
     return myRole === "maker" ? <Box mt={2}>
       <FormFooterButton text={'Принять'} callback={handleAcceptDeal} />
     </Box> : null
   }
   if (status === "OPENED") {
+    if (type === "BUY") {
+      return myRole === "maker" ? <Box mt={2}>
+        <FormFooterButton text={'Совершить платеж'} callback={handleMakePayment} />
+      </Box> : null
+    }
     return myRole === "maker" ? null : <Box mt={2}>
       <FormFooterButton text={'Совершить платеж'} callback={handleMakePayment} />
     </Box>
   }
   if (status === "PROCESSED") {
+    if (type === "BUY") {
+      return myRole === "maker" ? <Box mt={2}>
+        <FormFooterButton text={'Совершить платеж'} callback={handleConfirmPayment} />
+      </Box> : null
+    }
     return myRole === "maker" ? null : <Box mt={2}>
-      <FormFooterButton text={'Подтвердить платеж'} callback={handleConfirmPayment} />
+      <FormFooterButton text={'Совершить платеж'} callback={handleConfirmPayment} />
     </Box>
   }
   if (status === "CONFIRMED") {
