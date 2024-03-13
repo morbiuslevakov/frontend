@@ -13,7 +13,7 @@ const getStatusText = (status, type) => {
     case 'OPENED':
       return isSell ? "Продавец подтвердил сделку" : "Покупатель подтвердил сделку"
     case 'PROCESSED':
-      return isSell ? "Продавец подтвердил сделку" : "Покупатель подтвердил сделку"
+      return isSell ? "Покупатель проводит платеж" : "Покупатель проводит платеж"
     case 'CONFIRMED':
       return "Покупатель подтвердил оплату"
     default:
@@ -35,6 +35,9 @@ const getStatusAdditionalText = (status, paymentTime, dealSum, currency, type, m
       }
       return isSell ? `Вы должны запросить реквизиты в течение 10 минут` : `Покупатель должен запросить реквизиты в течение 10 минут`
     case 'PROCESSED':
+      if (myRole === 'maker') {
+        return isSell ? `Покупатель должен отправить вам ${dealSum} ${currency} в течение ${paymentTime} мин` : `Вы должны отправить ${dealSum} ${currency} в течение ${paymentTime} мин`
+      }
       return isSell ? `Вы должны отправить ${dealSum} ${currency} в течение ${paymentTime} мин` : `Покупатель должен отправить вам ${dealSum} ${currency} в течение ${paymentTime} мин`
     case 'CONFIRMED':
       return "Проверьте, получили ли вы платеж"
