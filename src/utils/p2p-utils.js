@@ -124,8 +124,12 @@ export const countFinalAmountInCurrency = (inputValue, amount, tokenPrice) => {
   return amount
 }
 
-export const createDealData = (type, order, finalAmount, userPayments) => {
+export const createDealData = (type, order, finalAmount, userPayments, oneTokenPrice) => {
   const dealType = switchType(type)
+  let price = order.price;
+  if (order.priceType === 'FLOATING') {
+    price = (order.price / 100) * oneTokenPrice
+  }
   let paymentId = Object.values(order.payments)[0];
   if (dealType === 'SELL') {
     paymentId = userPayments[0].id
@@ -135,6 +139,7 @@ export const createDealData = (type, order, finalAmount, userPayments) => {
     "type": dealType,
     "orderId": order.id,
     "amount": String(finalAmount),
-    "paymentId": paymentId
+    "paymentId": paymentId,
+    "price": String(price)
   }
 }

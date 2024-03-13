@@ -11,7 +11,6 @@ import { OrderPayments } from './OrderPayments'
 import { isButtonDisabled } from '../../../utils/deal-utils'
 import { useNavigate } from 'react-router-dom'
 
-
 export const Steps = ({ amount, setAmount, currentStep, states, order, setState }) => {
   const navigate = useNavigate()
 
@@ -39,7 +38,7 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
 
   const handleInitDeal = async () => {
     const finalAmount = countFinalAmount(states.inputValue, amount, oneTokenPrice)
-    const data = createDealData(states.type, order, finalAmount, states.paymentMethods)
+    const data = createDealData(states.type, order, finalAmount, states.paymentMethods, oneTokenPrice)
     initDealToApi(data).then(res => {
       if (states.type === "SELL") {
         navigate(`/p2p/buy/${res.dealId}`, { dealId: res.dealId })
