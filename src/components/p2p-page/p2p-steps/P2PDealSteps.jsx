@@ -35,21 +35,21 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
   }, [dealId])
 
   useEffect(() => {
-    if (Object.keys(deal).length !== 0) {
-      const centrifuge = new Centrifuge('wss://centrifugo.deaslide.com/connection/websocket');
-      centrifuge.connect();
-      const subscription = centrifuge.newSubscription(`/deal/${dealId}`);
-      subscription.on('publication', (data) => {
-        console.log("Получены данные: ", data);
-        setDeal(data);
-      });
+    // if (Object.keys(deal).length !== 0) {
+    const centrifuge = new Centrifuge('wss://centrifugo.deaslide.com/connection/websocket');
+    centrifuge.connect();
+    const subscription = centrifuge.newSubscription(`deal:${dealId}`);
+    subscription.on('publication', (message) => {
+      console.log("Получены данные: ", message);
+      setDeal(message.data);
+    });
 
-      subscription.subscribe()
+    subscription.subscribe()
 
-      return () => {
-        centrifuge.disconnect();
-      };
-    }
+    return () => {
+      centrifuge.disconnect();
+    };
+    // }
   }, [deal.dealId]);
 
   // useEffect(() => { // надо избавиться от зависимостей. подумать. возможно через хук с подклчюениями + обработкой саба
