@@ -9,6 +9,7 @@ import { OrderOnlyDeal } from '../orderDeal/OrderOnlyDeal';
 import { CompleteStep } from './FinalSteps/CompleteStep';
 import { WaitingStep } from './FinalSteps/WaitingStep';
 import UserContext from '../../../context/user-context';
+import { Centrifuge } from 'centrifuge';
 
 export const P2PDealSteps = ({ states, setState, dealId }) => {
   const { user } = useContext(UserContext)
@@ -33,25 +34,43 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
     }).catch(error => { console.log(error) })
   }, [dealId])
 
-  useEffect(() => { // надо избавиться от зависимостей. подумать. возможно через хук с подклчюениями + обработкой саба
+  useEffect(() => {
     if (Object.keys(deal).length !== 0) {
-      const client = Stomp.over(new WebSocket('wss://api.deaslide.com/ws'));
-
-      client.connect({}, () => {
-        client.subscribe(`/topic/deal/${dealId}`, async (message) => {
-          console.log("Получены данные: ", message.body);
-          const data = JSON.parse(message.body);
-          setDeal(data);
-        });
-      }, (error) => {
-        console.error("Ошибка соединения", error);
+      const centrifuge = new Centrifuge('wss://centrifugo.deaslide.com/connection/websocket');
+      centrifuge.connect();
+      const subscription = centrifuge.newSubscription(`/deal/${dealId}`);
+      subscription.on('publication', (data) => {
+        console.log("Получены данные: ", data);
+        setDeal(data);
       });
 
+      subscription.subscribe()
+
       return () => {
-        client.disconnect();
+        centrifuge.disconnect();
       };
     }
   }, [deal.dealId]);
+
+  // useEffect(() => { // надо избавиться от зависимостей. подумать. возможно через хук с подклчюениями + обработкой саба
+  //   if (Object.keys(deal).length !== 0) {
+  //     const client = Stomp.over(new WebSocket('wss://api.deaslide.com/ws'));
+
+  //     client.connect({}, () => {
+  //       client.subscribe(`/topic/deal/${dealId}`, async (message) => {
+  //         console.log("Получены данные: ", message.body);
+  //         const data = JSON.parse(message.body);
+  //         setDeal(data);
+  //       });
+  //     }, (error) => {
+  //       console.error("Ошибка соединения", error);
+  //     });
+
+  //     return () => {
+  //       client.disconnect();
+  //     };
+  //   }
+  // }, [deal.dealId]);
 
   if (dealStatus === "COMPLETED") {
     return <>
