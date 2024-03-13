@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom';
-import { inputValidator } from '../utils/auth-utils';
 import { authErrorMessages } from '../utils/constants/auth';
 import { postUserLoginToApi } from '../utils/api-utils';
 import { setUserToStorage } from '../utils/user-utils';
@@ -17,7 +16,7 @@ export const useLogin = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (!inputValidator("email", email)) {
+    if (!email) {
       setIsError(true);
       setErrorMessage(authErrorMessages.email);
       return;

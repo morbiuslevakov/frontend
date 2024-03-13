@@ -1,5 +1,6 @@
 import { Box } from "@mui/material"
 import { FormFooterButton } from "../components/buttons/FormFooterButton"
+import { CancelButton } from "../components/buttons/CancelButton"
 
 export const dealString = {
   "INITIALIZED": "ОЖИДАЕТ ПОДТВЕРЖДЕНИЯ",
@@ -13,28 +14,57 @@ export const dealString = {
   "CLOSED": "ЗАКРЫТО",
 }
 
-export const getFooterButton = (status, handleConfirmPayment, handleMakePayment, handleInitDeal) => {
-  if (status === "PROCESSED") {
-    return <Box mt={2}>
-      <FormFooterButton text={'Подтвердить платеж'} callback={handleConfirmPayment} />
-    </Box>
+export const getFooterButton = (status, handleAcceptDeal, handleConfirmPayment, handleMakePayment, handleProofPayment, myRole) => {
+  console.log(' myRolemyRolemyRolemyRolemyRolemyRole ', myRole)
+  if (status === "INITIALIZED") {
+    return myRole === "maker" ? <Box mt={2}>
+      <FormFooterButton text={'Принять'} callback={handleAcceptDeal} />
+    </Box> : null
   }
   if (status === "OPENED") {
-    return <Box mt={2}>
+    return myRole === "maker" ? null : <Box mt={2}>
       <FormFooterButton text={'Совершить платеж'} callback={handleMakePayment} />
     </Box>
   }
-  if (status === "INITIALIZED") {
-    return null
+  if (status === "PROCESSED") {
+    return myRole === "maker" ? null : <Box mt={2}>
+      <FormFooterButton text={'Подтвердить платеж'} callback={handleConfirmPayment} />
+    </Box>
   }
-  return <Box mt={2}>
-    <FormFooterButton text={'Создать сделку'} callback={handleInitDeal} />
-  </Box>
+  if (status === "CONFIRMED") {
+    return <Box mt={2}>
+      <FormFooterButton text={'Подтвердить платеж'} callback={handleProofPayment} />
+    </Box>
+  }
+  return null
 }
 
-export const isButtonDisabled = (amount, type, payments) => {
+export const getCancelButton = (status, callback) => {
+  if (status === "PROCESSED") {
+    return <Box mt={2}>
+      <CancelButton text={'Отменить'} callback={callback} />
+    </Box>
+  }
+  if (status === "OPENED") {
+    return null
+  }
+  if (status === "INITIALIZED") {
+    return <Box mt={2}>
+      <CancelButton text={'Отменить'} callback={callback} />
+    </Box>
+  }
+  if (status === "CONFIRMED") {
+    return <Box mt={2}>
+      <CancelButton text={'Отменить'} callback={callback} />
+    </Box>
+  }
+  return null
+}
+
+export const isButtonDisabled = (amount, type, payments, minSum, inputValue, minSumIncrypto) => {
+  const minValue = inputValue === "crypto" ? minSumIncrypto : minSum
   if (type === "BUY") {
-    if (amount <= 0) {
+    if (amount <= minValue) {
       return true
     }
     if (payments.length <= 0) {
@@ -42,5 +72,5 @@ export const isButtonDisabled = (amount, type, payments) => {
     }
     return false
   }
-  return amount <= 0
+  return amount <= minValue
 }

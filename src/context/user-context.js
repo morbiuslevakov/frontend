@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import { Loader } from "../components/loader/Loader";
+import { signOutApi } from "../utils/api-utils";
 
 const UserContext = createContext({
   user: null,
@@ -21,6 +22,7 @@ export const UserProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem("user");
+    signOutApi()
     setUser(null);
   };
 

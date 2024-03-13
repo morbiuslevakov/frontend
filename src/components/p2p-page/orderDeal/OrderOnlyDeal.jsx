@@ -6,7 +6,7 @@ import { Time } from './Time';
 import { DealPayments } from './DealPayments';
 import { FormStackSection } from '../../form/FormStackSection';
 
-export const OrderOnlyDeal = ({ deal, states }) => {
+export const OrderOnlyDeal = ({ deal, states, myRole }) => {
   const bankNames = deal.payment ? states.type === "BUY" ? Object.keys(deal.payments) : deal.payment?.bank?.name : ""
 
   return (
@@ -21,6 +21,7 @@ export const OrderOnlyDeal = ({ deal, states }) => {
         <Status
           type={states.type}
           deal={deal}
+          myRole={myRole}
         />
         <Time />
       </Stack>
@@ -31,7 +32,7 @@ export const OrderOnlyDeal = ({ deal, states }) => {
         </FormStackSection>
         <FormStackSection>
           <Typography>Сумма</Typography>
-          <Typography>{deal.amount} {states.currency}</Typography>
+          <Typography>{deal.sum} {states.currency}</Typography>
         </FormStackSection>
         <FormStackSection>
           <Typography>Методы оплаты</Typography>

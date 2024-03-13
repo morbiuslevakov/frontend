@@ -36,6 +36,17 @@ export const postUserToApi = async (payload) => {
   }
 };
 
+export const signOutApi = async () => {
+  const url = `${apiUrl}/auth/signout`;
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    const apiError = error.response.data
+    throw apiError
+  }
+};
+
 export const postUserLoginToApi = async (payload) => {
   const url = `${apiUrl}/auth/signin`
   try {
@@ -191,6 +202,46 @@ export const makePaymentsFromApi = async (dealId) => {
 
 export const confirmPaymentApi = async (dealId) => {
   const url = `${apiUrl}/p2p/confirm-payment/${dealId}`
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}
+
+export const proofPaymentApi = async (dealId) => {
+  const url = `${apiUrl}/p2p/proof-payment/${dealId}`
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}
+
+export const acceptDealApi = async (dealId) => {
+  const url = `${apiUrl}/p2p/accept-deal/${dealId}`
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}
+
+export const rejectDealApi = async (dealId) => {
+  const url = `${apiUrl}/p2p/reject-deal/${dealId}`
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}
+
+export const cancelDealApi = async (dealId) => {
+  const url = `${apiUrl}/p2p/cancel-deal/${dealId}`
   try {
     const response = await axios.get(url, apiConfig)
     return response.data;
