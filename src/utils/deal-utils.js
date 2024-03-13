@@ -50,12 +50,7 @@ export const getFooterButton = (type, status, handleAcceptDeal, handleConfirmPay
   return null
 }
 
-export const getCancelButton = (status, callback) => {
-  if (status === "PROCESSED") {
-    return <Box mt={2}>
-      <CancelButton text={'Отменить'} callback={callback} />
-    </Box>
-  }
+export const getCancelButton = (status, callback, myRole, type) => {
   if (status === "OPENED") {
     return null
   }
@@ -64,7 +59,24 @@ export const getCancelButton = (status, callback) => {
       <CancelButton text={'Отменить'} callback={callback} />
     </Box>
   }
+  if (status === "PROCESSED") {
+    if (type === "BUY" && myRole === 'taker') {
+      return null
+    }
+    if (type === "SELL" && myRole === 'maker') {
+      return null
+    }
+    return <Box mt={2}>
+      <CancelButton text={'Отменить'} callback={callback} />
+    </Box>
+  }
   if (status === "CONFIRMED") {
+    if (type === "BUY" && myRole === 'taker') {
+      return null
+    }
+    if (type === "SELL" && myRole === 'maker') {
+      return null
+    }
     return <Box mt={2}>
       <CancelButton text={'Отменить'} callback={callback} />
     </Box>

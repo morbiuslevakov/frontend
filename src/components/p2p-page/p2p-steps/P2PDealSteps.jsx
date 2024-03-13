@@ -116,7 +116,7 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
   }
 
   const footerButton = getFooterButton(states.type, deal.status, handleAcceptDeal, handleConfirmPayment, handleMakePayment, handleProofPayment, myRole)
-  const cancelButton = getCancelButton(deal.status, handleCancelDeal)
+  const cancelButton = getCancelButton(deal.status, handleCancelDeal, myRole, states.type)
 
   return (
     <Stack>
