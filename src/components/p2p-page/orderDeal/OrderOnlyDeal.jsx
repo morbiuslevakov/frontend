@@ -7,6 +7,7 @@ import { DealPayments } from './DealPayments';
 import { FormStackSection } from '../../form/FormStackSection';
 
 export const OrderOnlyDeal = ({ deal, states, myRole }) => {
+  // console.log(states.type)
   const bankNames = deal.payment ? states.type === "BUY" ? Object.keys(deal.payments) : deal.payment?.bank?.name : ""
 
   return (
