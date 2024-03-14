@@ -13,6 +13,7 @@ import { SharedLayout } from "./pages/shared-layout/SharedLayout";
 import { theme } from "./utils/constants/theme";
 import { UserProvider } from "./context/user-context";
 import { P2PBuy } from "./pages/p2p-buy/P2PBuy";
+import { ConfirmAccount } from "./pages/confirm-account/ConfirmAccount";
 
 export const App = () => {
   return (
@@ -20,6 +21,7 @@ export const App = () => {
       <ThemeProvider theme={theme}>
         <Router>
           <Routes>
+            <Route path="confirm-account/:token" element={<ConfirmAccount />}></Route>
             <Route path="/" element={<SharedLayout />}>
               <Route path="register" element={<Register />}></Route>
               <Route path="login" element={<Login />}></Route>
