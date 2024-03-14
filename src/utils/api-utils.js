@@ -168,6 +168,16 @@ export const getCurrencies = async (token) => {
   }
 }
 
+export const getUserOrders = async () => {
+  const url = `${apiUrl}/p2p/get-orders`
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}
+
 export const getOrders = async (token, payload, page) => {
   const url = `${apiUrl}/p2p/get-orders?page=${page}`
   const config = buildAuthorizationApiConfig(token)
@@ -243,6 +253,16 @@ export const acceptDealApi = async (dealId) => {
 
 export const rejectDealApi = async (dealId) => {
   const url = `${apiUrl}/p2p/reject-deal/${dealId}`
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}
+
+export const cancelOrderApi = async (orderId) => {
+  const url = `${apiUrl}/p2p/cancel-order/${orderId}`
   try {
     const response = await axios.get(url, apiConfig)
     return response.data;

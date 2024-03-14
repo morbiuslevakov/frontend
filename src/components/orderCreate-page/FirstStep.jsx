@@ -20,7 +20,7 @@ export const FirstStep = ({ states, setState, errors }) => {
         <CurrencySection allCurrencies={states.allCurrencies} currency={states.currency} setCurrency={setState.currency} />
         <PriceTypeSection setPriceType={setState.priceType} />
       </Stack>
-      <PercentPriceSection errorMessage={errors.percentPrice} percentPrice={states.percentPrice} setPercentPrice={setState.percentPrice} />
+      <PercentPriceSection errorMessage={errors.percentPrice} percentPrice={states.percentPrice} type={states.priceType} setPercentPrice={setState.percentPrice} />
       <PricesInfoSection states={states} />
       <AmountSection errorMessage={errors.amount} states={states} setAmount={setState.amount} />
       <BalanceSection states={states} setState={setState} />

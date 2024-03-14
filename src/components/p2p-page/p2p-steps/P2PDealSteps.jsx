@@ -2,7 +2,7 @@ import { Stack } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react'
 import { UserAndAction } from './UserAndAction';
 import { orderActionText } from '../../../utils/p2p-utils';
-import { Stomp } from '@stomp/stompjs';
+// import { Stomp } from '@stomp/stompjs';
 import { acceptDealApi, cancelDealApi, confirmPaymentApi, getDealFromApi, makePaymentsFromApi, proofPaymentApi } from '../../../utils/api-utils';
 import { getCancelButton, getFooterButton } from '../../../utils/deal-utils';
 import { OrderOnlyDeal } from '../orderDeal/OrderOnlyDeal';
@@ -93,7 +93,7 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
   //   <WaitingStep />
   // </>
 
-  console.log(deal)
+  // console.log(deal)
 
   const handleMakePayment = async () => {
     makePaymentsFromApi(dealId)
