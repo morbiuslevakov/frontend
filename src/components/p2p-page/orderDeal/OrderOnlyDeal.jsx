@@ -1,14 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Stack, Typography } from '@mui/material'
+import ChatIcon from '@mui/icons-material/Chat';
 import { FormContentWrapper } from '../../orderCreate-page/Styled'
 import { Status } from './Status';
 import { Time } from './Time';
 import { DealPayments } from './DealPayments';
 import { FormStackSection } from '../../form/FormStackSection';
+import { FormStackClickSection } from '../../form/FormStackClickSection';
+import { getChatFromApi, sendMessageChatApi } from '../../../utils/api-utils';
 
-export const OrderOnlyDeal = ({ deal, states, myRole }) => {
+export const OrderOnlyDeal = ({ deal, states, setState, myRole }) => {
+
   // console.log(states.type)
-  console.log('deal.paymentdeal.paymentdeal.paymentdeal.paymentdeal.payment ', deal.payment)
+  // console.log('deal.paymentdeal.paymentdeal.paymentdeal.paymentdeal.payment ', deal.payment)
 
   let bankNames = "";
 
@@ -32,6 +36,19 @@ export const OrderOnlyDeal = ({ deal, states, myRole }) => {
 
   // const bankNames = deal.payment ? states.type === "SELL" ? deal.payment?.bank?.name : Object.keys(deal.payments) : deal.payment?.bank?.name : ""
 
+  const handleClick = async () => {
+    console.log('chat open click')
+    setState.isChat(true)
+    // sendMessageChatApi({
+    //   "chatId": deal.chatId,
+    //   "type": "TEXT",
+    //   "replyToMessage": "",
+    //   "text": "hello nikita",
+    //   "caption": "caption for files"
+    // })
+    // getChatFromApi(deal.chatId).then(res => { console.log('chat from api ', res) }).catch(error => { console.log(error) })
+  }
+
   return (
     <Stack gap={3}>
       <FormContentWrapper>
@@ -40,6 +57,10 @@ export const OrderOnlyDeal = ({ deal, states, myRole }) => {
           <Typography variant={'gray'} fontSize={32} fontWeight={600} pt={2.7}>{deal.assetAlias}</Typography>
         </Stack>
       </FormContentWrapper>
+      <FormStackClickSection handleClick={handleClick}>
+        <Typography>Перейти в чат</Typography>
+        <ChatIcon color='gray' />
+      </FormStackClickSection>
       <Stack gap={0.2}>
         <Status
           type={states.type}

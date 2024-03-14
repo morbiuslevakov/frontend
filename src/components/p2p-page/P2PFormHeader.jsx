@@ -4,10 +4,15 @@ import { IconButton, Stack, Typography } from '@mui/material'
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import { FormContentWrapper } from '../orderCreate-page/Styled'
 
-export const P2PFormHeader = ({ step, setStep, setOrder }) => {
+export const P2PFormHeader = ({ states, setState, step, setStep, setOrder }) => {
   const navigate = useNavigate()
+  const headerText = states?.isChat ? "Сделка" : "P2P маркет"
 
   const handleBack = () => {
+    if (states?.isChat) {
+      setState.isChat(false)
+      return;
+    }
     if (step === 'details') {
       setStep(2)
       return;
@@ -31,7 +36,7 @@ export const P2PFormHeader = ({ step, setStep, setOrder }) => {
         <IconButton color="primary" size="small" onClick={handleBack}>
           <NavigateBeforeIcon />
         </IconButton>
-        <Typography>P2P Маркет</Typography>
+        <Typography>{headerText}</Typography>
       </Stack>
     </FormContentWrapper>
   )

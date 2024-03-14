@@ -300,3 +300,23 @@ export const getDealFromApi = async (dealId) => {
     throw error
   }
 }
+
+export const sendMessageChatApi = async (payload) => {
+  const url = `${apiUrl}/chat/send`
+  try {
+    const response = await axios.post(url, payload, apiConfig)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}
+
+export const getChatFromApi = async (chatId) => {
+  const url = `${apiUrl}/chat/get-chat/${chatId}`
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}

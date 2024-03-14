@@ -15,7 +15,7 @@ export const P2PSell = () => {
         return <Wrapper>
             <PageContent>
                 <FormWrapper>
-                    <P2PFormHeader step={states.step} setStep={setState.step} setOrder={setState.order} />
+                    <P2PFormHeader states={states} setState={setState} step={states.step} setStep={setState.step} setOrder={setState.order} />
                     <P2PDealSteps states={states} setState={setState} dealId={dealId} />
                 </FormWrapper>
             </PageContent>
