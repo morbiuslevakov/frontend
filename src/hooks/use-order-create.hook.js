@@ -2,11 +2,9 @@ import { useEffect, useState } from 'react'
 import { useP2P } from './use-p2p.hook'
 import { buildOrderData } from '../utils/p2p-utils'
 import { postOrderToApi } from '../utils/api-utils'
-import { useApiRequest } from './use-api-request.hook'
 import { useNavigate } from 'react-router-dom'
 
 export const useOrderCreate = () => {
-  const apiRequest = useApiRequest();
   const navigate = useNavigate()
   const [currentStep, setCurrentStep] = useState(1)
   const [orderAction, setOrderAction] = useState('SELL')
@@ -81,7 +79,7 @@ export const useOrderCreate = () => {
     }
     if (currentStep === 4) {
       const orderData = buildOrderData(orderAction, selectedTokenId, currency, priceType, percentPrice, amount, dealSum, time, paymentMethods, comment)
-      apiRequest(postOrderToApi, orderData).then(() => {
+      postOrderToApi(orderData).then(() => {
         setIsCreated(true)
       }).catch(() => {
         setOrderError('Ваш аккаунт не подтвержден (подтвердите почту в письме после регистрации)')

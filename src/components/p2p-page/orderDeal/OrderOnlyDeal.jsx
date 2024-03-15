@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Stack, Typography } from '@mui/material'
 import ChatIcon from '@mui/icons-material/Chat';
 import { FormContentWrapper } from '../../orderCreate-page/Styled'
@@ -7,7 +7,7 @@ import { Time } from './Time';
 import { DealPayments } from './DealPayments';
 import { FormStackSection } from '../../form/FormStackSection';
 import { FormStackClickSection } from '../../form/FormStackClickSection';
-import { getChatFromApi, sendMessageChatApi } from '../../../utils/api-utils';
+// import { getChatFromApi, sendMessageChatApi } from '../../../utils/api-utils';
 
 export const OrderOnlyDeal = ({ deal, states, setState, myRole }) => {
 
@@ -37,7 +37,7 @@ export const OrderOnlyDeal = ({ deal, states, setState, myRole }) => {
   // const bankNames = deal.payment ? states.type === "SELL" ? deal.payment?.bank?.name : Object.keys(deal.payments) : deal.payment?.bank?.name : ""
 
   const handleClick = async () => {
-    console.log('chat open click')
+    // console.log('chat open click')
     setState.isChat(true)
     // sendMessageChatApi({
     //   "chatId": deal.chatId,

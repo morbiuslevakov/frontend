@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { OrderFullDetails } from './OrderFullDetails'
 import { Box } from '@mui/material'
 import { FormFooterButton } from '../../buttons/FormFooterButton'
@@ -10,9 +10,11 @@ import { OrderDeal } from '../orderDeal/OrderDeal'
 import { OrderPayments } from './OrderPayments'
 import { isButtonDisabled } from '../../../utils/deal-utils'
 import { useNavigate } from 'react-router-dom'
+import { OrderErrorModal } from '../../orderCreate-page/third-step-sections/OrderErrorModal'
 
 export const Steps = ({ amount, setAmount, currentStep, states, order, setState }) => {
   const navigate = useNavigate()
+  const [error, setError] = useState('')
 
   const buttonText = orderButtonText(states.type)
 
@@ -47,7 +49,7 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
         navigate(`/p2p/sell/${res.dealId}`, { dealId: res.dealId })
       }
     }).catch(error => {
-      console.log(error)
+      setError(error)
     })
   }
 
@@ -78,6 +80,7 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
 
   if (currentStep === 3) {
     return <>
+      <OrderErrorModal error={error} setError={setError} />
       <OrderDeal deal={{}} states={states} setState={setState} amount={amount} tokenPrice={oneTokenPrice} order={order} />
       <Box mt={2}>
         <FormFooterButton text={'Создать сделку'} callback={handleInitDeal} />
