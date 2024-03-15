@@ -1,4 +1,4 @@
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react'
 import { UserAndAction } from './UserAndAction';
 import { orderActionText } from '../../../utils/p2p-utils';
@@ -42,22 +42,34 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
 
   useEffect(() => {
     const centrifuge = new Centrifuge('wss://centrifugo.deaslide.com/connection/websocket');
+
+    centrifuge.on('connect', (context) => {
+      console.log('Успешное подключение к Centrifuge', context);
+    });
+
     centrifuge.connect();
+
     const dealSubscription = centrifuge.newSubscription(`deal:${dealId}`);
+
+    dealSubscription.on('subscribe', (context) => {
+      console.log(`Успешно подписались на сделку с ID ${dealId}`, context);
+    });
+
     dealSubscription.on('publication', (message) => {
       console.log("Получены данные сделки: ", message);
       setDeal(message.data);
 
-      // Проверяем, существует ли подписка на чат, прежде чем создавать новую
       const chatChannel = `chat:${message.data.chatId}`;
       let chatSubscription = centrifuge.getSubscription(chatChannel);
 
       if (!chatSubscription) {
-        // Подписка не найдена, создаем новую
         chatSubscription = centrifuge.newSubscription(chatChannel);
+        chatSubscription.on('subscribe', (context) => {
+          console.log(`Успешно подписались на канал чата ${chatChannel}`, context);
+        });
         chatSubscription.on('publication', (chatMessage) => {
           console.log("Получены данные чата: ", chatMessage);
-          setChatMessages(prevMessages => [...prevMessages, chatMessage.data]); // Добавление сообщения в стейт
+          setChatMessages(prevMessages => [...prevMessages, chatMessage.data]);
         });
         chatSubscription.subscribe();
       }
@@ -67,8 +79,39 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
 
     return () => {
       centrifuge.disconnect();
+      console.log('Отключились от Centrifuge');
     };
   }, [dealId]); // Использование dealId как зависимость
+
+  // useEffect(() => {
+  //   const centrifuge = new Centrifuge('wss://centrifugo.deaslide.com/connection/websocket');
+  //   centrifuge.connect();
+  //   const dealSubscription = centrifuge.newSubscription(`deal:${dealId}`);
+  //   dealSubscription.on('publication', (message) => {
+  //     console.log("Получены данные сделки: ", message);
+  //     setDeal(message.data);
+
+  //     // Проверяем, существует ли подписка на чат, прежде чем создавать новую
+  //     const chatChannel = `chat:${message.data.chatId}`;
+  //     let chatSubscription = centrifuge.getSubscription(chatChannel);
+
+  //     if (!chatSubscription) {
+  //       // Подписка не найдена, создаем новую
+  //       chatSubscription = centrifuge.newSubscription(chatChannel);
+  //       chatSubscription.on('publication', (chatMessage) => {
+  //         console.log("Получены данные чата: ", chatMessage);
+  //         setChatMessages(prevMessages => [...prevMessages, chatMessage.data]); // Добавление сообщения в стейт
+  //       });
+  //       chatSubscription.subscribe();
+  //     }
+  //   });
+
+  //   dealSubscription.subscribe()
+
+  //   return () => {
+  //     centrifuge.disconnect();
+  //   };
+  // }, [dealId]); // Использование dealId как зависимость
 
   // useEffect(() => {
   //   // if (Object.keys(deal).length !== 0) {
@@ -130,9 +173,8 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
   const cancelButton = getCancelButton(deal.status, handleCancelDeal, myRole, states.type)
 
   if (states.isChat) {
-    // Предполагаем, что chatMessage это последнее сообщение из центрифуги
     const lastMessage = chatMessages[chatMessages.length - 1];
-    return <Chat deal={deal} chatId={deal.chatId} myRole={myRole} lastMessage={lastMessage} />
+    return <Chat deal={deal} myRole={myRole} maker={deal.maker} taker={deal.taker} lastMessage={lastMessage} />
   }
 
   return (

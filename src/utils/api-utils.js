@@ -146,11 +146,10 @@ export const getUserDetailsFromApi = async (token) => {
   }
 }
 
-export const postOrderToApi = async (token, payload) => {
+export const postOrderToApi = async (payload) => {
   const url = `${apiUrl}/p2p/create-order`
-  const config = buildAuthorizationApiConfig(token)
   try {
-    const response = await axios.post(url, payload, config)
+    const response = await axios.post(url, payload, apiConfig)
     return response.data;
   } catch (error) {
     throw error

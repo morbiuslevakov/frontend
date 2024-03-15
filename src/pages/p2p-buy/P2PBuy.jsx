@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { FormWrapper, PageContent, Wrapper } from '../../components/orderCreate-page/Styled'
 import { P2PFormHeader } from '../../components/p2p-page/P2PFormHeader';
 import { useP2PPage } from '../../hooks/use-p2p-page';
@@ -15,7 +15,7 @@ export const P2PBuy = () => {
     return <Wrapper>
       <PageContent>
         <FormWrapper>
-          <P2PFormHeader step={states.step} setStep={setState.step} setOrder={setState.order} />
+          <P2PFormHeader states={states} setState={setState} step={states.step} setStep={setState.step} setOrder={setState.order} />
           <P2PDealSteps states={states} setState={setState} dealId={dealId} />
         </FormWrapper>
       </PageContent>
