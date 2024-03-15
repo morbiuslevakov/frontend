@@ -25,6 +25,17 @@ const buildRefreshTokenBody = (refreshToken) => {
   }
 }
 
+export const confirmAccountApi = async (token) => {
+  const url = `${apiUrl}/auth/confirm-account/${token}`;
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    const apiError = error.response.data
+    throw apiError
+  }
+};
+
 export const postUserToApi = async (payload) => {
   const url = `${apiUrl}/auth/signup`;
   try {
@@ -157,6 +168,16 @@ export const getCurrencies = async (token) => {
   }
 }
 
+export const getUserOrders = async () => {
+  const url = `${apiUrl}/p2p/get-orders`
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}
+
 export const getOrders = async (token, payload, page) => {
   const url = `${apiUrl}/p2p/get-orders?page=${page}`
   const config = buildAuthorizationApiConfig(token)
@@ -240,6 +261,16 @@ export const rejectDealApi = async (dealId) => {
   }
 }
 
+export const cancelOrderApi = async (orderId) => {
+  const url = `${apiUrl}/p2p/cancel-order/${orderId}`
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}
+
 export const cancelDealApi = async (dealId) => {
   const url = `${apiUrl}/p2p/cancel-deal/${dealId}`
   try {
@@ -262,6 +293,26 @@ export const getUserDealsFromApi = async () => {
 
 export const getDealFromApi = async (dealId) => {
   const url = `${apiUrl}/p2p/get-deal/${dealId}`
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}
+
+export const sendMessageChatApi = async (payload) => {
+  const url = `${apiUrl}/chat/send`
+  try {
+    const response = await axios.post(url, payload, apiConfig)
+    return response.data;
+  } catch (error) {
+    throw error
+  }
+}
+
+export const getChatFromApi = async (chatId) => {
+  const url = `${apiUrl}/chat/get-chat/${chatId}`
   try {
     const response = await axios.get(url, apiConfig)
     return response.data;

@@ -5,7 +5,6 @@ import { FormSectionWrapper, FormWrapper } from '../../orderCreate-page/Styled'
 import { Stack, Typography } from '@mui/material'
 
 export const UserDeals = ({ deals }) => {
-  console.log(deals)
   return (
     <DealsWrapper>
       <FormWrapper>
@@ -15,6 +14,11 @@ export const UserDeals = ({ deals }) => {
           </DealsContainer>
           <LineDivider />
           <Stack>
+            {deals.length === 0 && <FormSectionWrapper>
+              <DealsContainer>
+                <Typography variant='gray'>Здесь появятся ваши сделки</Typography>
+              </DealsContainer>
+            </FormSectionWrapper>}
             {deals.map((deal, index) => (
               <React.Fragment key={deal.dealId}>
                 <Deal deal={deal} />

@@ -18,6 +18,7 @@ export const useP2PPage = (type) => {
   // const [orderPage, setOrderPage] = useState(1)
   const orderPage = 0
   const [isLoading, setLoading] = useState(true)
+  const [isChat, setIsChat] = useState(false)
 
   const { cryptoDetails } = useCrypto(currency)
 
@@ -54,7 +55,7 @@ export const useP2PPage = (type) => {
   const states = {
     walletInfo, currency, crypto, selectedBanks,
     selectedOrder, step, orders, type, isLoading,
-    cryptoDetails, paymentMethods, userPaymentMethods, allBanks, inputValue
+    cryptoDetails, paymentMethods, userPaymentMethods, allBanks, inputValue, isChat
   }
 
   const setState = {
@@ -65,7 +66,8 @@ export const useP2PPage = (type) => {
     step: setStep,
     paymentMethods: setPaymentMethods,
     addPaymentMethod,
-    inputValue: setInputValue
+    inputValue: setInputValue,
+    isChat: setIsChat
   }
 
   return { states, setState }

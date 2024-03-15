@@ -7,7 +7,7 @@ export const SmallDetails = ({ deal, states, bankNames, amount, tokenPrice }) =>
   const finalAmount = countFinalAmountInCurrency(states.inputValue, amount, tokenPrice)
   const orderTime = states.orders.find(order => order.id === states.selectedOrder)?.paymentTime
 
-  console.log(tokenPrice)
+  // console.log(tokenPrice)
 
   return (
     <Stack gap={0.2}>

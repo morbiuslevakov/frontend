@@ -15,7 +15,7 @@ export const Deal = ({ deal }) => {
   const date = transformToDate(deal.createdAt)
   const stringType = actionType[deal.type]
 
-  console.log('deal ', deal)
+  // console.log('deal ', deal)
 
   const handleNavigate = () => {
     if (deal.type === "SELL") {

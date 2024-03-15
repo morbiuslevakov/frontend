@@ -13,6 +13,8 @@ import { SharedLayout } from "./pages/shared-layout/SharedLayout";
 import { theme } from "./utils/constants/theme";
 import { UserProvider } from "./context/user-context";
 import { P2PBuy } from "./pages/p2p-buy/P2PBuy";
+import { ConfirmAccount } from "./pages/confirm-account/ConfirmAccount";
+import { Orders } from "./pages/orders/Orders";
 
 export const App = () => {
   return (
@@ -20,11 +22,13 @@ export const App = () => {
       <ThemeProvider theme={theme}>
         <Router>
           <Routes>
+            <Route path="confirm-account/:token" element={<ConfirmAccount />}></Route>
             <Route path="/" element={<SharedLayout />}>
               <Route path="register" element={<Register />}></Route>
               <Route path="login" element={<Login />}></Route>
               <Route path="wallet" element={<Wallet />}></Route>
               <Route path="trade" element={<Trade />}></Route>
+              <Route path="p2p/my-orders" element={<Orders />}></Route>
               <Route path="p2p" element={<P2P />}></Route>
               <Route path="p2p/create-order" element={<OrderCreate />}></Route>
               <Route path="p2p/sell" element={<P2PSell />}></Route>

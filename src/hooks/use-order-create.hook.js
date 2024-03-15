@@ -3,9 +3,11 @@ import { useP2P } from './use-p2p.hook'
 import { buildOrderData } from '../utils/p2p-utils'
 import { postOrderToApi } from '../utils/api-utils'
 import { useApiRequest } from './use-api-request.hook'
+import { useNavigate } from 'react-router-dom'
 
 export const useOrderCreate = () => {
   const apiRequest = useApiRequest();
+  const navigate = useNavigate()
   const [currentStep, setCurrentStep] = useState(1)
   const [orderAction, setOrderAction] = useState('SELL')
   const [selectedToken, setSelectedToken] = useState("YUSRA")
@@ -90,6 +92,9 @@ export const useOrderCreate = () => {
   }
 
   const handlePreviousStep = () => {
+    if (currentStep === 1) {
+      navigate('/p2p')
+    }
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1)
     }

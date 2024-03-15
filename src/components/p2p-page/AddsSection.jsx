@@ -14,11 +14,15 @@ export const AddsSection = () => {
     navigate('/p2p/create-order')
   }
 
+  const handleOpenOrdersPage = () => {
+    navigate('/p2p/my-orders')
+  }
+
   return (
     <AddsCard>
       <FormSectionWrapper>
         <Stack>
-          <AddsButton>
+          <AddsButton onClick={handleOpenOrdersPage}>
             <Stack alignItems={'center'} justifyContent={'start'} flexDirection={'row'} gap={2} width={'100%'}>
               <Inventory2OutlinedIcon color='gray' />
               <Stack alignItems={'start'}>

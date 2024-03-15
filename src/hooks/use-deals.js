@@ -11,7 +11,7 @@ export const useDeals = () => {
     }
     fetchDeals().then(res => {
       setDeals(res)
-    }).then(error => {
+    }).catch(error => {
       console.log(error)
     })
   }, [])
