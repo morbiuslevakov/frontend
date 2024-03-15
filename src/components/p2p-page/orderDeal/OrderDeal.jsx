@@ -11,8 +11,6 @@ export const OrderDeal = ({ deal, states, amount, tokenPrice, order }) => {
   const finalAmount = countFinalAmount(states.inputValue, amount, tokenPrice)
   const bankNames = Object.keys(order.payments)
 
-  // console.log(tokenPrice)
-
   return (
     <Stack gap={3}>
       <FormContentWrapper>
