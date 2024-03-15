@@ -1,5 +1,5 @@
 import React from 'react'
-import { Stack, Typography } from '@mui/material'
+import { Badge, Stack, Typography } from '@mui/material'
 import ChatIcon from '@mui/icons-material/Chat';
 import { FormContentWrapper } from '../../orderCreate-page/Styled'
 import { Status } from './Status';
@@ -7,13 +7,8 @@ import { Time } from './Time';
 import { DealPayments } from './DealPayments';
 import { FormStackSection } from '../../form/FormStackSection';
 import { FormStackClickSection } from '../../form/FormStackClickSection';
-// import { getChatFromApi, sendMessageChatApi } from '../../../utils/api-utils';
 
-export const OrderOnlyDeal = ({ deal, states, setState, myRole }) => {
-
-  // console.log(states.type)
-  // console.log('deal.paymentdeal.paymentdeal.paymentdeal.paymentdeal.payment ', deal.payment)
-
+export const OrderOnlyDeal = ({ deal, states, setState, myRole, hasNewMessages }) => {
   let bankNames = "";
 
   if (deal.payment) {
@@ -34,20 +29,11 @@ export const OrderOnlyDeal = ({ deal, states, setState, myRole }) => {
     }
   }
 
-  // const bankNames = deal.payment ? states.type === "SELL" ? deal.payment?.bank?.name : Object.keys(deal.payments) : deal.payment?.bank?.name : ""
-
   const handleClick = async () => {
-    // console.log('chat open click')
     setState.isChat(true)
-    // sendMessageChatApi({
-    //   "chatId": deal.chatId,
-    //   "type": "TEXT",
-    //   "replyToMessage": "",
-    //   "text": "hello nikita",
-    //   "caption": "caption for files"
-    // })
-    // getChatFromApi(deal.chatId).then(res => { console.log('chat from api ', res) }).catch(error => { console.log(error) })
   }
+
+  const isInitialised = deal.status === "INITIALIZED"
 
   return (
     <Stack gap={3}>
@@ -57,10 +43,12 @@ export const OrderOnlyDeal = ({ deal, states, setState, myRole }) => {
           <Typography variant={'gray'} fontSize={32} fontWeight={600} pt={2.7}>{deal.assetAlias}</Typography>
         </Stack>
       </FormContentWrapper>
-      <FormStackClickSection handleClick={handleClick}>
+      {!isInitialised && <FormStackClickSection handleClick={handleClick}>
         <Typography>Перейти в чат</Typography>
-        <ChatIcon color='gray' />
-      </FormStackClickSection>
+        <Badge color="error" variant="dot" invisible={!hasNewMessages}>
+          <ChatIcon color='gray' />
+        </Badge>
+      </FormStackClickSection>}
       <Stack gap={0.2}>
         <Status
           type={states.type}

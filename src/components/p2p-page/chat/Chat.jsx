@@ -40,7 +40,7 @@ const FileInfo = ({ file, onRemove }) => {
   );
 };
 
-export const Chat = ({ deal, myRole, maker, taker, lastMessage }) => {
+export const Chat = ({ deal, myRole, maker, taker, lastMessage, setHasNewMessages }) => {
   const [messages, setMessages] = useState([]);
   const [newMessageText, setNewMessageText] = useState('');
   const [file, setFile] = useState(null);
@@ -50,9 +50,10 @@ export const Chat = ({ deal, myRole, maker, taker, lastMessage }) => {
     const fetchChat = async () => {
       const chatData = await getChatFromApi(deal.chatId);
       setMessages(chatData.messages);
+      setHasNewMessages(false)
     };
     fetchChat().catch(console.error);
-  }, [deal.chatId, lastMessage]);
+  }, [deal.chatId, lastMessage, setHasNewMessages]);
 
 
   const handleSendMessage = () => {

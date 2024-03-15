@@ -2,7 +2,6 @@ import { Stack } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react'
 import { UserAndAction } from './UserAndAction';
 import { orderActionText } from '../../../utils/p2p-utils';
-// import { Stomp } from '@stomp/stompjs';
 import { acceptDealApi, cancelDealApi, confirmPaymentApi, getDealFromApi, makePaymentsFromApi, proofPaymentApi } from '../../../utils/api-utils';
 import { getCancelButton, getFooterButton } from '../../../utils/deal-utils';
 import { OrderOnlyDeal } from '../orderDeal/OrderOnlyDeal';
@@ -25,10 +24,8 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
 
   const actionText = orderActionText(states.type, myRole)
 
-
-  const [chatMessages, setChatMessages] = useState([]) // Добавленный стейт для хранения сообщений чата
-
-  // console.log('deal ', deal)
+  const [chatMessages, setChatMessages] = useState([])
+  const [hasNewMessages, setHasNewMessages] = useState(false);
 
   useEffect(() => {
     const fetchDeal = async () => {
@@ -70,6 +67,9 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
         chatSubscription.on('publication', (chatMessage) => {
           console.log("Получены данные чата: ", chatMessage);
           setChatMessages(prevMessages => [...prevMessages, chatMessage.data]);
+          if (chatMessage.data.from !== user.id) {
+            setHasNewMessages(true);
+          }
         });
         chatSubscription.subscribe();
       }
@@ -81,7 +81,7 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
       centrifuge.disconnect();
       console.log('Отключились от Centrifuge');
     };
-  }, [dealId]); // Использование dealId как зависимость
+  }, [user.id, dealId]); // Использование dealId как зависимость
 
   // useEffect(() => {
   //   const centrifuge = new Centrifuge('wss://centrifugo.deaslide.com/connection/websocket');
@@ -174,7 +174,7 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
 
   if (states.isChat) {
     const lastMessage = chatMessages[chatMessages.length - 1];
-    return <Chat deal={deal} myRole={myRole} maker={deal.maker} taker={deal.taker} lastMessage={lastMessage} />
+    return <Chat deal={deal} myRole={myRole} maker={deal.maker} taker={deal.taker} lastMessage={lastMessage} setHasNewMessages={setHasNewMessages} />
   }
 
   return (
@@ -182,7 +182,7 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
       {(myRole === 'maker' && takerUsername) && <UserAndAction step={currentStep} username={takerUsername} text={actionText} />}
       {(myRole === 'taker' && makerUsername) && <UserAndAction step={currentStep} username={makerUsername} text={actionText} />}
       <>
-        <OrderOnlyDeal deal={deal} states={states} setState={setState} myRole={myRole} />
+        <OrderOnlyDeal deal={deal} states={states} setState={setState} myRole={myRole} hasNewMessages={hasNewMessages} />
         {cancelButton}
         {footerButton}
       </>

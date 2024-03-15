@@ -11,6 +11,7 @@ export const InputSection = ({ amount, setAmount, states, setState, oneTokenPric
   const inputAdornment = inputText(isCrypto, states.crypto, states.currency)
   const cryptoInCurrency = parseFloat((amount * oneTokenPrice).toFixed(2))
   const currencyInCrypto = parseFloat((amount / oneTokenPrice).toFixed(2))
+  const buttonText = states.type === "SELL" ? "Купить все" : "Продать все"
 
   const handleChange = (event) => {
     P2PInputHandleChange(event, setAmount, maxLimit)
@@ -53,7 +54,7 @@ export const InputSection = ({ amount, setAmount, states, setState, oneTokenPric
           : <Typography variant={'gray'} >{currencyInCrypto} {states.crypto}</Typography>}
       </Box>
       <Typography ml={1} mb={1}>Цена за 1 {states.crypto} ≈ {oneTokenPrice} {states.currency}</Typography>
-      <Button color='blue' onClick={handleMax}>Купить все</Button>
+      <Button color='blue' onClick={handleMax}>{buttonText}</Button>
     </FormContentWrapper>
   )
 }
