@@ -7,7 +7,7 @@ export const PageHeader = () => {
       <Typography fontSize={28} fontWeight={600}>
         P2P Маркет
       </Typography>
-      <Typography variant="gray">Покупайте и продавайте крипту без посредников</Typography>
+      <Typography variant="gray" textAlign={'center'}>Покупайте и продавайте крипту без посредников</Typography>
     </Stack>
   )
 }

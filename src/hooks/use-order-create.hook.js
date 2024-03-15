@@ -53,9 +53,27 @@ export const useOrderCreate = () => {
 
   const handleNextStep = () => {
     if (currentStep === 1) {
-      if (Number(percentPrice) < 70 || Number(percentPrice) > 150) {
-        setPercentPriceError("Введите % в диапазоне от 70 до 150")
-        return;
+      if (priceType === "FLOATING") {
+        if (Number(percentPrice) < 70 || Number(percentPrice) > 150) {
+          setPercentPriceError("Введите % в диапазоне от 70 до 150")
+          return;
+        }
+        const hightDealSum = (Number(amount) * selectedTokenPrice * Number(percentPrice) / 100).toFixed(2)
+        if (Number(dealSum) > hightDealSum) {
+          setDealSumError(`Максимальная сумма сделки ${hightDealSum} ${currency}`)
+          return;
+        }
+      }
+      if (priceType === "FIXED") {
+        if (Number(percentPrice) < ((0.7 * selectedTokenPrice).toFixed(0)) || Number(percentPrice) > ((1.5 * selectedTokenPrice).toFixed(0))) {
+          setPercentPriceError(`Введите сумму в диапазоне от 70% до 150% рыночной цены (от ${(0.7 * selectedTokenPrice).toFixed(0)} до ${(1.5 * selectedTokenPrice).toFixed(0)})`)
+          return;
+        }
+        const hightDealSum = (Number(amount) * Number(percentPrice)).toFixed(2)
+        if (Number(dealSum) > hightDealSum) {
+          setDealSumError(`Максимальная сумма сделки ${hightDealSum} ${currency}`)
+          return;
+        }
       }
       if (Number(dealSum) < limit) {
         setDealSumError(`Минимальная сумма сделки ${limit} ${currency}`)
@@ -66,11 +84,6 @@ export const useOrderCreate = () => {
         setAmountError(`Минимальная сумма ${minAmount} ${selectedToken}`)
         return;
       }
-      const hightDealSum = (Number(amount) * selectedTokenPrice * Number(percentPrice) / 100).toFixed(2)
-      if (Number(dealSum) > hightDealSum) {
-        setDealSumError(`Максимальная сумма сделки ${hightDealSum} ${currency}`)
-        return;
-      }
       const selectedTokenBalance = walletInfo?.assets[selectedToken]?.balance?.toFixed(3)
       if (orderAction === "SELL" && Number(amount) > selectedTokenBalance) {
         setAmountError(`Максимальная сумма ${selectedTokenBalance} ${selectedToken}`)
@@ -79,6 +92,7 @@ export const useOrderCreate = () => {
     }
     if (currentStep === 4) {
       const orderData = buildOrderData(orderAction, selectedTokenId, currency, priceType, percentPrice, amount, dealSum, time, paymentMethods, comment)
+
       postOrderToApi(orderData).then(() => {
         setIsCreated(true)
       }).catch(() => {

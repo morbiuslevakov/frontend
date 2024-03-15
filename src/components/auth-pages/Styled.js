@@ -29,7 +29,10 @@ export const CardContent = styled(Stack)({
 })
 
 export const CustomFormCard = styled(DefaultCard)({
-  width: '60%'
+  width: '60%',
+  "@media(max-width: 900px)": {
+    width: '100%'
+  }
 })
 
 export const CustomInput = styled(OutlinedInput)({

@@ -12,11 +12,16 @@ export const PageContent = styled(Box)({
 
 export const WalletTokensWrapper = styled(Box)({
   background: "#262626",
-  borderRadius: "15px"
+  borderRadius: "15px",
+  "@media(max-width: 600px)": {
+    borderRadius: "0",
+    background: '#151515',
+    height: "66vh"
+  }
 })
 
 export const BalanceCurrency = styled(Box)({
-  background: "#898989",
+  background: "#262626",
   padding: '3px 9px',
   borderRadius: '5px',
 })
@@ -29,8 +34,8 @@ export const WalletButton = styled(Button)({
 })
 
 export const TokenIcon = styled(Box)({
-  width: "24px",
-  height: "24px",
+  width: "34px",
+  height: "34px",
   img: {
     width: "100%",
     height: "100%",
