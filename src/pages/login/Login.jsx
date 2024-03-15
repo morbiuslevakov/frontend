@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { InputLabel, Stack, Typography } from "@mui/material";
+import { InputLabel, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { BackButton } from "../../components/back-button/BackButton";
 import { WelcomeText } from "../../components/welcome-text/WelcomeText";
 import { CardContent, CustomFormCard, CustomInput, FormWrapper, PageContent, Wrapper } from "../../components/auth-pages/Styled";
@@ -12,6 +12,8 @@ import { useLogin } from "../../hooks/use-login.hook";
 import UserContext from "../../context/user-context";
 
 export const Login = () => {
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.down('md'));
     const { states, changeHandlers, handleLogin, togglePasswordVisible } = useLogin()
     const { user } = useContext(UserContext)
 
@@ -22,7 +24,7 @@ export const Login = () => {
     return (
         <Wrapper>
             <PageContent>
-                <WelcomeText />
+                {!matches && <WelcomeText />}
                 <CustomFormCard>
                     <CardContent>
                         <Typography fontSize={32}>Войти в аккаунт</Typography>

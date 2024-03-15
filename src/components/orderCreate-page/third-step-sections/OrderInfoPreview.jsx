@@ -10,7 +10,8 @@ export const OrderInfoPreview = ({ states }) => {
     ? paymentMethods.map(bank => bank.name).join(', ')
     : paymentMethods.map(bank => bank.name)
 
-  const totalPrice = (states.selectedTokenPrice * states.amount * states.percentPrice / 100).toFixed(2)
+  const isFloating = states.priceType === 'FLOATING'
+  const totalPrice = isFloating ? (states.selectedTokenPrice * states.amount * states.percentPrice / 100).toFixed(2) : (states.amount * states.percentPrice)
 
   return (
     <Stack pt={2} gap={0.7}>
