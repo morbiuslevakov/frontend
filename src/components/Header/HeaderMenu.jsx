@@ -5,11 +5,11 @@ import { HeaderMenuItem } from './Styled'
 export const HeaderMenu = ({ isLogged }) => {
   return (
     <Stack alignItems={'center'} flexDirection={'row'} gap={2}>
-      <HeaderMenuItem to={'/trade'}>
+      {isLogged && <HeaderMenuItem to={'/p2p'}>
         <Typography>
           Торговля
         </Typography>
-      </HeaderMenuItem>
+      </HeaderMenuItem>}
       {isLogged && <HeaderMenuItem to={'/wallet'}>
         <Typography>
           Кошелек

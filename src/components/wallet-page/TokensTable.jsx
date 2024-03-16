@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  useTheme,
-  useMediaQuery,
   Table,
   TableBody,
   TableCell,
@@ -12,17 +10,17 @@ import {
   Stack,
 } from '@mui/material';
 import { TokenIcon, WalletTokensWrapper } from './Styled';
+import { useMediaQueryHook } from '../../hooks/use-media-query.hook';
 
 export const TokensTable = ({ tokensRows, walletInfo }) => {
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQueryHook('sm')
 
   const currency = walletInfo.currency;
   const currencySymbol = walletInfo.symbol;
 
   return (
     <TableContainer component={WalletTokensWrapper}>
-      {matches ? (
+      {isMobile ? (
         tokensRows.map((row) => (
           <Stack key={row.name} flexDirection={'row'} gap={2} m={1} justifyContent={'space-between'} p={1}>
             <Stack flexDirection={'row'} gap={1} alignItems={'center'}>

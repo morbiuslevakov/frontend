@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 import { Login } from "./pages/login/Login";
 import { Register } from "./pages/register/Register";
@@ -15,6 +15,8 @@ import { UserProvider } from "./context/user-context";
 import { P2PBuy } from "./pages/p2p-buy/P2PBuy";
 import { ConfirmAccount } from "./pages/confirm-account/ConfirmAccount";
 import { Orders } from "./pages/orders/Orders";
+import { PrivateRoute } from "./pages/private/PrivateRoute";
+
 
 export const App = () => {
   return (
@@ -26,18 +28,18 @@ export const App = () => {
             <Route path="/" element={<SharedLayout />}>
               <Route path="register" element={<Register />}></Route>
               <Route path="login" element={<Login />}></Route>
-              <Route path="wallet" element={<Wallet />}></Route>
-              <Route path="trade" element={<Trade />}></Route>
-              <Route path="p2p/my-orders" element={<Orders />}></Route>
-              <Route path="p2p" element={<P2P />}></Route>
-              <Route path="p2p/create-order" element={<OrderCreate />}></Route>
-              <Route path="p2p/sell" element={<P2PSell />}></Route>
-              <Route path="p2p/buy" element={<P2PBuy />}></Route>
-              <Route path="p2p/sell/:dealId" element={<P2PSell />} />
-              <Route path="p2p/buy/:dealId" element={<P2PBuy />} />
-              <Route path="profile" element={<Profile />}></Route>
-              <Route path="*" element={<Navigate to={"trade"} />}></Route>
-              <Route path="" element={<Navigate to={"trade"} />}></Route>
+              <Route path="wallet" element={<PrivateRoute><Wallet /></PrivateRoute>} />
+              <Route path="trade" element={<PrivateRoute><Trade /></PrivateRoute>} />
+              <Route path="p2p/my-orders" element={<PrivateRoute><Orders /></PrivateRoute>} />
+              <Route path="p2p" element={<PrivateRoute><P2P /></PrivateRoute>} />
+              <Route path="p2p/create-order" element={<PrivateRoute><OrderCreate /></PrivateRoute>} />
+              <Route path="p2p/sell" element={<PrivateRoute><P2PSell /></PrivateRoute>} />
+              <Route path="p2p/buy" element={<PrivateRoute><P2PBuy /></PrivateRoute>} />
+              <Route path="p2p/sell/:dealId" element={<PrivateRoute><P2PSell /></PrivateRoute>} />
+              <Route path="p2p/buy/:dealId" element={<PrivateRoute><P2PBuy /></PrivateRoute>} />
+              <Route path="profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+              <Route path="" element={<PrivateRoute><P2P /></PrivateRoute>} />
+              <Route path="*" element={<PrivateRoute><P2P /></PrivateRoute>} />
             </Route>
           </Routes>
         </Router>
