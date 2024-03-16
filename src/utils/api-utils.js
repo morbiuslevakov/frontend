@@ -64,8 +64,7 @@ export const postUserLoginToApi = async (payload) => {
     const response = await axios.post(url, payload, apiConfig)
     return response.data;
   } catch (error) {
-    const apiError = error.response.data
-    throw apiError
+    throw error
   }
 }
 

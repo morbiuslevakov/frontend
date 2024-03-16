@@ -10,9 +10,10 @@ import { FormError } from "../../components/auth-pages/FormError";
 import { PasswordAddornment } from "../../components/auth-pages/PasswordAddornment";
 import { useLogin } from "../../hooks/use-login.hook";
 import UserContext from "../../context/user-context";
+import { ConfirmEmail } from "../../components/auth-pages/ConfirmEmail";
 
 export const Login = () => {
-    const { states, changeHandlers, handleLogin, togglePasswordVisible } = useLogin()
+    const { states, changeHandlers, handleLogin, togglePasswordVisible, setConfirmEmail } = useLogin()
     const { user } = useContext(UserContext)
 
     if (user) {
@@ -22,6 +23,7 @@ export const Login = () => {
     return (
         <Wrapper>
             <PageContent>
+                <ConfirmEmail open={states.confirmEmail} onClose={setConfirmEmail} />
                 <WelcomeText />
                 <CustomFormCard>
                     <CardContent>
