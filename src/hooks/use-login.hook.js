@@ -27,6 +27,10 @@ export const useLogin = () => {
       setIsError(true);
       setErrorMessage(authErrorMessages.password);
       return;
+    } else if (faRequired && !fa) {
+      setIsError(true);
+      setErrorMessage(authErrorMessages.fa);
+      return;
     } else {
       setIsError(false);
     }

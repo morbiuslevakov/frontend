@@ -39,6 +39,10 @@ export const Login = () => {
                                 <CustomInput size="lg" type={states.passwordType} value={states.password} onChange={changeHandlers.password}
                                     placeholder="Введите пароль" endAdornment={<PasswordAddornment callback={togglePasswordVisible} isVisible={states.showPassword} />} />
                             </Stack>
+                            {states.faRequired && <Stack gap={1}>
+                                <InputLabel>2FA Код</InputLabel>
+                                <CustomInput size="lg" type="text" value={states.fa} onChange={changeHandlers.fa} placeholder="Введите 2FA код" />
+                            </Stack>}
                             <SubmitFormButton text="Войти" />
                         </FormWrapper>
                         <RedirectLink text="Нет аккаунта?" linkText="Создать аккаунт" link="/register" />
