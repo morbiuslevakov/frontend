@@ -2,7 +2,6 @@ import React from 'react'
 import { Box, Button, Stack, Typography } from '@mui/material'
 
 export const TelegramInfo = ({ user, userDetails }) => {
-    console.log(userDetails)
     const telegramId = userDetails.tgId
 
     const telegramLink = `https://t.me/DeaslideNotificationsBot?start=${user.id}`

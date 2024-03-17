@@ -58,10 +58,32 @@ export const postUserToApi = async (payload) => {
   }
 };
 
+export const changePasswordApi = async (payload) => {
+  const url = `${apiUrl}/security/change-password`;
+  try {
+    const response = await axios.post(url, payload, apiConfig)
+    return response.data;
+  } catch (error) {
+    const apiError = error.response.data
+    throw apiError
+  }
+};
+
 export const signOutApi = async () => {
   const url = `${apiUrl}/auth/signout`;
   try {
     const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    const apiError = error.response.data
+    throw apiError
+  }
+};
+
+export const changeUsernameApi = async (username) => {
+  const url = `${apiUrl}/user/change-username?username=${username}`;
+  try {
+    const response = await axios.post(url, apiConfig)
     return response.data;
   } catch (error) {
     const apiError = error.response.data
