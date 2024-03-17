@@ -131,8 +131,11 @@ export const createDealData = (type, order, finalAmount, userPayments, oneTokenP
     price = (order.price / 100) * oneTokenPrice
   }
   let paymentId = '';
+  let paymentBank;
   if (dealType === 'BUY') {
     paymentId = Object.values(userPayments)[0].id
+    paymentBank = Object.values(userPayments)[0].name
+    paymentId = order.payments[paymentBank]
   }
   if (dealType === 'SELL') {
     paymentId = userPayments[0].id

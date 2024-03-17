@@ -40,7 +40,6 @@ export const Steps = ({ amount, setAmount, currentStep, states, order, setState 
 
   const handleInitDeal = async () => {
     const finalAmount = countFinalAmount(states.inputValue, amount, oneTokenPrice)
-    console.log(states.paymentMethods)
     const data = createDealData(states.type, order, finalAmount, states.paymentMethods, oneTokenPrice)
     initDealToApi(data).then(res => {
       if (states.type === "SELL") {
