@@ -28,14 +28,14 @@ export const PrimaryInfo = ({ user, userDetails }) => {
           <Typography fontSize={26} lineHeight={1}>Основные</Typography>
           <Stack gap={1}>
             <Typography variant="lightGray" fontWeight={600} fontSize={14} lineHeight={1}>Имя пользователя:</Typography>
-            <Box width={300}>
+            <Box maxWidth={300}>
               <CustomInput size="lg" type="text" value={username} onChange={handleUsername} placeholder="Username" disabled />
             </Box>
           </Stack>
           <Box>
             <Typography variant="lightGray" fontWeight={600} fontSize={14} lineHeight={1}>Адрес:</Typography>
             <Stack flexDirection={'row'} alignItems={'center'} gap={1}>
-              <Typography>{user.address}</Typography>
+              <Typography sx={{ wordBreak: 'break-all' }}>{user.address}</Typography>
               <CopyButton text={user.address} />
             </Stack>
           </Box>
