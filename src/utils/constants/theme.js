@@ -41,6 +41,12 @@ export const theme = createTheme({
     },
     darkAqua: {
       main: "#3A4475"
+    },
+    middleGray: {
+      main: "#464646"
+    },
+    middleDarkGray: {
+      main: '#3a3838'
     }
   },
   typography: {

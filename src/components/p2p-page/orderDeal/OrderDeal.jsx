@@ -9,7 +9,7 @@ import { countFinalAmount } from '../../../utils/p2p-utils';
 
 export const OrderDeal = ({ deal, states, amount, tokenPrice, order }) => {
   const finalAmount = countFinalAmount(states.inputValue, amount, tokenPrice)
-  const bankNames = Object.keys(order.payments)
+  let bankNames = Object.keys(order.payments)
 
   return (
     <Stack gap={3}>

@@ -13,3 +13,7 @@ export const PageContent = styled(Box)({
 export const InfoCard = styled(DefaultCard)({
   padding: '20px'
 })
+
+export const ProfileCard = styled(InfoCard)({
+  backgroundColor: "#464646"
+})

@@ -2,21 +2,23 @@ import React from 'react'
 import { Stack, Switch, Typography } from '@mui/material'
 import { FormStackSection } from '../../form/FormStackSection';
 
-export const PaymentMethod = ({ method, states, setPaymentMethods }) => {
+export const PaymentMethod = ({ method, states, setPaymentMethods, isDeal }) => {
   const isSelected = states.paymentMethods.some(payment => {
     return payment.id === method.id
   });
 
   const handleChange = () => {
-    if (isSelected) {
-      setPaymentMethods(state => {
-        return state.filter(state => state.id !== method.id)
-      })
-    } else {
-      setPaymentMethods(state => {
-        return [...state, method]
-      })
-    }
+    setPaymentMethods(state => {
+      if (isSelected) {
+        return state.filter(payment => payment.id !== method.id);
+      } else {
+        if (isDeal) {
+          return [method];
+        } else {
+          return [...state, method];
+        }
+      }
+    });
   }
 
   return (

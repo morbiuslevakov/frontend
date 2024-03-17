@@ -7,8 +7,6 @@ export const SmallDetails = ({ deal, states, bankNames, amount, tokenPrice }) =>
   const finalAmount = countFinalAmountInCurrency(states.inputValue, amount, tokenPrice)
   const orderTime = states.orders.find(order => order.id === states.selectedOrder)?.paymentTime
 
-  // console.log(tokenPrice)
-
   return (
     <Stack gap={0.2}>
       <FormStackSection>
@@ -21,7 +19,7 @@ export const SmallDetails = ({ deal, states, bankNames, amount, tokenPrice }) =>
       </FormStackSection>
       <FormStackSection>
         <Typography>Методы оплаты</Typography>
-        <Typography>{bankNames}</Typography>
+        <Typography>{bankNames.join(', ')}</Typography>
       </FormStackSection>
       <FormStackSection>
         <Typography>Время на оплату</Typography>

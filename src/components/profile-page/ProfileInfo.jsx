@@ -5,14 +5,10 @@ import { LargeAvatar } from '../avatar/LargeAvatar'
 
 export const ProfileInfo = ({ user, userDetails }) => {
   return (
-    <Stack flexDirection={'row'} gap={10}>
+    <Stack flexDirection={'row'} gap={5} px={2}>
       <LargeAvatar username={user.username} />
       <Stack gap={3}>
         <Stack flexDirection={'row'} gap={5}>
-          <Stack alignItems={'center'}>
-            <Typography fontSize={30} lineHeight={1}>-</Typography>
-            <Typography >дней</Typography>
-          </Stack>
           <Stack alignItems={'center'}>
             <Typography fontSize={30} lineHeight={1}>{userDetails.deals}</Typography>
             <Typography>сделок</Typography>

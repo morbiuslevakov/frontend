@@ -7,7 +7,15 @@ import { FormStackClickSection } from '../../form/FormStackClickSection';
 export const OrderDetails = ({ states, setState, order, maxLimit, cryptoBalance }) => {
   const isBuy = states.type === "BUY"
   const bankNames = Object.keys(order.payments)
-  const paymentsName = states.paymentMethods.map(payment => payment.bank.name);
+  let paymentsName = states.paymentMethods.map(payment => payment.bank?.name);
+  if (states.type === "SELL") {
+    paymentsName = states.paymentMethods.map(payment => payment.name);
+  }
+
+  console.log('bankNames ', bankNames)
+  console.log('paymentsName ', paymentsName)
+
+  console.log('states.paymentMethods ', states.paymentMethods)
 
   const handleClick = () => {
     setState.step('details')
@@ -25,9 +33,10 @@ export const OrderDetails = ({ states, setState, order, maxLimit, cryptoBalance 
       </FormStackSection>}
       <FormStackSection>
         <Typography>Методы оплаты</Typography>
-        {isBuy ?
+        <Button color='blue' onClick={handlePayments}>{!states.paymentMethods.length ? 'Добавить' : paymentsName.join(', ')}</Button>
+        {/* {isBuy ?
           <Button color='blue' onClick={handlePayments}>{!states.paymentMethods.length ? 'Добавить' : paymentsName.join(', ')}</Button>
-          : <Typography>{bankNames}</Typography>}
+          : <Typography>{bankNames}</Typography>} */}
       </FormStackSection>
       <FormStackSection>
         <Typography>Лимиты</Typography>

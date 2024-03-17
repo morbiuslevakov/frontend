@@ -1,4 +1,5 @@
 export const authErrorMessages = {
+  fa: "Вы должны ввести ваш 2FA код",
   username: "Имя пользователя должно содержать от 3 до 20 символов",
   email: "Введите правильный email или username",
   password: "Введите пароль",

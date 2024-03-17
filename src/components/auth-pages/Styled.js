@@ -38,7 +38,10 @@ export const CustomFormCard = styled(DefaultCard)({
 export const CustomInput = styled(OutlinedInput)({
   color: "#FFF",
   backgroundColor: "#1e1e1e",
-  width: '100%'
+  width: '100%',
+  "& .Mui-disabled": {
+    backgroundColor: "#3a3838"
+  }
 })
 
 export const PageContent = styled(Stack)({

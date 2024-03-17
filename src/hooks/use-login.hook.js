@@ -8,11 +8,14 @@ export const useLogin = () => {
   const location = useLocation();
   const emailFromLocation = location.state?.email;
 
+  const [confirmEmail, setConfirmEmail] = useState(false)
   const [email, setEmail] = useState(emailFromLocation || "");
   const [password, setPassword] = useState("");
+  const [fa, setFa] = useState("");
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(true);
+  const [faRequired, setFaRequired] = useState(false)
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -24,17 +27,27 @@ export const useLogin = () => {
       setIsError(true);
       setErrorMessage(authErrorMessages.password);
       return;
+    } else if (faRequired && !fa) {
+      setIsError(true);
+      setErrorMessage(authErrorMessages.fa);
+      return;
     } else {
       setIsError(false);
     }
 
-    const formData = JSON.stringify({ principal: email, password: password })
+    const formData = faRequired ? JSON.stringify({ principal: email, password: password, totpCode: fa }) : JSON.stringify({ principal: email, password: password })
 
     postUserLoginToApi(formData).then(result => {
       setUserToStorage(result)
       window.location.reload()
     }).catch((error) => {
-      setErrorMessage(error);
+      if (error.response.status === 400) {
+        setConfirmEmail(true)
+      }
+      if (error.response.data === "2FA required") {
+        setFaRequired(true)
+      }
+      setErrorMessage(error.response.data);
       setIsError(true);
     })
   };
@@ -47,13 +60,19 @@ export const useLogin = () => {
 
   const handleChangeEmail = (e) => setEmail(e.target.value)
   const handleChangePassword = (e) => setPassword(e.target.value)
+  const handleChangeFa = (e) => setFa(e.target.value)
+
 
   const changeHandlers = {
     email: handleChangeEmail,
-    password: handleChangePassword
+    password: handleChangePassword,
+    fa: handleChangeFa
   }
 
   const states = {
+    fa,
+    faRequired,
+    confirmEmail,
     email,
     password,
     isError,
@@ -62,5 +81,5 @@ export const useLogin = () => {
     passwordType
   }
 
-  return { states, changeHandlers, handleLogin, togglePasswordVisible }
+  return { states, changeHandlers, handleLogin, togglePasswordVisible, setConfirmEmail }
 }

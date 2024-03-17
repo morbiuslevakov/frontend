@@ -36,8 +36,30 @@ export const confirmAccountApi = async (token) => {
   }
 };
 
+export const resendConfirmApi = async (email) => {
+  const url = `${apiUrl}/auth/send-confirmation?principal=${email}`;
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    const apiError = error.response.data
+    throw apiError
+  }
+};
+
 export const postUserToApi = async (payload) => {
   const url = `${apiUrl}/auth/signup`;
+  try {
+    const response = await axios.post(url, payload, apiConfig)
+    return response.data;
+  } catch (error) {
+    const apiError = error.response.data
+    throw apiError
+  }
+};
+
+export const changePasswordApi = async (payload) => {
+  const url = `${apiUrl}/security/change-password`;
   try {
     const response = await axios.post(url, payload, apiConfig)
     return response.data;
@@ -58,14 +80,24 @@ export const signOutApi = async () => {
   }
 };
 
+export const changeUsernameApi = async (username) => {
+  const url = `${apiUrl}/user/change-username?username=${username}`;
+  try {
+    const response = await axios.post(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    const apiError = error.response.data
+    throw apiError
+  }
+};
+
 export const postUserLoginToApi = async (payload) => {
   const url = `${apiUrl}/auth/signin`
   try {
     const response = await axios.post(url, payload, apiConfig)
     return response.data;
   } catch (error) {
-    const apiError = error.response.data
-    throw apiError
+    throw error
   }
 }
 
@@ -132,6 +164,17 @@ export const getCurrenciesFromApi = async (token) => {
     return response.data;
   } catch (error) {
     throw error
+  }
+}
+
+export const sendTokensApi = async (payload) => {
+  const url = `${apiUrl}/wallet/send`
+  try {
+    const response = await axios.post(url, payload, apiConfig)
+    return response.data;
+  } catch (error) {
+    const apiError = error.response.data
+    throw apiError
   }
 }
 
