@@ -85,11 +85,20 @@ export const getCancelButton = (status, callback, myRole, type) => {
 }
 
 export const isButtonDisabled = (amount, type, payments, minSum, inputValue, minSumIncrypto) => {
+
+  console.log(' payments      ', payments.length)
+
   const minValue = inputValue === "crypto" ? minSumIncrypto : minSum
   if (type === "BUY") {
     if (amount <= minValue) {
       return true
     }
+    if (payments.length <= 0) {
+      return true
+    }
+    return false
+  }
+  if (type === "SELL") {
     if (payments.length <= 0) {
       return true
     }

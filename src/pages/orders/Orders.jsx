@@ -43,6 +43,7 @@ export const Orders = () => {
           {userOrders.map(order => {
             return <OrderItem order={order} rates={cryptoDetails} key={order.orderId} />
           })}
+          {userOrders.length === 0 && <FormContentWrapper><Typography>У вас пока нет открытых объявлений</Typography></FormContentWrapper>}
         </Stack>
       </FormWrapper>
     </PageContent>
