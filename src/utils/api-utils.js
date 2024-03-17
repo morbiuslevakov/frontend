@@ -36,6 +36,17 @@ export const confirmAccountApi = async (token) => {
   }
 };
 
+export const resendConfirmApi = async (email) => {
+  const url = `${apiUrl}/auth/send-confirmation?principal=${email}`;
+  try {
+    const response = await axios.get(url, apiConfig)
+    return response.data;
+  } catch (error) {
+    const apiError = error.response.data
+    throw apiError
+  }
+};
+
 export const postUserToApi = async (payload) => {
   const url = `${apiUrl}/auth/signup`;
   try {

@@ -1,24 +1,24 @@
 import { useContext, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import UserContext from '../context/user-context';
-import { refreshAccessToken } from '../utils/api-utils';
+// import { refreshAccessToken } from '../utils/api-utils';
 
 export const useApiRequest = () => {
-  const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
+  // const navigate = useNavigate();
+  const { user } = useContext(UserContext);
 
-  const updateAccessToken = useCallback(async () => {
-    try {
-      const res = await refreshAccessToken(user.refreshToken);
-      setUser({ ...user, accessToken: res.accessToken });
-      localStorage.setItem('user', JSON.stringify({ ...user, accessToken: res.accessToken }));
-      return res.accessToken;
-    } catch (error) {
-      localStorage.removeItem('user');
-      navigate('/login');
-      window.location.reload();
-    }
-  }, [user, setUser, navigate]);
+  // const updateAccessToken = useCallback(async () => {
+  //   try {
+  //     const res = await refreshAccessToken(user.refreshToken);
+  //     setUser({ ...user, accessToken: res.accessToken });
+  //     localStorage.setItem('user', JSON.stringify({ ...user, accessToken: res.accessToken }));
+  //     return res.accessToken;
+  //   } catch (error) {
+  //     localStorage.removeItem('user');
+  //     navigate('/login');
+  //     window.location.reload();
+  //   }
+  // }, [user, setUser, navigate]);
 
   const apiRequest = useCallback(async (requestFunction, ...params) => {
     try {
@@ -33,7 +33,7 @@ export const useApiRequest = () => {
       //   throw error.response.data;
       // }
     }
-  }, [user, updateAccessToken]);
+  }, [user]);
 
   return apiRequest;
 };

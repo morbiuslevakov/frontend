@@ -1,14 +1,15 @@
 import React from 'react'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack, Typography } from '@mui/material';
+import { resendConfirmApi } from '../../utils/api-utils';
 
-export const ConfirmEmail = ({ open, onClose }) => {
+export const ConfirmEmail = ({ open, onClose, email }) => {
   const handleClose = () => {
     onClose(false)
   }
 
-  const handleResend = () => {
-    console.log('отправить повторно')
+  const handleResend = async () => {
+    resendConfirmApi(email).then(handleClose).catch(error => { console.log(error) })
   }
 
   return (

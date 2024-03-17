@@ -23,7 +23,7 @@ export const Login = () => {
     return (
         <Wrapper>
             <PageContent>
-                <ConfirmEmail open={states.confirmEmail} onClose={setConfirmEmail} />
+                <ConfirmEmail email={states.email} open={states.confirmEmail} onClose={setConfirmEmail} />
                 <WelcomeText />
                 <CustomFormCard>
                     <CardContent>

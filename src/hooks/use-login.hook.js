@@ -35,7 +35,7 @@ export const useLogin = () => {
       setIsError(false);
     }
 
-    const formData = faRequired ? JSON.stringify({ principal: email, password: password, '2fa': fa }) : JSON.stringify({ principal: email, password: password })
+    const formData = faRequired ? JSON.stringify({ principal: email, password: password, totpCode: fa }) : JSON.stringify({ principal: email, password: password })
 
     postUserLoginToApi(formData).then(result => {
       setUserToStorage(result)
