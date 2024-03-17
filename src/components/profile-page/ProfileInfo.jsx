@@ -10,10 +10,6 @@ export const ProfileInfo = ({ user, userDetails }) => {
       <Stack gap={3}>
         <Stack flexDirection={'row'} gap={5}>
           <Stack alignItems={'center'}>
-            <Typography fontSize={30} lineHeight={1}>-</Typography>
-            <Typography >дней</Typography>
-          </Stack>
-          <Stack alignItems={'center'}>
             <Typography fontSize={30} lineHeight={1}>{userDetails.deals}</Typography>
             <Typography>сделок</Typography>
           </Stack>

@@ -2,12 +2,17 @@ import React from 'react'
 import { Box, Stack, Typography } from '@mui/material'
 import { InfoCard } from './Styled'
 import { CopyButton } from '../p2p-page/orderDeal/CopyButton';
+import { TelegramInfo } from './TelegramInfo';
 
-export const PrimaryInfo = ({ user }) => {
+export const PrimaryInfo = ({ user, userDetails }) => {
   return (
     <InfoCard>
       <Stack gap={2}>
         <Typography fontSize={26} lineHeight={1}>Основные</Typography>
+        <Box>
+          <Typography variant="lightGray" fontWeight={600} fontSize={14} lineHeight={1}>Имя пользователя:</Typography>
+          <Typography >{user.username}</Typography>
+        </Box>
         <Box>
           <Typography variant="lightGray" fontWeight={600} fontSize={14} lineHeight={1}>Адрес:</Typography>
           <Stack flexDirection={'row'} alignItems={'center'} gap={1}>
@@ -19,10 +24,7 @@ export const PrimaryInfo = ({ user }) => {
           <Typography variant="lightGray" fontWeight={600} fontSize={14} lineHeight={1}>Email:</Typography>
           <Typography >{user.email}</Typography>
         </Box>
-        <Box>
-          <Typography variant="lightGray" fontWeight={600} fontSize={14} lineHeight={1}>Имя пользователя:</Typography>
-          <Typography >{user.username}</Typography>
-        </Box>
+        <TelegramInfo user={user} userDetails={userDetails} />
       </Stack>
     </InfoCard>
   )

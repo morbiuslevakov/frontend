@@ -13,13 +13,15 @@ export const Profile = () => {
     const { user } = useContext(UserContext);
     const { userDetails } = useP2P()
 
+    console.log(userDetails)
+
     return (
         <Wrapper>
             <PageContent>
                 <Stack mt={10} gap={7}>
                     <ProfileInfo user={user} userDetails={userDetails} />
                     <Stack gap={4}>
-                        <PrimaryInfo user={user} />
+                        <PrimaryInfo user={user} userDetails={userDetails} />
                         <Statistics />
                         <Security />
                     </Stack>
