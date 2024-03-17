@@ -7,8 +7,10 @@ import DoneIcon from '@mui/icons-material/Done';
 import { WalletButton } from './Styled'
 import { TotalBalance } from './TotalBalance';
 import { LargeAvatar } from '../avatar/LargeAvatar';
+import { useNavigate } from 'react-router-dom';
 
 export const UserSection = ({ user, walletInfo }) => {
+  const navigate = useNavigate()
   const userBalance = walletInfo.sum?.toFixed(2);
   const currencySymbol = walletInfo.symbol;
 
@@ -21,9 +23,14 @@ export const UserSection = ({ user, walletInfo }) => {
       setCopied(false)
     }, 1500)
   }
+
+  const handleSend = () => {
+    navigate('/transfer')
+  }
+
   const copyIcon = copied ? <DoneIcon fontSize='small' color='primary' /> : <CallReceivedRoundedIcon fontSize='small' color='primary' />
 
-  const recieveText = copied ? "Адрес скопирован" : "Получить"
+  const recieveText = copied ? "Скопировано" : "Получить"
 
   return (
     <Stack px={2} gap={2}>
@@ -37,8 +44,8 @@ export const UserSection = ({ user, walletInfo }) => {
           <TotalBalance currency={currencySymbol} balance={userBalance} />
         </Stack>
       </Stack>
-      <Stack flexDirection={'row'}>
-        <WalletButton variant="outlined" disabled><CallMadeRoundedIcon />Отправить</WalletButton>
+      <Stack flexDirection={'row'} gap={2}>
+        <WalletButton variant="outlined" onClick={handleSend}><CallMadeRoundedIcon />Вывод</WalletButton>
         <WalletButton variant="outlined" onClick={handleCopy}>{copyIcon}{recieveText}</WalletButton>
       </Stack>
     </Stack>

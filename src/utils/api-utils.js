@@ -167,6 +167,17 @@ export const getCurrenciesFromApi = async (token) => {
   }
 }
 
+export const sendTokensApi = async (payload) => {
+  const url = `${apiUrl}/wallet/send`
+  try {
+    const response = await axios.post(url, payload, apiConfig)
+    return response.data;
+  } catch (error) {
+    const apiError = error.response.data
+    throw apiError
+  }
+}
+
 export const getUserDetailsFromApi = async (token) => {
   const url = `${apiUrl}/user/details`
   const config = buildAuthorizationApiConfig(token)

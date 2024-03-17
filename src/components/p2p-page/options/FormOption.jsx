@@ -3,7 +3,9 @@ import { FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/mate
 import { OptionWrapper } from './Styled'
 import { menuProps, selectStyle } from '../../../utils/constants/select-options'
 
-export const FormOption = ({ label, options, value, setValue }) => {
+export const FormOption = ({ label, options, value, setValue, width }) => {
+  const customWidth = width || 120
+
   const handleChange = (event) => {
     setValue(event.target.value)
   }
@@ -13,7 +15,7 @@ export const FormOption = ({ label, options, value, setValue }) => {
   }
 
   return (
-    <OptionWrapper width={120}>
+    <OptionWrapper width={customWidth}>
       <FormControl fullWidth>
         <InputLabel variant='standard'>
           <Typography variant='gray'>{label}</Typography>

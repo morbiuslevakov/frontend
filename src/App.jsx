@@ -16,7 +16,7 @@ import { P2PBuy } from "./pages/p2p-buy/P2PBuy";
 import { ConfirmAccount } from "./pages/confirm-account/ConfirmAccount";
 import { Orders } from "./pages/orders/Orders";
 import { PrivateRoute } from "./pages/private/PrivateRoute";
-
+import { TransferPage } from "./pages/transfer/TransferPage";
 
 export const App = () => {
   return (
@@ -38,6 +38,7 @@ export const App = () => {
               <Route path="p2p/sell/:dealId" element={<PrivateRoute><P2PSell /></PrivateRoute>} />
               <Route path="p2p/buy/:dealId" element={<PrivateRoute><P2PBuy /></PrivateRoute>} />
               <Route path="profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+              <Route path="transfer" element={<PrivateRoute><TransferPage /></PrivateRoute>} />
               <Route path="" element={<PrivateRoute><P2P /></PrivateRoute>} />
               <Route path="*" element={<PrivateRoute><P2P /></PrivateRoute>} />
             </Route>
