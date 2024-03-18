@@ -134,11 +134,10 @@ export const getPaymentMethodsFromApi = async (token) => {
   }
 }
 
-export const postPaymentMethodsToApi = async (token, payload) => {
+export const postPaymentMethodsToApi = async (payload) => {
   const url = `${apiUrl}/user/payment-methods`
-  const config = buildAuthorizationApiConfig(token)
   try {
-    const response = await axios.post(url, payload, config)
+    const response = await axios.post(url, payload, apiConfig)
     return response.data;
   } catch (error) {
     throw error

@@ -23,7 +23,7 @@ export const AddPaymentModal = ({ bank, isOpen, handleClose, currency, addPaymen
         "bankId": bank.id,
         "account": number
       }
-      const newPayment = await postPaymentMethodsToApi(user.accessToken, paymentData)
+      const newPayment = await postPaymentMethodsToApi(paymentData)
       addPaymentMethod(newPayment)
       handleClose()
       setNumber('')
