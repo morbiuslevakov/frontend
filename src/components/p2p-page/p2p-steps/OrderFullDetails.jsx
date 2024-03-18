@@ -23,7 +23,7 @@ export const OrderFullDetails = ({ states, order, oneTokenPrice, maxLimit }) => 
       </FormStackSection>
       <FormStackSection>
         <Typography>Методы оплаты</Typography>
-        <Typography>{bankNames}</Typography>
+        <Typography>{bankNames.join(', ')}</Typography>
       </FormStackSection>
       <FormStackSection>
         <Typography>Время на оплату</Typography>
