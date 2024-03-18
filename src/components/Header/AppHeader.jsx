@@ -8,7 +8,7 @@ import UserContext from "../../context/user-context";
 import { MobileMenu } from "./MobileMenu";
 import { useMediaQueryHook } from "../../hooks/use-media-query.hook";
 
-export default function Header() {
+export const AppHeader = () => {
     const isMobile = useMediaQueryHook('sm')
     const [isLogged, setIsLogged] = useState(false)
     const { user } = useContext(UserContext);

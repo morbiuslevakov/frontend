@@ -19,7 +19,7 @@ export const TransferPage = () => {
   const [crypto, setCrypto] = useState('YUSRA')
   const [amount, setAmount] = useState('')
   const token = tokensRows.find(row => row.name === crypto)
-  const isDisable = !(Number(amount) > 0 && address)
+  const isDisable = !(Number(amount) > 1 && address)
 
   const handleAddress = (event) => {
     setAddress(event.target.value)

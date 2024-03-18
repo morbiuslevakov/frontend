@@ -4,7 +4,7 @@ import { Button, Stack, Typography } from '@mui/material'
 import { ReactComponent as WaitingImage } from '../../../../images/p2p/p2p-waiting.svg'
 import { StatusAndAppeal } from './StatusAndAppeal'
 
-export const WaitingStep = () => { // тут кнопки надо 2 другие + для голубой кнопки сделать отдельную компоненту в баттоне
+export const WaitingStep = () => {
   const navigate = useNavigate()
 
   const handleP2P = () => {

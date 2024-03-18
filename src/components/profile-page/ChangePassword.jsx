@@ -4,6 +4,8 @@ import { CustomInput } from '../auth-pages/Styled'
 import { FormError } from '../auth-pages/FormError'
 import { changePasswordApi } from '../../utils/api-utils'
 import { DefaultModal } from '../card-wrappers/Styled'
+import { inputValidator } from '../../utils/auth-utils';
+import { authErrorMessages } from '../../utils/constants/auth'
 
 export const ChangePassword = () => { // Никита этот код пиздец грязный. но пока нет времени. Потом надо буде чистить уже не в спешке перед релизом. Это обязателньо
   const [isChanging, setIsChanging] = useState(false)
@@ -19,6 +21,10 @@ export const ChangePassword = () => { // Никита этот код пизде
       "oldPassword": oldPassword,
       "newPassword": newPassword,
       "totpCode": fa
+    }
+    if (!inputValidator("password", newPassword)) {
+      setError(authErrorMessages.passwordValid);
+      return;
     }
     changePasswordApi(data).then(() => {
       setIsOpen(true)
@@ -51,6 +57,10 @@ export const ChangePassword = () => { // Никита этот код пизде
     setIsChanging(true)
   }
 
+  const handleCancel = () => {
+    setIsChanging(false)
+  }
+
   if (isChanging) {
     return <Stack gap={2}>
       <FormError isError={!!error} errorMessage={error} />
@@ -68,7 +78,12 @@ export const ChangePassword = () => { // Никита этот код пизде
           <CustomInput size="lg" type="text" value={fa} onChange={handleFa} placeholder="2FA код" />
         </Stack>
       }
-      <Button variant='contained' color='aqua' onClick={handleChangePassword} disabled={!(oldPassword && newPassword)}>Сохранить</Button>
+      <Stack gap={1}>
+        <Button variant='contained' color='aqua' onClick={handleChangePassword} disabled={!(oldPassword && newPassword)}>Сохранить</Button>
+        <Button variant='filled' color='red' onClick={handleCancel}>
+          <Typography variant='red'>Отменить</Typography>
+        </Button>
+      </Stack>
     </Stack>
   }
 

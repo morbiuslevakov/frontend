@@ -22,7 +22,7 @@ export const ConfirmAccount = () => {
   }
 
   const handleNavigate = () => {
-    navigate('/trade')
+    navigate('/p2p')
   }
 
   if (isLoading) {

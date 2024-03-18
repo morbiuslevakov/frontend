@@ -15,7 +15,7 @@ export const ControlButtons = () => {
 
   return (
     <Stack flexDirection={'row'} gap={2} width={'100%'} justifyContent={'center'}>
-      <Box width={'40%'}>
+      <Box width={'45%'}>
         <Button fullWidth variant="outlined" onClick={handleBuy}>
           <Typography pl={1}>Купить</Typography>
         </Button>

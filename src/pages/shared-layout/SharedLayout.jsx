@@ -1,13 +1,17 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import { Box } from '@mui/material'
-import Header from '../../components/Header/Header'
+import { AppHeader } from '../../components/Header/AppHeader'
+import { useMediaQueryHook } from "../../hooks/use-media-query.hook";
 
 export const SharedLayout = () => {
+  const isMobile = useMediaQueryHook('sm')
+  const marginTop = isMobile ? 9 : 11
+
   return (
     <>
-      <Header />
-      <Box mt={11}>
+      <AppHeader />
+      <Box mt={marginTop}>
         <Outlet />
       </Box>
     </>
