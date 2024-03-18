@@ -15,6 +15,11 @@ export const HeaderMenu = ({ isLogged }) => {
           Кошелек
         </Typography>
       </HeaderMenuItem>}
+      {isLogged && <HeaderMenuItem to={'/profile'}>
+        <Typography>
+          Профиль
+        </Typography>
+      </HeaderMenuItem>}
     </Stack>
   )
 }

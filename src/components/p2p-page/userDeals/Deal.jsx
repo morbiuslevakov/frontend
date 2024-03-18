@@ -9,13 +9,11 @@ import { useNavigate } from 'react-router-dom'
 export const Deal = ({ deal }) => {
   const navigate = useNavigate()
   const status = dealString[deal.status]
-  const isDisabled = deal.status === "CLOSED" || deal.status === "COMPLETED"
+  const isDisabled = deal.status === "CLOSED" || deal.status === "COMPLETED" || deal.status === "CANCELED"
   const fixedAmount = deal.amount.toFixed(2)
   const fixedSum = deal.sum.toFixed(2)
   const date = transformToDate(deal.createdAt)
   const stringType = actionType[deal.type]
-
-  // console.log('deal ', deal)
 
   const handleNavigate = () => {
     if (deal.type === "SELL") {
