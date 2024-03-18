@@ -6,7 +6,7 @@ import { actionType } from '../../utils/constants/order-create';
 import { OrderCancelButton } from './OrderCancelButton';
 
 export const OrderItem = ({ order, rates }) => {
-  const tokentPrice = (rates[0]?.price)?.toFixed(2)
+  const tokentPrice = order.priceType === "FIXED" ? order.price : (order.price/100*rates[0]?.price)?.toFixed(2);
   const maxLimit = (order.available * tokentPrice).toFixed(2);
 
   return <Stack gap={0.2}>
