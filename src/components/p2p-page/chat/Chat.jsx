@@ -47,7 +47,7 @@ export const Chat = ({ footerButton, states, deal, myRole, maker, taker, lastMes
   const [file, setFile] = useState(null);
 
   useEffect(() => {
-    console.log('ЧАТ ОБНОВЛЯЕТСЯ');
+    // console.log('ЧАТ ОБНОВЛЯЕТСЯ');
     const fetchChat = async () => {
       const chatData = await getChatFromApi(deal.chatId);
       setMessages(chatData.messages);
