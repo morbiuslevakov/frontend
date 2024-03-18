@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Box, IconButton, Input, Stack, TextField, Typography, styled } from '@mui/material'
+import { Box, IconButton, Input, Stack, Typography, styled } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send';
 import AttachmentIcon from '@mui/icons-material/Attachment';
 import CloseIcon from '@mui/icons-material/Close';
 import { getChatFromApi, sendMessageChatApi } from '../../../utils/api-utils';
 import { Status } from '../orderDeal/Status';
+import { FormInput } from '../../orderCreate-page/Styled';
 
 const MessageBubble = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'myMessage',
@@ -125,9 +126,9 @@ export const Chat = ({ footerButton, states, deal, myRole, maker, taker, lastMes
               <AttachmentIcon />
               <Input sx={{ display: 'none' }} type="file" hidden onChange={handleFileChange} accept=".svg,.jpeg,.jpg,.png,.pdf" />
             </IconButton>
-            <TextField
+            <FormInput
               fullWidth
-              variant="outlined"
+              variant="standard"
               placeholder="Напишите сообщение..."
               value={newMessageText}
               onChange={(e) => setNewMessageText(e.target.value)}
@@ -137,7 +138,7 @@ export const Chat = ({ footerButton, states, deal, myRole, maker, taker, lastMes
                   handleSendMessage();
                 }
               }}
-              sx={{ bgcolor: 'grey.100' }}
+              color='primary'
             />
             <IconButton color="primary" onClick={handleSendMessage}>
               <SendIcon />
