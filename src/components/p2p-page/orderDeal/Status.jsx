@@ -16,6 +16,18 @@ const getStatusText = (status, type) => {
       return isSell ? "Покупатель проводит платеж" : "Покупатель проводит платеж"
     case 'CONFIRMED':
       return "Покупатель подтвердил оплату"
+    case 'COMPLETED':
+      return "Сделка завершена"
+    case 'CLOSED':
+      return "Сделка закрыта"
+    case 'CANCELED':
+      return "Сделка отменена"
+    case 'APPEAL':
+      return "Открыт спор по сделке"
+    case 'APPEALED':
+      return "Сделка оспорена"
+    case 'REJECTED':
+      return "Мейкер отклонил сделку"
     default:
       return 'Сделка формируется'
   }
@@ -40,7 +52,28 @@ const getStatusAdditionalText = (status, paymentTime, dealSum, currency, type, m
       }
       return isSell ? `Вы должны отправить ${dealSum} ${currency} в течение ${paymentTime} мин` : `Покупатель должен отправить вам ${dealSum} ${currency} в течение ${paymentTime} мин`
     case 'CONFIRMED':
-      return "Проверьте, получили ли вы платеж"
+      if (myRole === 'maker') {
+        return isSell ? `Продавец должен подтвердить получение платежа` : `Проверьте, получили ли вы платеж`
+      }
+      return isSell ? `Проверьте, получили ли вы платеж` : `Продавец должен подтвердить получение платежа`
+    case 'COMPLETED':
+      if (myRole === 'maker') {
+        return isSell ? `Продавец подтвердил получение платежа` : `Вы подтвердили получение платежа`
+      }
+      return isSell ? `Вы подтвердили получение платежа` : `Продавец подтвердил получение платежа`
+    case 'REJECTED':
+      if (myRole === 'taker') {
+        return isSell ? `Покупатель отклонил сделку` : `Продавец отклонил сделку`
+      }
+      return "Вы отклонили сделку"
+    case 'APPEAL':
+      return "По сделке был открыт спор, вы можете связаться со службой поддержки"
+    case 'APPEALED':
+      return "Сделка была оспорена"
+    case 'CANCELED':
+      return "Сделка была оменена одним из участников"
+    case 'CLOSED':
+      return "Сделка была закрыта в связи с истечением временных рамок установленных мейкером или площадкой"
     default:
       return isSell ? 'Продавец должен подтвердить сделку в течении 10 минут после ее создания' : "Покупатель должен подтвердить сделку в течении 10 минут после ее создания"
   }

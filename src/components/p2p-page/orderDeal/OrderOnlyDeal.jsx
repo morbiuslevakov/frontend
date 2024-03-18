@@ -3,31 +3,11 @@ import { Badge, Stack, Typography } from '@mui/material'
 import ChatIcon from '@mui/icons-material/Chat';
 import { FormContentWrapper } from '../../orderCreate-page/Styled'
 import { Status } from './Status';
-import { Time } from './Time';
 import { DealPayments } from './DealPayments';
 import { FormStackSection } from '../../form/FormStackSection';
 import { FormStackClickSection } from '../../form/FormStackClickSection';
 
 export const OrderOnlyDeal = ({ deal, states, setState, myRole, hasNewMessages }) => {
-  let bankNames = "";
-
-  if (deal.payment) {
-    if (states.type === "SELL") {
-      bankNames = deal.payment?.bank?.name
-      // if (myRole === 'taker') {
-      // } else {
-      //   bankNames = Object.keys(deal.payments)
-      // }
-    } else {
-      if (myRole === 'maker') {
-        // bankNames = Object.keys(deal.payments)
-        bankNames = deal.payment?.bank?.name
-      } else {
-        // bankNames = Object.keys(deal.payments)
-        bankNames = deal.payment?.bank?.name
-      }
-    }
-  }
 
   const handleClick = async () => {
     setState.isChat(true)
@@ -55,20 +35,19 @@ export const OrderOnlyDeal = ({ deal, states, setState, myRole, hasNewMessages }
           deal={deal}
           myRole={myRole}
         />
-        <Time />
       </Stack>
       <Stack gap={0.2}>
         <FormStackSection>
           <Typography>Цена за 1 {deal.assetAlias}</Typography>
-          <Typography>{deal.amount} {deal.assetAlias}</Typography>
+          <Typography>{deal.price} {states.currency}</Typography>
         </FormStackSection>
         <FormStackSection>
           <Typography>Сумма</Typography>
           <Typography>{deal.sum} {states.currency}</Typography>
         </FormStackSection>
         <FormStackSection>
-          <Typography>Методы оплаты</Typography>
-          <Typography>{bankNames}</Typography>
+          <Typography>Метод оплаты</Typography>
+          <Typography>{deal.paymentPreview}</Typography>
         </FormStackSection>
         <FormStackSection>
           <Typography>Время на оплату</Typography>

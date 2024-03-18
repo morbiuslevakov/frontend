@@ -11,12 +11,13 @@ export const TimeSection = ({ setTime }) => {
   return (
     <FormStackSection mt={2}>
       <Typography>Время на оплату</Typography>
-      <FormSelect defaultValue={15} disableUnderline onChange={handleTimeSelect}>
-        <option value={15}>15 мин</option>
-        <option value={30}>30 мин</option>
-        <option value={60}>1 час</option>
-        <option value={120}>2 часа</option>
-      </FormSelect>
+        <FormSelect defaultValue={15} disableUnderline onChange={handleTimeSelect}>
+            <option value={15}>15 мин</option>
+            <option value={30}>30 мин</option>
+            <option value={60}>1 час</option>
+            <option value={120}>2 часа</option>
+            <option value={180}>3 часа</option>
+        </FormSelect>
     </FormStackSection>
   )
 }

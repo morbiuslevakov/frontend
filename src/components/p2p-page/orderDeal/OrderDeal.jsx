@@ -2,7 +2,6 @@ import React from 'react'
 import { Stack, Typography } from '@mui/material'
 import { FormContentWrapper } from '../../orderCreate-page/Styled'
 import { Status } from './Status';
-import { Time } from './Time';
 import { SmallDetails } from './SmallDetails';
 import { DealPayments } from './DealPayments';
 import { countFinalAmount } from '../../../utils/p2p-utils';
@@ -24,7 +23,6 @@ export const OrderDeal = ({ deal, states, amount, tokenPrice, order }) => {
           type={states.type}
           deal={deal}
         />
-        <Time />
       </Stack>
       <SmallDetails deal={deal} states={states} bankNames={bankNames} amount={amount} tokenPrice={tokenPrice} />
       <DealPayments payment={deal.payment} />
