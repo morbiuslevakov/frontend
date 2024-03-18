@@ -6,9 +6,11 @@ import { FormContentWrapper, FormWrapper, PageContent, Wrapper } from '../../com
 import { getUserOrders } from '../../utils/api-utils'
 import { OrderItem } from '../../components/orders-page/OrderItem';
 import { useCrypto } from '../../hooks/use-crypto.hook';
+import { useApiRequest } from '../../hooks/use-api-request.hook';
 
 export const Orders = () => {
   const navigate = useNavigate()
+  const apiRequest = useApiRequest();
   const { cryptoDetails } = useCrypto("RUB")
   const [userOrders, setUserOrders] = useState([])
 
@@ -17,12 +19,12 @@ export const Orders = () => {
       const myOrders = await getUserOrders()
       return myOrders
     }
-    fetchOrders().then(res => {
+    apiRequest(fetchOrders).then(res => {
       setUserOrders(res)
     }).catch((error) => {
       console.log(error)
     })
-  }, [])
+  }, [apiRequest])
 
   const handleBack = () => {
     navigate('/p2p')
