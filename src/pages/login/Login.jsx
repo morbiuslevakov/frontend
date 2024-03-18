@@ -17,7 +17,7 @@ export const Login = () => {
     const { user } = useContext(UserContext)
 
     if (user) {
-        return <Navigate to={'/trade'} />
+        return <Navigate to={'/p2p'} />
     }
 
     return (
