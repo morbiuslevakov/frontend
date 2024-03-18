@@ -26,7 +26,7 @@ export const HeaderAccountMenu = ({ anchor, handleCloseMenu }) => {
       open={Boolean(anchor)}
       onClose={handleCloseMenu}
     >
-      {headerAccountMenuItems.map((item, index) => {
+      {headerAccountMenuItems?.map((item, index) => {
         return <MenuItem key={index} onClick={() => handleClick(item.path)}>
           {item.icon}
           <Typography pl={2} variant='lightGray'>{item.text}</Typography>

@@ -23,7 +23,7 @@ export const useP2PPage = (type) => {
   const { cryptoDetails } = useCrypto(currency)
 
   const { allBanks, userPaymentMethods, addPaymentMethod } = useBanks(currency)
-  const [selectedBanks, setSelectedBanks] = useState(['All', ...allBanks.map(bank => bank.id)]);
+  const [selectedBanks, setSelectedBanks] = useState(['All', ...allBanks?.map(bank => bank.id)]);
   const [paymentMethods, setPaymentMethods] = useState([])
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export const useP2PPage = (type) => {
 
   useEffect(() => {
     if (allBanks.length > 0) {
-      setSelectedBanks(['All', ...allBanks.map(bank => bank.id)]);
+      setSelectedBanks(['All', ...allBanks?.map(bank => bank.id)]);
     }
   }, [allBanks]);
 

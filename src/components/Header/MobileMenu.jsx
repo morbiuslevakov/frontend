@@ -29,7 +29,7 @@ export const MobileMenu = () => {
           <Divider sx={{ backgroundColor: 'white', mx: 2 }} />
           <List>
             <Stack gap={1} pt={1}>
-              {headerMenu.map((item, index) => (
+              {headerMenu?.map((item, index) => (
                 <ListItem key={index} disablePadding>
                   <ListItemButton sx={{ paddingY: 0 }} onClick={() => { navigate(item.path) }}>
                     <ListItemIcon>

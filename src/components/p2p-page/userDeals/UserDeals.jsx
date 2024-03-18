@@ -14,15 +14,15 @@ export const UserDeals = ({ deals }) => {
           </DealsContainer>
           <LineDivider />
           <Stack>
-            {deals.length === 0 && <FormSectionWrapper>
+            {deals?.length === 0 && <FormSectionWrapper>
               <DealsContainer>
                 <Typography variant='gray'>Здесь появятся ваши сделки</Typography>
               </DealsContainer>
             </FormSectionWrapper>}
-            {deals.map((deal, index) => (
+            {deals?.map((deal, index) => (
               <React.Fragment key={deal.dealId}>
                 <Deal deal={deal} />
-                {index !== deals.length - 1 && <LineDivider />}
+                {index !== deals?.length - 1 && <LineDivider />}
               </React.Fragment>
             ))}
           </Stack>

@@ -15,7 +15,8 @@ export const FormWrapper = styled(Box)(({ theme }) => ({
   borderRadius: "10px",
   overflow: "hidden",
   "@media(max-width: 650px)": {
-    height: 'calc(100vh - 74px)'
+    height: 'calc(100vh - 74px)',
+    overflow: 'auto'
   }
 }))
 
