@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { getUserDealsFromApi } from '../utils/api-utils'
+import { useApiRequest } from './use-api-request.hook';
 
 export const useDeals = () => {
+  const apiRequest = useApiRequest();
   const [deals, setDeals] = useState([])
 
   useEffect(() => {
@@ -9,12 +11,12 @@ export const useDeals = () => {
       const dealsFromApi = await getUserDealsFromApi()
       return dealsFromApi
     }
-    fetchDeals().then(res => {
+    apiRequest(fetchDeals).then(res => {
       setDeals(res)
     }).catch(error => {
       console.log(error)
     })
-  }, [])
+  }, [apiRequest])
 
   return { deals }
 }

@@ -10,7 +10,7 @@ export const ListDrawer = ({ items, isOpen, handleDrawer, handleSelect }) => {
   >
     <Box width={200}>
       <List>
-        {items.map(item => {
+        {items?.map(item => {
           return <ListItem key={item} disablePadding onClick={() => {
             handleSelect(item)
           }}>

@@ -84,9 +84,9 @@ export const getStatusMessage = (states, myRole, amount) => {
       ? `В течение 2 минут сумма ${amount} ${states.crypto} будет зачислена на ваш кошелёк.`
       : `В течение 2 минут сумма ${amount} ${states.crypto} будет списана с вашего кошелька.`
     : states.type === "SELL"
-          ? myRole === "maker"
-          ? `Сумма ${amount} ${states.crypto} списана с вашего кошелька.`
-              : `Сумма ${amount} ${states.crypto} зачислена на ваш кошелёк.`
+      ? myRole === "maker"
+        ? `Сумма ${amount} ${states.crypto} списана с вашего кошелька.`
+        : `Сумма ${amount} ${states.crypto} зачислена на ваш кошелёк.`
       : "Не удалось определить сообщение";
 };
 
@@ -104,6 +104,9 @@ export const inputText = (isCrypto, crypto, currency) => {
 
 export const countMaxLimit = (inputValue, available, oneTokenPrice, cryptoBalance, type) => {
   if (inputValue === "currency") {
+    if (available > cryptoBalance) {
+      return (cryptoBalance * oneTokenPrice).toFixed(2);
+    }
     return (available * oneTokenPrice).toFixed(2);
   }
   if (type === "SELL") {

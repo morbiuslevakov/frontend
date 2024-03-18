@@ -41,7 +41,7 @@ export const useLogin = () => {
       setUserToStorage(result)
       window.location.reload()
     }).catch((error) => {
-      if (error.response.status === 400) {
+      if (error.response.data === "Confirm your email") {
         setConfirmEmail(true)
       }
       if (error.response.data === "2FA required") {

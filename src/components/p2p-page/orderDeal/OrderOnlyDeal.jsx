@@ -13,8 +13,6 @@ export const OrderOnlyDeal = ({ deal, states, setState, myRole, hasNewMessages }
     setState.isChat(true)
   }
 
-  const isInitialised = deal.status === "INITIALIZED"
-
   return (
     <Stack gap={3}>
       <FormContentWrapper>
@@ -23,7 +21,7 @@ export const OrderOnlyDeal = ({ deal, states, setState, myRole, hasNewMessages }
           <Typography variant={'gray'} fontSize={32} fontWeight={600} pt={2.7}>{deal.assetAlias}</Typography>
         </Stack>
       </FormContentWrapper>
-      {!isInitialised && <FormStackClickSection handleClick={handleClick}>
+      {deal.chatAvailable && <FormStackClickSection handleClick={handleClick}>
         <Typography>Перейти в чат</Typography>
         <Badge color="error" variant="dot" invisible={!hasNewMessages}>
           <ChatIcon color='gray' />

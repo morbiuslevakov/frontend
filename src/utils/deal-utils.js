@@ -15,8 +15,6 @@ export const dealString = {
 }
 
 export const getFooterButton = (type, status, handleAcceptDeal, handleConfirmPayment, handleMakePayment, handleProofPayment, myRole) => {
-  // console.log(type)
-  // console.log('myRole = ', myRole)
   if (status === "INITIALIZED") {
     return myRole === "maker" ? <Box mt={2}>
       <FormFooterButton text={'Принять'} callback={handleAcceptDeal} />
@@ -35,7 +33,7 @@ export const getFooterButton = (type, status, handleAcceptDeal, handleConfirmPay
   if (status === "PROCESSED") {
     if (type === "BUY") {
       return myRole === "maker" ? <Box mt={2}>
-        <FormFooterButton text={'Совершить платеж'} callback={handleConfirmPayment} />
+        <FormFooterButton text={'Подтвердить платеж'} callback={handleConfirmPayment} />
       </Box> : null
     }
     return myRole === "maker" ? null : <Box mt={2}>
@@ -85,9 +83,6 @@ export const getCancelButton = (status, callback, myRole, type) => {
 }
 
 export const isButtonDisabled = (amount, type, payments, minSum, inputValue, minSumIncrypto) => {
-
-  console.log(' payments      ', payments.length)
-
   const minValue = inputValue === "crypto" ? minSumIncrypto : minSum
   if (type === "BUY") {
     if (amount <= minValue) {
@@ -99,6 +94,9 @@ export const isButtonDisabled = (amount, type, payments, minSum, inputValue, min
     return false
   }
   if (type === "SELL") {
+    if (amount <= minValue) {
+      return true
+    }
     if (payments.length <= 0) {
       return true
     }

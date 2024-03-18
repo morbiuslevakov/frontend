@@ -4,8 +4,11 @@ import { FormContentWrapper } from '../../orderCreate-page/Styled'
 import { FormInput } from './Styled'
 import { P2PInputHandleChange, countMaxLimit, inputText } from '../../../utils/p2p-utils'
 import SwapVertIcon from '@mui/icons-material/SwapVert';
+import { useMediaQueryHook } from '../../../hooks/use-media-query.hook'
 
 export const InputSection = ({ amount, setAmount, states, setState, oneTokenPrice, maxLimit, order }) => {
+  const isMobile = useMediaQueryHook('sm')
+  const inputWidth = isMobile ? "100%" : "420px"
   const isCrypto = states.inputValue === "crypto"
   const maxBalance = states.walletInfo.assets[states.crypto].balance
   const inputAdornment = inputText(isCrypto, states.crypto, states.currency)
@@ -38,7 +41,7 @@ export const InputSection = ({ amount, setAmount, states, setState, oneTokenPric
 
   return (
     <FormContentWrapper mb={4}>
-      <FormInput variant="standard" width={'420px'} value={amount} onChange={handleChange} InputProps={{
+      <FormInput variant="standard" width={inputWidth} value={amount} onChange={handleChange} InputProps={{
         disableUnderline: true,
         endAdornment: (
           <InputAdornment position='start'>

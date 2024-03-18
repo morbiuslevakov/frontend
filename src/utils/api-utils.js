@@ -9,16 +9,6 @@ export const apiConfig = {
   },
 };
 
-const buildAuthorizationApiConfig = (token) => {
-  return {
-    withCredentials: true,
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-  };
-}
-
 const buildRefreshTokenBody = (refreshToken) => {
   return {
     "refreshToken": refreshToken
@@ -101,33 +91,30 @@ export const postUserLoginToApi = async (payload) => {
   }
 }
 
-export const getWalletFromApi = async (token, currency) => {
+export const getWalletFromApi = async (currency) => {
   const url = `${apiUrl}/wallet/balances/${currency}`
-  const config = buildAuthorizationApiConfig(token)
   try {
-    const response = await axios.get(url, config)
+    const response = await axios.get(url, apiConfig)
     return response.data;
   } catch (error) {
     throw error
   }
 }
 
-export const getBanksFromApi = async (token, currency) => {
+export const getBanksFromApi = async (currency) => {
   const url = `${apiUrl}/p2p/get-banks/${currency}`
-  const config = buildAuthorizationApiConfig(token)
   try {
-    const response = await axios.get(url, config)
+    const response = await axios.get(url, apiConfig)
     return response.data;
   } catch (error) {
     throw error
   }
 }
 
-export const getPaymentMethodsFromApi = async (token) => {
+export const getPaymentMethodsFromApi = async () => {
   const url = `${apiUrl}/user/payment-methods`
-  const config = buildAuthorizationApiConfig(token)
   try {
-    const response = await axios.get(url, config)
+    const response = await axios.get(url, apiConfig)
     return response.data;
   } catch (error) {
     throw error
@@ -155,11 +142,10 @@ export const refreshAccessToken = async (refreshToken) => {
   }
 }
 
-export const getCurrenciesFromApi = async (token) => {
+export const getCurrenciesFromApi = async () => {
   const url = `${apiUrl}/wallet/balances`
-  const config = buildAuthorizationApiConfig(token)
   try {
-    const response = await axios.get(url, config)
+    const response = await axios.get(url, apiConfig)
     return response.data;
   } catch (error) {
     throw error
@@ -177,11 +163,10 @@ export const sendTokensApi = async (payload) => {
   }
 }
 
-export const getUserDetailsFromApi = async (token) => {
+export const getUserDetailsFromApi = async () => {
   const url = `${apiUrl}/user/details`
-  const config = buildAuthorizationApiConfig(token)
   try {
-    const response = await axios.get(url, config)
+    const response = await axios.get(url, apiConfig)
     return response.data;
   } catch (error) {
     throw error
@@ -198,12 +183,12 @@ export const postOrderToApi = async (payload) => {
   }
 }
 
-export const getCurrencies = async (token) => {
+export const getCurrencies = async () => {
   const currencies = localStorage.getItem("currencies")
   if (currencies) {
     return JSON.parse(currencies)
   } else {
-    const currenciesFromApi = await getCurrenciesFromApi(token)
+    const currenciesFromApi = await getCurrenciesFromApi()
     localStorage.setItem("currencies", JSON.stringify(currenciesFromApi))
     return currenciesFromApi
   }
@@ -219,22 +204,20 @@ export const getUserOrders = async () => {
   }
 }
 
-export const getOrders = async (token, payload, page) => {
+export const getOrders = async (payload, page) => {
   const url = `${apiUrl}/p2p/get-orders?page=${page}`
-  const config = buildAuthorizationApiConfig(token)
   try {
-    const response = await axios.post(url, payload, config)
+    const response = await axios.post(url, payload, apiConfig)
     return response.data;
   } catch (error) {
     throw error
   }
 }
 
-export const getCryptoFromApi = async (token, currency) => {
+export const getCryptoFromApi = async (currency) => {
   const url = `${apiUrl}/p2p/rates/${currency}`
-  const config = buildAuthorizationApiConfig(token)
   try {
-    const response = await axios.get(url, config)
+    const response = await axios.get(url, apiConfig)
     return response.data;
   } catch (error) {
     throw error

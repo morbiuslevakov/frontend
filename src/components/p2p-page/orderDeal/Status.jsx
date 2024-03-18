@@ -90,13 +90,23 @@ const getStatusIcon = (status) => {
   }
 }
 
-export const Status = ({ type, deal, myRole }) => {
+export const Status = ({ type, deal, myRole, isChat }) => {
   const status = deal.status;
 
   const dealSum = parseFloat(Number(deal.sum).toFixed(2))
   const statusText = getStatusText(status, type)
   const statusIcon = getStatusIcon(status)
   const additionalText = getStatusAdditionalText(status, deal.paymentTime, dealSum, deal.currency, type, myRole)
+
+  if (isChat) {
+    return <>
+      <FormStackSection isChat={true}>
+        <Stack>
+          <Typography>{statusText}</Typography>
+        </Stack>
+      </FormStackSection>
+    </>
+  }
 
   return (
     <>

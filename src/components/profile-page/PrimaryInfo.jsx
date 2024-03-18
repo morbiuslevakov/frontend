@@ -15,7 +15,7 @@ export const PrimaryInfo = ({ user, userDetails }) => {
 
   const handleSaveUsername = async () => {
     changeUsernameApi(username).then(res => {
-      console.log(res)
+      // console.log(res)
     }).catch(error => {
       console.log(error)
     })

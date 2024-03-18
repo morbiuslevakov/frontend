@@ -14,7 +14,7 @@ export const useCrypto = (currency) => {
   }, [currency, apiRequest])
 
   useEffect(() => {
-    const formattedCrypto = cryptoDetails.map(crypto => crypto.asset)
+    const formattedCrypto = cryptoDetails?.map(crypto => crypto.asset)
     setCryptoNames(formattedCrypto)
   }, [cryptoDetails])
 

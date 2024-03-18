@@ -41,7 +41,7 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
     const centrifuge = new Centrifuge('wss://centrifugo.deaslide.com/connection/websocket');
 
     centrifuge.on('connect', (context) => {
-      console.log('Успешное подключение к Centrifuge', context);
+      // console.log('Успешное подключение к Centrifuge', context);
     });
 
     centrifuge.connect();
@@ -49,11 +49,11 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
     const dealSubscription = centrifuge.newSubscription(`deal:${dealId}`);
 
     dealSubscription.on('subscribe', (context) => {
-      console.log(`Успешно подписались на сделку с ID ${dealId}`, context);
+      // console.log(`Успешно подписались на сделку с ID ${dealId}`, context);
     });
 
     dealSubscription.on('publication', (message) => {
-      console.log("Получены данные сделки: ", message);
+      // console.log("Получены данные сделки: ", message);
       setDeal(message.data);
 
       const chatChannel = `chat:${message.data.chatId}`;
@@ -62,10 +62,10 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
       if (!chatSubscription) {
         chatSubscription = centrifuge.newSubscription(chatChannel);
         chatSubscription.on('subscribe', (context) => {
-          console.log(`Успешно подписались на канал чата ${chatChannel}`, context);
+          // console.log(`Успешно подписались на канал чата ${chatChannel}`, context);
         });
         chatSubscription.on('publication', (chatMessage) => {
-          console.log("Получены данные чата: ", chatMessage);
+          // console.log("Получены данные чата: ", chatMessage);
           setChatMessages(prevMessages => [...prevMessages, chatMessage.data]);
           if (chatMessage.data.from !== user.id) {
             setHasNewMessages(true);
@@ -172,9 +172,9 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
   const footerButton = getFooterButton(states.type, deal.status, handleAcceptDeal, handleConfirmPayment, handleMakePayment, handleProofPayment, myRole)
   const cancelButton = getCancelButton(deal.status, handleCancelDeal, myRole, states.type)
 
-  if (states.isChat) {
+  if (states.isChat && deal.chatAvailable) {
     const lastMessage = chatMessages[chatMessages.length - 1];
-    return <Chat deal={deal} myRole={myRole} maker={deal.maker} taker={deal.taker} lastMessage={lastMessage} setHasNewMessages={setHasNewMessages} />
+    return <Chat footerButton={footerButton} states={states} deal={deal} myRole={myRole} maker={deal.maker} taker={deal.taker} lastMessage={lastMessage} setHasNewMessages={setHasNewMessages} />
   }
 
   return (

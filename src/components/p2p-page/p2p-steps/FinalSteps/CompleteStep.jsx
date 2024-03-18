@@ -14,7 +14,7 @@ export const CompleteStep = ({ states, amount, myRole }) => {
   }
 
   return (
-    <Stack alignItems={'center'} py={5} gap={3}>
+    <Stack alignItems={'center'} py={5} gap={3} >
       <StatusAndAppeal image={<ConfirmImage />}
         title={'Платеж подтвержден'}
         text={statusText} />

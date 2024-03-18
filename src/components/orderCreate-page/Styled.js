@@ -13,7 +13,11 @@ export const PageContent = styled(Box)({
 export const FormWrapper = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.dark.main,
   borderRadius: "10px",
-  overflow: "hidden"
+  overflow: "hidden",
+  "@media(max-width: 650px)": {
+    height: 'calc(100vh - 74px)',
+    overflow: 'auto'
+  }
 }))
 
 export const FormSectionWrapper = styled(Box)(({ theme }) => ({
@@ -28,7 +32,10 @@ export const FormSectionClickWrapper = styled(FormSectionWrapper)({
 })
 
 export const FormContentWrapper = styled(Box)({
-  padding: "10px 30px"
+  padding: "10px 30px",
+  "@media(max-width: 650px)": {
+    padding: "10px 20px",
+  }
 })
 
 export const FormStack = styled(Stack)({
