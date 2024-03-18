@@ -172,9 +172,9 @@ export const P2PDealSteps = ({ states, setState, dealId }) => {
   const footerButton = getFooterButton(states.type, deal.status, handleAcceptDeal, handleConfirmPayment, handleMakePayment, handleProofPayment, myRole)
   const cancelButton = getCancelButton(deal.status, handleCancelDeal, myRole, states.type)
 
-  if (states.isChat) {
+  if (states.isChat && deal.chatAvailable) {
     const lastMessage = chatMessages[chatMessages.length - 1];
-    return <Chat deal={deal} myRole={myRole} maker={deal.maker} taker={deal.taker} lastMessage={lastMessage} setHasNewMessages={setHasNewMessages} />
+    return <Chat footerButton={footerButton} states={states} deal={deal} myRole={myRole} maker={deal.maker} taker={deal.taker} lastMessage={lastMessage} setHasNewMessages={setHasNewMessages} />
   }
 
   return (

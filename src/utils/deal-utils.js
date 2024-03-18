@@ -15,8 +15,6 @@ export const dealString = {
 }
 
 export const getFooterButton = (type, status, handleAcceptDeal, handleConfirmPayment, handleMakePayment, handleProofPayment, myRole) => {
-  // console.log(type)
-  // console.log('myRole = ', myRole)
   if (status === "INITIALIZED") {
     return myRole === "maker" ? <Box mt={2}>
       <FormFooterButton text={'Принять'} callback={handleAcceptDeal} />

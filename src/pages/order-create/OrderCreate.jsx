@@ -21,8 +21,8 @@ export const OrderCreate = () => {
                 <FormWrapper>
                     <OrderHeader states={states} handlePrevious={handlers.prevStep} />
                     <OrderSteps states={states} setState={setState} errors={errors} />
+                    <OrderFooter states={states} handleNext={handlers.nextStep} />
                 </FormWrapper>
-                <OrderFooter states={states} handleNext={handlers.nextStep} />
             </PageContent>
         </Wrapper>
     )
