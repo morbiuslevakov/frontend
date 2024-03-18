@@ -97,6 +97,9 @@ export const isButtonDisabled = (amount, type, payments, minSum, inputValue, min
     return false
   }
   if (type === "SELL") {
+    if (amount <= minValue) {
+      return true
+    }
     if (payments.length <= 0) {
       return true
     }
