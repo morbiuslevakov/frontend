@@ -33,7 +33,7 @@ export const getFooterButton = (type, status, handleAcceptDeal, handleConfirmPay
   if (status === "PROCESSED") {
     if (type === "BUY") {
       return myRole === "maker" ? <Box mt={2}>
-        <FormFooterButton text={'Совершить платеж'} callback={handleConfirmPayment} />
+        <FormFooterButton text={'Подтвердить платеж'} callback={handleConfirmPayment} />
       </Box> : null
     }
     return myRole === "maker" ? null : <Box mt={2}>
